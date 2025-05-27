@@ -1,0 +1,70 @@
+# Python
+vertex_ai_service_account.json
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.coverage
+*.DS_Store
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+repos
+examples
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Local development settings
+.env
+
+# Archive directory
+archive/
+
+# Cleanup summary (temporary)
+CLEANUP_SUMMARY.md
+
+# Data directory (papers, but keep structure)
+/data/papers/pdfs/*
+/data/papers/markdown/*
+/data/papers/json/*
+/data/papers/metadata/*
+/data/annotations/*
+# Keep directory structure
+!/data/papers/pdfs/.gitkeep
+!/data/papers/markdown/.gitkeep
+!/data/papers/json/.gitkeep
+!/data/papers/metadata/.gitkeep
+!/data/annotations/.gitkeep
+
+# Test data should be versioned
+!/tests/test_data/
+# MCP configuration with API keys
+.mcp.json
