@@ -177,5 +177,8 @@ class SchemaNegotiator:
         return merged
 
 
-__version__ = "0.3.0"
-__all__ = ["ModuleCommunicator", "SchemaNegotiator"]
+from .graph_backend import GraphBackend
+from .graph_communicator import GraphModuleCommunicator
+
+__version__ = "0.4.0"
+__all__ = ["ModuleCommunicator", "SchemaNegotiator", "GraphBackend", "GraphModuleCommunicator"]
