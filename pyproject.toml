@@ -5,8 +5,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "Claude-Module-Communicator"  # Better name for MCP server
-version = "0.1.0"
+name = "claude-module-communicator"
+version = "0.1.1"
 description = "Claude Based Module Communicator (MCP) Server for Cybersecurity Data Extraction and Analysis"
 readme = "README.md"
 requires-python = ">=3.10.11"
@@ -84,7 +84,7 @@ dev = [
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-asyncio_fixture_loop_scope = "function"
+asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests"]
 # addopts = "-v --cov=sparta_mcp_server --json-report --json-report-file=test_results.json"
 
@@ -93,7 +93,7 @@ testpaths = ["tests"]
 # sparta-cli = "sparta_mcp_server.cli.app:app"  # CLI for testing/management
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/claude_coms"]
+packages = ["src/claude_module_communicator", "src/claude_coms"]
 
 [tool.hatch.metadata]
 allow-direct-references = true

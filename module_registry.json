@@ -1,0 +1,96 @@
+{
+  "TemperatureSensor": {
+    "name": "TemperatureSensor",
+    "system_prompt": "I am a temperature sensor that produces readings",
+    "capabilities": [
+      "sensor",
+      "temperature",
+      "data_source"
+    ],
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      }
+    },
+    "status": "inactive",
+    "last_seen": "2025-05-27T15:34:34.269595"
+  },
+  "TemperatureConverter": {
+    "name": "TemperatureConverter",
+    "system_prompt": "I convert temperature between units",
+    "capabilities": [
+      "converter",
+      "temperature",
+      "data_processor"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "celsius": {
+          "type": "number"
+        },
+        "fahrenheit": {
+          "type": "number"
+        },
+        "kelvin": {
+          "type": "number"
+        }
+      }
+    },
+    "status": "inactive",
+    "last_seen": "2025-05-27T15:34:34.270004"
+  },
+  "TemperatureAlert": {
+    "name": "TemperatureAlert",
+    "system_prompt": "I monitor temperature and generate alerts",
+    "capabilities": [
+      "monitor",
+      "alert",
+      "temperature"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "celsius": {
+          "type": "number"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "alert": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        }
+      }
+    },
+    "status": "inactive",
+    "last_seen": "2025-05-27T15:34:34.270346"
+  }
+}
