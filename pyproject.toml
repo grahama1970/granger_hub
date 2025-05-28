@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "claude-module-communicator"
-version = "0.1.1"
+version = "0.3.0"
 description = "Claude Based Module Communicator (MCP) Server for Cybersecurity Data Extraction and Analysis"
 readme = "README.md"
 requires-python = ">=3.10.11"
@@ -91,6 +91,7 @@ testpaths = ["tests"]
 [project.scripts]
 # sparta-mcp-server = "sparta_mcp_server:main"  # MCP server entry point
 # sparta-cli = "sparta_mcp_server.cli.app:app"  # CLI for testing/management
+claude-comm = "claude_module_communicator.cli:main"  # CLI for module communication
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/claude_module_communicator", "src/claude_coms"]
