@@ -179,6 +179,7 @@ class SchemaNegotiator:
 
 from .graph_backend import GraphBackend
 from .graph_communicator import GraphModuleCommunicator
+from .arango_expert import ArangoExpert
 
 __version__ = "0.4.0"
-__all__ = ["ModuleCommunicator", "SchemaNegotiator", "GraphBackend", "GraphModuleCommunicator"]
+__all__ = ["ModuleCommunicator", "SchemaNegotiator", "GraphBackend", "GraphModuleCommunicator", "ArangoExpert"]
