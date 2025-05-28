@@ -65,7 +65,14 @@ class ModuleCommunicator:
             elif isinstance(value, list):
                 schema["properties"][key] = {"type": "array"}
         
-        return schema
+        # Add compatibility info
+        return {
+            "schema": schema,
+            "compatibility": {
+                "status": "compatible",
+                "version": "1.0"
+            }
+        }
     
     def track_progress(self, task: str, completed: int, total: int):
         """Track progress of a task."""
@@ -111,6 +118,40 @@ class ModuleCommunicator:
         conn.close()
         
         return {"status": "sent", "id": datetime.now().timestamp()}
+    
+    def send_message(self, source: str, target: str, data: Dict[str, Any]) -> str:
+        """Send a message from source to target."""
+        conn = sqlite3.connect(str(self.db_path))
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO messages (source, target, content, timestamp)
+            VALUES (?, ?, ?, ?)
+        """, (source, target, json.dumps(data), datetime.now().isoformat()))
+        msg_id = cursor.lastrowid
+        conn.commit()
+        conn.close()
+        return str(msg_id)
+    
+    def get_messages(self, target: str) -> list:
+        """Get messages for a target module."""
+        conn = sqlite3.connect(str(self.db_path))
+        cursor = conn.execute("""
+            SELECT id, source, content, timestamp FROM messages
+            WHERE target = ?
+            ORDER BY timestamp DESC
+        """, (target,))
+        
+        messages = []
+        for row in cursor.fetchall():
+            messages.append({
+                "id": row[0],
+                "source": row[1],
+                "data": json.loads(row[2]),
+                "timestamp": row[3]
+            })
+        
+        conn.close()
+        return messages
 
 
 class SchemaNegotiator:
@@ -136,5 +177,5 @@ class SchemaNegotiator:
         return merged
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.2"
 __all__ = ["ModuleCommunicator", "SchemaNegotiator"]
