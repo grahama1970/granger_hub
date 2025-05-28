@@ -32,21 +32,63 @@ Validate that output schemas from one module match input schemas of the next mod
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/claude-module-communicator.git
+# Install from GitHub
+pip install git+https://github.com/grahama1970/claude-module-communicator.git@master
+
+# Or clone and install locally
+git clone https://github.com/grahama1970/claude-module-communicator.git
 cd claude-module-communicator
-
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install dependencies
 pip install -e .
 ```
 
 ## Usage
 
-### CLI Commands
+### Quick Start with CLI
+
+The `claude-comm` CLI provides easy access to module communication:
+
+```bash
+# List all messages
+claude-comm list
+
+# List messages for a specific module
+claude-comm list --target marker
+
+# Show full message details
+claude-comm show 1
+
+# List progress entries
+claude-comm progress
+
+# Send a message
+claude-comm send sparta marker "Hello from SPARTA"
+```
+
+### Python API
+
+```python
+from claude_module_communicator import ModuleCommunicator
+
+# Initialize communicator
+comm = ModuleCommunicator("my_module")
+
+# Send a message
+msg_id = comm.send_message("source", "target", {
+    "type": "request",
+    "data": "some data"
+})
+
+# Get messages
+messages = comm.get_messages("my_module")
+
+# Track progress
+comm.track_progress("task_name", 50, 100)
+
+# Negotiate schema
+schema = comm.negotiate_schema("target_module", sample_data)
+```
+
+### Advanced CLI Commands
 
 #### Schema Negotiation
 ```bash
