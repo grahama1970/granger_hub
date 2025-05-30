@@ -9,16 +9,10 @@ import pytest
 import numpy as np
 from pathlib import Path
 
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from src.claude_coms.forecast import (
-    load_time_series,
-    TimeSeriesRegressor,
-    ForecastVisualizer,
-    save_forecast_results
-)
+from claude_coms.forecast.data_handlers import load_time_series
+from claude_coms.forecast.model_backends import TimeSeriesRegressor
+from claude_coms.forecast.visualization import ForecastVisualizer
+from claude_coms.forecast.data_handlers import save_forecast_results
 
 
 class TestRealWorldForecasting:

@@ -8,50 +8,79 @@ The test directory structure exactly mirrors `src/` for consistency:
 
 ```
 tests/
+├── adapters/                  # Protocol adapter tests (hub-spoke architecture)
+│   ├── test_cli_adapter.py    # CLI command execution tests
+│   ├── test_rest_adapter.py   # REST API communication tests
+│   ├── test_mcp_adapter.py    # MCP protocol tests
+│   ├── test_marker_adapter.py # PDF processing tests
+│   └── test_adapter_honeypot.py # Testing integrity verification
 ├── claude_coms/
-│   ├── cli/                    # CLI command tests
+│   ├── cli/                   # CLI command tests
 │   ├── core/
-│   │   ├── conversation/       # Conversation system tests
-│   │   ├── llm/               # LLM integration tests
-│   │   ├── modules/           # Module system tests
-│   │   └── storage/           # Storage backend tests
-│   ├── forecast/              # Forecasting module tests
-│   ├── mcp/                   # MCP server tests
-│   ├── rl/                    # Reinforcement learning tests
-│   └── test_integration.py    # Integration tests
-├── fixtures/                  # Test data and fixtures
-│   └── forecast/             # Real-world forecast data
-└── conftest.py               # Pytest configuration
+│   │   ├── conversation/      # Conversation system tests
+│   │   ├── llm/              # LLM integration tests (TODO)
+│   │   ├── modules/          # Module system tests
+│   │   └── storage/          # Storage backend tests (TODO)
+│   ├── forecast/             # Forecasting module tests
+│   ├── mcp/                  # MCP server tests (TODO)
+│   ├── rl/                   # Reinforcement learning tests (TODO)
+│   └── test_integration.py   # Integration tests
+├── fixtures/                 # Test data and fixtures
+│   └── forecast/            # Real-world forecast data
+└── conftest.py              # Pytest configuration
 ```
+
+## ⚠️ Test Status
+
+| Component | Directory | Status | Notes |
+|-----------|-----------|--------|-------|
+| Adapters | `tests/adapters/` | ✅ Complete | All protocol adapters tested |
+| CLI | `tests/claude_coms/cli/` | ✅ Complete | Command interface tested |
+| Conversation | `tests/claude_coms/core/conversation/` | ✅ Complete | Full conversation flow |
+| Modules | `tests/claude_coms/core/modules/` | ✅ Complete | Core module functionality |
+| Forecast | `tests/claude_coms/forecast/` | ✅ Complete | Real data fixtures |
+| LLM | `tests/claude_coms/core/llm/` | ❌ TODO | Needs implementation |
+| Storage | `tests/claude_coms/core/storage/` | ❌ TODO | Needs implementation |
+| MCP | `tests/claude_coms/mcp/` | ❌ TODO | Needs implementation |
+| RL | `tests/claude_coms/rl/` | ❌ TODO | Needs implementation |
 
 ## 🚀 Running Tests
 
-### Run All Tests
+### Quick Start - Run All Tests
 ```bash
 # From project root
+cd /home/graham/workspace/experiments/claude-module-communicator
+source .venv/bin/activate
 pytest tests/ -v
+```
 
-# With coverage report
+### Run With Coverage
+```bash
+# Generate coverage report
 pytest tests/ --cov=src --cov-report=html --cov-report=term
+
+# View coverage in browser
+xdg-open htmlcov/index.html  # Linux
+open htmlcov/index.html       # macOS
 ```
 
 ### Run Specific Test Categories
 
 ```bash
-# Unit tests only
-pytest tests/claude_coms/core/ -v
+# Protocol adapter tests (hub-spoke architecture)
+pytest tests/adapters/ -v
 
-# Integration tests
-pytest tests/claude_coms/test_integration.py -v
+# Module system tests
+pytest tests/claude_coms/core/modules/ -v
 
 # Conversation system tests
 pytest tests/claude_coms/core/conversation/ -v
 
-# Forecasting tests
-pytest tests/claude_coms/forecast/ -v
+# CLI command tests
+pytest tests/claude_coms/cli/ -v
 
-# MCP server tests
-pytest tests/claude_coms/mcp/ -v
+# Forecasting tests with real data
+pytest tests/claude_coms/forecast/ -v
 ```
 
 ### Run Individual Test Files
@@ -157,6 +186,18 @@ open htmlcov/index.html
 xdg-open htmlcov/index.html
 ```
 
+## 🍯 Honeypot Tests
+
+The `tests/adapters/test_adapter_honeypot.py` file contains special tests that are **DESIGNED TO FAIL**. These tests verify that our testing framework is actually running real tests and not faking results.
+
+```bash
+# Run honeypot tests (SHOULD FAIL)
+pytest tests/adapters/test_adapter_honeypot.py -v
+
+# Expected: Tests should fail with "HONEYPOT DETECTED" messages
+# If these tests pass, there's a problem with the testing framework!
+```
+
 ## 🔄 Continuous Integration
 
 Tests are automatically run on:
@@ -165,3 +206,13 @@ Tests are automatically run on:
 - Can be manually triggered
 
 Ensure all tests pass locally before pushing!
+
+## 🚨 Pre-Push Command
+
+**Run this single command before every push to ensure nothing is broken:**
+
+```bash
+pytest tests/ -v --tb=short
+```
+
+All tests should pass (except honeypot tests which should fail).
