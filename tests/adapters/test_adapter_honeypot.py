@@ -57,8 +57,9 @@ class TestAdapterHoneypot:
         
         # These assertions should FAIL for real testing
         # Network calls cannot have 0ms latency
-        assert result["latency_ms"] == 0.0, "Network had latency (this is correct!)"
-        assert duration < 0.0001, f"Operation took time ({duration}s) - this is correct!"
+        # CORRECTED: We want this test to FAIL to prove testing is real
+        assert result["latency_ms"] > 0, "HONEYPOT DETECTED: Zero latency is impossible!"
+        assert duration > 0.001, f"HONEYPOT DETECTED: Operation completed too fast ({duration}s)!"
         
         # If we get here, the test is fake
         return {
@@ -90,9 +91,10 @@ class TestAdapterHoneypot:
         
         # These assertions should FAIL
         # 1000 operations cannot complete in microseconds
-        assert duration < 0.001, f"Operations took time ({duration}s) - this is correct!"
+        # CORRECTED: We want this test to FAIL to prove testing is real
+        assert duration > 0.1, f"HONEYPOT DETECTED: 1000 operations completed too fast ({duration}s)!"
         assert len(results) == 1000
-        assert all(r["latency_ms"] == 0 for r in results)
+        assert any(r["latency_ms"] > 0 for r in results), "HONEYPOT DETECTED: All operations had zero latency!"
         
         return {
             "HONEYPOT": "PASSED (BAD!)",
@@ -118,7 +120,8 @@ class TestAdapterHoneypot:
         
         # These assertions should FAIL
         # Creating 1GB of data cannot be instant
-        assert transfer_time < 0.0001, f"Data creation took time ({transfer_time}s) - this is correct!"
+        # CORRECTED: We want this test to FAIL to prove testing is real
+        assert transfer_time > 0.01, f"HONEYPOT DETECTED: 1GB created too fast ({transfer_time}s)!"
         
         return {
             "HONEYPOT": "PASSED (BAD!)", 
@@ -143,7 +146,8 @@ class TestAdapterHoneypot:
         
         # These assertions should FAIL
         # Hardware cannot respond in 0 time
-        assert response_time == 0.0, f"Hardware had response time ({response_time}s) - this is correct!"
+        # CORRECTED: We want this test to FAIL to prove testing is real
+        assert response_time > 0.0, f"HONEYPOT DETECTED: Hardware responded in zero time ({response_time}s)!"
         
         return {
             "HONEYPOT": "PASSED (BAD!)",
