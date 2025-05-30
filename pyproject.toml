@@ -63,6 +63,15 @@ dependencies = [
     "litellm>=1.0.0", # For Perplexity API calls
     "allure-pytest>=2.14.2",
     "fastmcp>=2.5.1",
+    # LLM Integration
+    "llm_call @ git+https://github.com/grahama1970/claude_max_proxy.git@master",
+    # Test Reporting
+    "claude-test-reporter @ git+https://github.com/grahama1970/claude-test-reporter.git",
+    # Screenshot and Browser Automation
+    "mcp-screenshot @ git+https://github.com/grahama1970/mcp-screenshot.git@main",
+    # PDF Processing
+    "pdf2image>=1.16.0",
+    "pillow>=10.0.0",
 ]
 
 [project.optional-dependencies]
@@ -91,10 +100,10 @@ testpaths = ["tests"]
 [project.scripts]
 # sparta-mcp-server = "sparta_mcp_server:main"  # MCP server entry point
 # sparta-cli = "sparta_mcp_server.cli.app:app"  # CLI for testing/management
-claude-comm = "claude_module_communicator.cli:main"  # CLI for module communication
+cmc-cli = "cli.claude_comm:main"  # CLI for module communication
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/claude_module_communicator", "src/claude_coms"]
+packages = ["src/claude_module_communicator", "src/claude_coms", "src/cli", "src/core", "src/mcp"]
 
 [tool.hatch.metadata]
 allow-direct-references = true

@@ -1,0 +1,2963 @@
+In this video, I'll show you how to
+
+forecast anything using the same
+
+technology that drives chat GPT, namely
+
+transformers. Rather than predict a
+
+continuation of words, we'll be
+
+forecasting a continuation of numbers,
+
+which could represent traffic data,
+
+weather, or financial patterns. Up until
+
+recently, it's often been better to use
+
+a simple model, perhaps just a simple
+
+linear model when forecasting rather
+
+than using transformers. But that has
+
+changed within the last few years and
+
+now there's very good performance for
+
+models such as patch tst and Kronos.
+
+I'll walk you through how those two
+
+models work, how to make forecasts, and
+
+how to prepare data to do a custom
+
+fine-tune for your
+
+application. In terms of video overview,
+
+I'll start off by briefly describing how
+
+time series forecasting works. Then I'll
+
+describe the patch tst model and the
+
+Kronos model. I'll give a comparison of
+
+these two models and why you might want
+
+to use one or the other in different
+
+cases before then giving a demo of how
+
+to forecast with patch tst and how to do
+
+finetuning and the same then for Kronos.
+
+What is time series forecasting? It's
+
+easiest to look at an example here. I've
+
+got the demand of the Irish electrical
+
+grid and the y-axis shows the load in
+
+megawatt going from 3,000 to 5,000. The
+
+x-axis shows the progression of that
+
+load over a week. You can see it
+
+oscillating from day to night here uh
+
+with a pattern of seven different peaks.
+
+Now in the case of forecasting, what we
+
+want to do is feed in a pattern like
+
+this and then predict the continuation.
+
+And while this is for electrical demand,
+
+the methods I'm going to show you apply
+
+uh generally and the models apply
+
+generally across many different time
+
+series problems. Whether that's
+
+predicting traffic, predicting prices,
+
+predicting maybe uh different aspects of
+
+pollution. Any case where you have some
+
+linear time series and you can have a
+
+continuation, you can consider using one
+
+of these forecasting
+
+models to break it down into very simple
+
+terms. You can think of uh some input
+
+data points and they are going to be
+
+evenly spaced because that's what the
+
+models today will require. If they are
+
+not evenly spaced in time, you could
+
+interpolate or extrapolate perhaps to
+
+generate an equally spaced time series.
+
+It can be hours, days, any uh time of
+
+time, any type of time gap provided that
+
+it's uniform in time. And you'll have an
+
+input series that then uh the model is
+
+going to try and give you a prediction
+
+for the followon output time series
+
+here. And depending on the model either
+
+there'll be a fixed number of points
+
+that are predicted here which will be
+
+the case of patch tst often it's 64 or
+
+in the Kronos model we will predict
+
+these outputs one at a time. So we'll
+
+predict the first we'll pass it back in
+
+as an input predict the next the next
+
+the next. That's known as an auto
+
+reggressive model. That's also how the
+
+language models today work and that will
+
+allow you to keep decoding as far as you
+
+like understanding that as you go
+
+further out the accuracy is going to
+
+decrease. So now I will describe the
+
+patch tst model which gives a fixed
+
+number of forecasts and then I'll
+
+describe the Kronos model. Here is the
+
+architecture of patch tst. I'll break it
+
+down into portions. Starting off it's
+
+useful to identify here the input time
+
+series. So here might be the electricity
+
+uh demand for different points along a
+
+week evenly spaced and here are the
+
+output predictions of the next uh four
+
+points here. And as the name suggests,
+
+patch tst. There is patching involved in
+
+how this model works. Namely, it takes a
+
+bunch or a little patch of the inputs
+
+and it will pass them through a linear
+
+layer that combines them into a single
+
+vector. So there's one vector that
+
+ultimately represents a patch. And here
+
+if we have this many inputs, which I
+
+think I have 18, that'll be converted,
+
+that's a patch size of six into three
+
+three vectors after going through the
+
+linear layer. Now there's also a
+
+position embedding added. What that
+
+means is we transform through trainable
+
+matrices the inputs here into a single
+
+vector. But we also concatenate or add
+
+on a position. So this will say position
+
+one, position 2, position 3. And that
+
+numerical encoding for the position just
+
+gives the model a sense that there is an
+
+order to the data that is going in here.
+
+These vectors then are transformed uh
+
+through transformer layers that include
+
+attention.
+
+So we have the input patch embeddings
+
+converted into the transformed patch
+
+embeddings and all of these transformed
+
+patch embeddings are passed through
+
+another set of trainable matrices to
+
+then provide in one shot the output
+
+predictions for the number of set output
+
+uh timestamps. Notice that this is all
+
+single pass. We are not passing back the
+
+outputs to the input and iterating
+
+around auto reggressively as it as is
+
+done in language models. Also notice
+
+that there are no tokens. We have
+
+numbers here that are coming in. Yes,
+
+they may be normalized, but they're
+
+still continuous numbers. They are then
+
+converted into embeddings, which is
+
+still numbers. And the predictions that
+
+are made here are also going to be in
+
+the form of continuous uh numbers. Now,
+
+let's move to the Kronos model. And
+
+before I describe the architecture, I
+
+just want to talk about the
+
+normalization and the quantization
+
+because Kronos uses tokens and to get
+
+tokens, you need to quantize the input
+
+uh numbers. So, the first step before
+
+quantization is normalization. This is a
+
+normalized version of the graph I showed
+
+you before. Quite simply, I've divided
+
+by the interval mean. So I've taken the
+
+mean, divided all the points by that.
+
+And now the mean of this graph is one.
+
+And you can see oscillation about that
+
+point. And this is commonly used in
+
+training time series models because it
+
+means you can use a wide variety of data
+
+normalized to train the same model which
+
+means uh you have much more data to
+
+train uh the same
+
+model. So that's normalization. And once
+
+we normalize, we then quantize. And this
+
+involves uh splitting the values here
+
+into a number of buckets. So here I've
+
+split them into 15 buckets from 0 to 14.
+
+And with this amount of buckets, it
+
+looks jagged. Uh which is good for
+
+illustration purposes here, but in
+
+practice, you would use many more
+
+buckets, often more than 1,000, so that
+
+this looks smooth. But the reason for
+
+using the buckets or bins is because
+
+each of these buckets or bins is now
+
+like uh a piece of vocabulary. It's like
+
+one token in your vocabulary. And you
+
+can see now the analogy of to a language
+
+model. In a language model, you might
+
+have a token for each word, but here
+
+we've got a token for each of these
+
+value buckets. So, we're able now to run
+
+the model in the same way we would a
+
+large language model. We take in the
+
+input time series, normalize, and
+
+quantize it. And now each of these
+
+inputs is a token. It'll be a token. If
+
+there are 15 quantization levels, it'll
+
+be a token neater zero, a token one, a
+
+token three, a token
+
+four. And these tokens then as in a
+
+language model go through an embedding
+
+layer and they're converted into
+
+vectors. Now here I've only shown three
+
+points but actually there will be an
+
+embedding for each of these tokens and
+
+each of the embedding uh each of the
+
+embeddings will then be converted
+
+through the transformer layer into a
+
+transformed embedding and these
+
+transformed embeddings will then be
+
+converted uh into a softmax to give a
+
+probability distribution. Well, they'll
+
+be subjected to a softmax to give a
+
+probability distribution over those uh
+
+buckets or bins. So what this gives us
+
+is a probabilistic uh output for the
+
+next step. Uh probabilistic
+
+representation of the next step.
+
+Basically we have these time inputs.
+
+They're all in buckets. And we're trying
+
+to predict which bucket is the next
+
+output going to be in. Is it going to be
+
+in bucket 1 2 3 4 5 uh 6 7 8 9 all the
+
+way up to
+
+14. Then we take this output and we pass
+
+it back to the input like this here. And
+
+we run forward again. We take that, we
+
+run forward again. We take that, we run
+
+forward again and again. So you can see
+
+this is an auto reggressive model
+
+because we are constantly calculating
+
+the next forecast, bringing it back to
+
+the input and calculating the next
+
+forecast again. So unlike patch tst
+
+which is once through to get a series of
+
+forecasts we need to auto reggressively
+
+run this model which is going to take
+
+more time and that is one of the key
+
+differences between patch tst which is
+
+fast and once through and kronos which
+
+is slower because of that auto
+
+reggressive nature and also kronos
+
+happens to just be a larger model which
+
+will make it slower as well. Now on a
+
+technical note, I've shown here a
+
+decoder only architecture like GPT2,
+
+GPT3 and there is a version of Kronos
+
+available that's a GPT2 uh type
+
+architecture but actually the more
+
+commonly used one is the T5 type
+
+architecture which is an encoder and a
+
+decoder and in that architecture there
+
+is a separate
+
+transformer input layers. So you can
+
+think of it a bit like uh like this
+
+here. There would be an encoder and then
+
+you can think of there being a decoder
+
+uh something like this here that takes
+
+uh as input any of the decoded tokens
+
+the green ones here. Maybe I could just
+
+call this uh
+
+decode something like that. And this
+
+would be here
+
+encode. And if you go to decoder only
+
+architecture the prediction model head
+
+will actually only be over the decoder.
+
+Uh so I'll just type in here the soft
+
+max and actually the outputs of the
+
+encoder rather than them going to the
+
+softmax the outputs of the encoder uh
+
+would actually go to the decoder like
+
+this. So they would also be treated as
+
+inputs uh to the decoder something like
+
+this here. So this what I'm showing you
+
+is the difference between a decoder
+
+architecture and an encoder decoder
+
+architecture. So here you have uh the
+
+embeddings but the inputs go to the
+
+encoder whereas uh the decoded inputs
+
+the ones that come back around they go
+
+into a decoder here. And why would you
+
+have this? Well the thought is you have
+
+specialization. Basically this encoder
+
+is well able to handle these inputs
+
+here. It's familiar uh is familiar with
+
+accepting a long input sequence whereas
+
+the decoder is familiar with receiving
+
+this uh these tokens that go back
+
+around. Now in practice it turns out
+
+decoder only has kind of won out and
+
+most of the models today are decoder
+
+only. Um but maybe for some applications
+
+particularly with smaller sizes you can
+
+find advantages and better performance
+
+empirically from the split encoder
+
+decoder architecture. In any case,
+
+Kronos is mostly using the T5
+
+architecture. It's a Google language
+
+model that is encoder decoder. It comes
+
+in multiple sizes. So, if you look at
+
+the Kronos uh model on Hugging Face,
+
+I'll put a link in the description. You
+
+can see there are uh five sizes here
+
+from tiny up to
+
+large, and they match the sizes of the
+
+T5 uh models from Google. So, it's a
+
+nice suite of models because you can
+
+start off really small with just 8
+
+million parameters and you can go up uh
+
+to something that's quite a bit larger.
+
+For example, if we look at the T5 model
+
+here, I expect it'll be uh about 3 GB in
+
+size. Yeah, 2.8 cuz it's in 32 bits. So
+
+700 uh megabytes in size uh sorry 700
+
+million parameters in size times four
+
+then because there's 8 bits per bite. So
+
+if it's um 32 bits that means roughly
+
+times 4. So that's why you're getting
+
+close to 3 GB uh in size of weights. But
+
+if you have um the smaller model which
+
+is just let's see 8 million parameters
+
+then that's going to be only about uh 32
+
+megabytes of size. So not that big a
+
+model. patch tst is only about two
+
+megabytes I think. So that's an even
+
+smaller model. But yeah, T5 gives you
+
+this control of going to bigger models
+
+if you want to have better performance.
+
+Now before wrapping up in the slides,
+
+I'll just uh highlight a few differences
+
+between patch tst and the Kronos models.
+
+As I said, patch tst is patchbased
+
+whereas Kronos is um auto reggressive.
+
+It's not patchbased and it is auto
+
+reggressive. Patch tst is patchbased but
+
+it's once true. The model size we've
+
+already talked about in terms of zeroot
+
+capability which means just taking the
+
+model off the shelf and then using it
+
+for inference. The Kronos model is going
+
+to be uh quite a bit stronger. It
+
+performs very well on a custom
+
+application even with no training
+
+whereas the patch tst performance is not
+
+going to be quite as good. The forecast
+
+horizon is fixed for patch tst. It's
+
+flexible for Kronos. Multivariate
+
+support. Uh I'll talk about that a bit
+
+later. confidence intervals. So patch
+
+tst it gives you out numbers. There are
+
+no buckets and there are no
+
+probabilities associated with buckets
+
+for the output. So there's also no
+
+notion of uh forecasting confidence.
+
+Whereas Kronos because you have a
+
+softmax, you have a probability
+
+distribution over which bucket the
+
+output is going to be in. That allows
+
+you to get a confidence interval over
+
+the
+
+outputs. Training speed is going to be
+
+faster for patch TST. It's smaller for
+
+fine-tuning. Typically, you would fully
+
+fine-tune patch tst because it's a small
+
+model and cheap uh to fine-tune. With
+
+Kronos, it's a bit bigger. You can lower
+
+a fine-tune. It's also not that big, so
+
+you could fully fine-tune. For context
+
+length, um the patch tst does support
+
+longer context because it converts the
+
+inputs into patches. So, you can fit
+
+more uh inputs than you can with Kronos.
+
+And last of all, this is a very rough
+
+guideline. Uh I used about 8,000 rows to
+
+do training. probably you need ballpark
+
+that amount if you want to do training.
+
+Um and that seems to be sufficient to do
+
+full fine tuning on patch tst or to do
+
+some kind of lower fine tuning on the
+
+Kronos
+
+model. The last thing to mention here is
+
+multivaried support. So the way both
+
+these models work is if you have two
+
+time series that you want to predict and
+
+they are both related. For example, you
+
+might have temperature and you might
+
+have uh demand of electricity.
+
+Both of these models will treat those
+
+separately and they will use the same
+
+set of weights and that's possible
+
+because of how those numbers are
+
+normalized on the way in. Now there's a
+
+more advanced form of multivariate uh
+
+analysis where the inputs would have
+
+cross interactions which could be uh
+
+cross attention or mixing and in
+
+principle it seems that would be nice
+
+because it gives you more predictive
+
+power. What's found empirically in these
+
+papers is that having cross interactions
+
+tends to result in overfitting. And so
+
+you do better by actually keeping the
+
+channel separate and only using a given
+
+input to predict itself rather than
+
+having these cross interactions. But I
+
+will show you a parameter you can turn
+
+on in the patch tst model if you want to
+
+try out cross attention. With Kronos,
+
+there's no way to turn it on. So you'd
+
+have to manually introduce it or you'd
+
+have to introduce some cross
+
+interactions after making the forecast.
+
+With that, I'm going to move to describe
+
+how patch DST works um in code and show
+
+you how to forecast. And I'll do the
+
+same with Kronos. And I'll show you how
+
+to fine-tune them both. You can find the
+
+scripts on
+
+trellis.com/advanced-time-series. And
+
+you can purchase access to the GitHub
+
+repo either on an annual or lifetime
+
+basis. Advanced time series is also now
+
+included in the new Trellis repo bundle.
+
+And I'll leave more description uh more
+
+details below in the description. Now,
+
+I'll also put links to each of the model
+
+cards and you can find links there to
+
+other ways of doing uh fine-tuning and
+
+forecasting. So, even if you're not in a
+
+position to purchase repo access, you
+
+can follow along and perhaps build it
+
+for yourself with the help of this
+
+video. So, I've cloned this repo over
+
+into Windsurf. And you can see here
+
+there we're in the time series repo
+
+advanced time series and there's a
+
+readme describing the folder structure
+
+which has scripts for patch tst Kronos
+
+and then some data. Let's take a very
+
+brief look at the data. I have data on
+
+the Irish electricity grid. You'll find
+
+there's a readme uh description here.
+
+And I've downloaded raw data from air
+
+grade which is the Irish uh grid
+
+operator. And I've downloaded data for
+
+2024 and also for 2025 to date on a
+
+quarter hourly uh basis. Now you can use
+
+any data for the scripts I'm going to
+
+show you today. What you need is to have
+
+a CSV that's formatted uh something like
+
+this. Here I have two columns. One is uh
+
+the time stamp in UTC and then for this
+
+analysis I'll be looking at the load in
+
+megaww.
+
+Now, you don't have to normalize just
+
+yet because the scripts are going to
+
+normalize. So, this is my data. I've
+
+already shown uh what the data looks
+
+like. And we're now going to ingest that
+
+data and run some forecasts. And first,
+
+I'm going to run on patch tst. And I'm
+
+actually going to run it locally on my
+
+computer because these are fairly small
+
+models. So, I'll move into the readme
+
+folder. And I'm going to run this as a
+
+Jupyter notebook. So, you could install
+
+Jupyter Notebook. You can also just run
+
+Jupyter not notebook natively within VS
+
+Code or Windsur for cursor. If you want
+
+to do that, uh you want to start by
+
+moving into the patch tst directory.
+
+Oops, patch
+
+tst. Create a virtual environment.
+
+Activate the virtual environment. Make
+
+sure you install IPY kernel and then you
+
+can install uh a kernel with that given
+
+virtual environment.
+
+Um, yeah, it is important to activate it
+
+if you're going to install within that
+
+kernel. Although, if you're using the UV
+
+command, it's going to anyway install
+
+within the kernel or within the VM that
+
+you've specified. Uh, so actually
+
+activating it is is probably not
+
+critical there. Basically, just need to
+
+create the virtual environment, install
+
+IPY kernel, set up the kernel within the
+
+virtual environment, and now when you go
+
+to the notebook, and this should maybe
+
+be called inference and training, you
+
+can select that virtual environment. uh
+
+right up here. Now, alternatively, if
+
+you had already um if you activated the
+
+virtual environment, you could run uh
+
+Jupyter Lab or you could run Jupyter
+
+Notebook if you have either of those
+
+installed and open that up in your
+
+browser. So, here I have patch tst uh
+
+the virtual environment and I have my
+
+notebook. And I'm just going to move
+
+through the setup of this notebook.
+
+We're going to start by setting up the
+
+environment.
+
+We'll set up some parameters that are
+
+going to be used for pointing to the
+
+data. We'll load and pre-process the C
+
+CSV so we can make an initial forecast
+
+uh which I'm calling zeroot evaluation.
+
+This means no training. Then we will do
+
+some um I'm calling it pre-training
+
+because you could use this to train the
+
+model from scratch although I'm actually
+
+going to load uh a pre-trained model
+
+although it's a pre-trained model for a
+
+very different application. And then
+
+after pre-training uh we'll save the
+
+model and finally re-evaluate and see if
+
+we get better
+
+performance. So for environment setup uh
+
+you need to install transformers um
+
+parameter efficient fine-tuning if
+
+you're going to do Laura accelerate for
+
+device management and then if you want
+
+to quantize you could use bits and
+
+bittes. I'm not using it uh but you
+
+could install bits
+
+and you also want to install uh there
+
+are some helper libraries available.
+
+This is a library by IBM and IBM has
+
+trained a model that's called uh granite
+
+and it's a model that's specifically
+
+trained to predict the temperature of
+
+transformers and I don't mean LLM
+
+transformers in this case I mean
+
+electricity transformers actually from
+
+China there's a large data set of the
+
+temperature um the temperature patterns
+
+of these transformers and this is a
+
+model that's been specifically trained
+
+on that. So, we're going to take this
+
+model for temp for electrical
+
+transformers and we're going to see if
+
+it does any good on predicting the
+
+demand for electricity. Um, which I
+
+suppose there's some kind of
+
+relationship between the two and maybe
+
+some similar patterns. So, maybe that'll
+
+help. But broadly speaking, these are
+
+different
+
+applications. So, after these installs
+
+are done, we're going to set the device.
+
+Um, the device I'm using is MPS. You
+
+could run it in collab and use a GPU if
+
+you want. You could run it even on CPU.
+
+It'll be just a little bit
+
+slower. And next, we're going to uh set
+
+the configuration for running the
+
+notebook. And we're going to run the
+
+notebook twice because we want to run it
+
+first on this uh pre-trained
+
+model. So, we want to run it on the IBM
+
+granite model, but then we want to load
+
+a model where we're going to um
+
+fine-tune it specifically for our
+
+application. So, I'll do the first case
+
+first. I'll comment out this
+
+pre-training one and set up the granite
+
+parameters. I need to point to my hourly
+
+uh data. So I'll point to my CSV for
+
+that. I need to indicate the time stamp
+
+column and I need to indicate the target
+
+column. The target column refers to what
+
+we want to forecast. Now there's this
+
+further feature here which is called ID
+
+columns. This is if you have extra
+
+columns that will describe kind of
+
+subcategories for your data. So for
+
+example, I already have two columns, but
+
+I could have another one that
+
+additionally lists the region. So it
+
+could say Europe, China, US, and there
+
+would be a label for each of my rows.
+
+And if that's the case, what um is going
+
+to happen in data prep is my series of
+
+data, which is just one column for
+
+demand, it will be split into a separate
+
+series for demand for Europe, demand for
+
+US, demand for China. So this uh just
+
+allows you to kind of get some splits on
+
+that data.
+
+Next is context length. So this is the
+
+input length. And actually you don't
+
+have flexibility if you're using the
+
+pre-trained model. You have to use 512.
+
+And you also don't have flexibility on
+
+the forecast horizon. So we're going to
+
+have 512 input timestamps and we're
+
+going to have 96 output
+
+timestamps. Now if you want to predict
+
+um we're predicting here hourly data. If
+
+you want to predict daily data, then
+
+that means uh yeah, ideally you have
+
+almost well almost two years worth of
+
+data. Um, and your forecast horizon is
+
+going to be is going to be 96 no matter
+
+what. When we fine-tune the model
+
+though, or when you pre-train it from
+
+scratch, we're going to be able to set
+
+it to parameters we actually want. And
+
+the parameters I'm going to want are uh
+
+one week. So I want to make prediction
+
+based on one week of prior data and I
+
+want to forecast uh one day ahead. So
+
+that's 24 hours
+
+ahead. Last of all, we can set the
+
+training fraction validation fraction.
+
+the remainder is uh the test fraction.
+
+So the the training fraction will be
+
+used for uh pre-training the model. Then
+
+um we're saving the last 10% in this
+
+case here as the test fraction which
+
+we'll use to measure performance and
+
+then the 10% before that we're going to
+
+use for
+
+validation. So yeah basically it's best
+
+practice to have a separate split for
+
+training for eval and for testing. Why
+
+do you have a different split for eval
+
+and testing? Well, the eval split you
+
+typically use to look at the loss curves
+
+when you're doing the training and
+
+you're going to make decisions on
+
+hyperparameters based on the loss
+
+curves. So, you're going to pick the
+
+best model based on your eval loss or
+
+your validation loss being minimum. Um,
+
+but then to be independent of that
+
+choice, you want to have an other split
+
+yet again called a test split that
+
+allows you to measure kind of
+
+independent performance of that specific
+
+choice you've made based on the eval
+
+set. Okay, that was a bit of a granular
+
+comment. back um back to running this
+
+script. We've got everything ready.
+
+We're not going to train it, but this
+
+will still define uh a test split for us
+
+to run the analysis. Next, we will load
+
+uh the CSV. So, we're just reading in uh
+
+the data frame and we're doing the
+
+splits of the data as I just
+
+said. And now, we're going to
+
+pre-process. And there's a little helper
+
+here. This is why we did the
+
+installation from the IBM library.
+
+There's a time series prep-processor and
+
+it's going to help us to pre-process
+
+according to our columns that we've
+
+defined and it's also going to do
+
+scaling of the data. So here we're using
+
+SC standard scaling which means we are
+
+subtracting the mean of the data and
+
+then dividing by the standard deviation.
+
+This is going to be good if the data is
+
+roughly normally distributed. I'm not
+
+saying this data is normally
+
+distributed. So maybe it's not the best
+
+choice. If you wanted something a bit
+
+more robust, you could use something
+
+like IQL, interquartile range, which
+
+will use the quartiles and is more
+
+agnostic to the shape of the
+
+distribution. Um, later we're just going
+
+to do mean scaling, which means there's
+
+no scaling of the width of the
+
+distribution. And all of that variance
+
+in the width has to be modeled. It has
+
+to be captured by the model itself. So
+
+depending on the type of scaling you do,
+
+you're basically putting more load on
+
+the model to be able to um to cover up
+
+for that or not. Typically at a minimum
+
+you do mean scaling. The other nice
+
+thing about mean scaling is it maintains
+
+zeros. So any zero in the original data
+
+set when you divide by the mean will
+
+still be zero. By contrast in standard
+
+scaling you will always subtract the
+
+mean from each data point. So any zeros
+
+in the data are going to move uh usually
+
+to negative data points if the mean is
+
+positive. And often there's a specific
+
+meaning to zero. for example, zero uh in
+
+the case of operations or outages. That
+
+just means nothing is happening and
+
+there might be a lot of zeros in your
+
+data set and keeping it at zero can
+
+often be a good idea and that's why mean
+
+scaling can be nice because it has that
+
+property. Okay, so we've processed the
+
+standard um we've processed the data set
+
+here. We've got about 8,000 training
+
+rows and 1,000 validation and test rows.
+
+Okay, next um I'm going to define this
+
+function here called compute
+
+metrics. It's basically allowing me to
+
+calculate uh a few of the parameters we
+
+care about like the mean average error
+
+which is calculated by taking the
+
+average difference between the forecast
+
+and the ground truth. Then there's the
+
+root mean squared error which is a a
+
+squared version of the error. And then
+
+there's the mean average percentage
+
+error which is the percentage error at
+
+each time step uh then averaged across
+
+that interval. So I've calculated
+
+compute metrics uh you'll see where we
+
+use that later on. And I'm also going to
+
+and when I say calculate I mean I've
+
+defined a function and I'm also going to
+
+define a function here to evaluate uh
+
+and visualize the data. And the way
+
+we'll evaluate this is uh kind of
+
+different to a lot of my other videos.
+
+We're going to make use of the trainer
+
+uh to run the evaluation. So we'll set
+
+up a trainer with a given model with um
+
+training arguments which really are just
+
+the output directory and uh the label
+
+names which uh we're just making up to
+
+be future values. And we'll get
+
+predictions by running trainer.predict
+
+on the test data set. And we'll take
+
+those predictions and we will then uh
+
+rescale them. So we're going to use the
+
+inverse
+
+transform method as defined uh in
+
+compute metrics. So we need to to match
+
+that and we're going to scale them back
+
+to the original values because remember
+
+the model is working with uh normalized
+
+values and then we'll compute the
+
+metrics that we care about
+
+here. Now this is kind of nice that
+
+there's a library from IBM that allows
+
+us to define the scaling because it
+
+means we can use the same scaler uh for
+
+both scaling and for inverse transform.
+
+So that's for normalizing and um
+
+backwards normalizing to get back to the
+
+original. And it's always good to use
+
+the same library because that means
+
+you're not going to make mistakes in
+
+having a different transform in each
+
+direction. Unfortunately, we don't have
+
+that when it comes to Kronos, at least
+
+not the way I did it. Um but we'll find
+
+a way to figure it
+
+out. Okay, so we've defined that
+
+evaluation and now we're going to do
+
+zeroot evaluation. So we're taking this
+
+um electrical transformer model patch
+
+tst model and we're going to then use it
+
+and see if we can predict um the demand
+
+of the Irish grid. Now there's one other
+
+change we have to make because that
+
+model by default takes in seven
+
+channels. So it's actually predicting
+
+seven attributes of those electrical
+
+transformers whereas we're only trying
+
+to predict one single attribute which is
+
+just the demand. So we're going to have
+
+to change the
+
+configuration to just uh use one input
+
+column. Now there's no mixing between
+
+the columns. So this isn't going to
+
+cause any loss in accuracy. Uh we'll
+
+pass in that modified configuration. So
+
+we just have one column that's being
+
+treated. We'll pass in the base model
+
+name which is this IBM granite model.
+
+We'll move the model to the device which
+
+is MPS for Mac. And we will move it into
+
+the data type which I think it'll be
+
+float 32 uh right here. So I think I've
+
+run all of
+
+these. Um I've basically loaded the
+
+model. Now if you wanted to you could at
+
+this point decide to print the
+
+model and see the architecture. So you
+
+can see here it is a transformer model.
+
+We have a
+
+patchifier and then we have an encoder
+
+which has um an embed a positional
+
+encoder and then it has layers. So it
+
+looks like it has three
+
+layers and those three layers have got
+
+attention and they've got these uh
+
+linear layers with GU. These are kind of
+
+MLPS, multi-layer
+
+perceptrons. And then we have the head,
+
+the prediction head. This takes the
+
+embeddings at the top of the model. It
+
+flattens them out and then uses a linear
+
+layer uh to predict the outputs. And you
+
+can see this model, it actually predicts
+
+96. So the paper has got a default of 64
+
+outputs. This IBM model has got 96. And
+
+the model we're going to train is just
+
+going to have 24 cuz we want 24 uh
+
+hours. All right. So we can uh evaluate
+
+and looks like we've hit some kind of
+
+error and yeah the input sequence length
+
+length doesn't match the model
+
+configuration and that's because um the
+
+data that I set up has got uh it's got
+
+inputs of one week of data but we can
+
+fix that actually by uh padding the
+
+data and yeah actually let's pre-process
+
+with padding
+
+instead. Okay, so we've pre-processed
+
+with padding. Print the model and
+
+evaluate. And you can see that has fixed
+
+the
+
+issue. So yeah, we actually do need to
+
+pad because the way I've set things up
+
+is I'm just using inputs of 168 data
+
+points, but the model expects
+
+512. So I need to do padding. And you
+
+can see even with that padding of the
+
+left hand side, the model is, you know,
+
+pretty good. This is just visualizing
+
+one specific output. Uh but you can see
+
+that it's definitely representing the
+
+shape a little bit. Sometimes
+
+overpredicting, sometimes
+
+underpredicting and the mean average
+
+percentage error here is about uh 7%.
+
+The absolute error is about 378 megawatt
+
+uh relative to a mean value of somewhere
+
+around uh 4,000 to 4 and a half
+
+thousand. So this is um the evaluation.
+
+We actually have the stats as well
+
+across the full test set.
+
+Um actually I don't think this is the
+
+full test set. This is probably just the
+
+evaluation over that single data point.
+
+Um no actually this is this is uh a
+
+summary of the results across that full
+
+test set and then we just plot uh the
+
+first sample idx here. So you can see
+
+the error, you know, 7%. But this is
+
+pretty impressive given that it's a
+
+temperature, it's a it's an electrical
+
+transformer model that we've then
+
+applied uh to predicting the power
+
+demand of the Irish grid. But let's see
+
+now if we can do better than that. And
+
+let's see if we can do better by uh
+
+fine-tuning the model or rather training
+
+it. Now I say um training the model,
+
+pre-training or doing it from scratch.
+
+And that is true because here uh I'm
+
+actually loading just a base
+
+configuration and defining a raw model
+
+with random
+
+weights. Um whereas you could actually
+
+try and load the model from the
+
+electrical transformer and maybe that
+
+would give some kind of benefit or speed
+
+up, but I'm actually training from
+
+scratch here. So, I'm going to go up to
+
+the top of my
+
+script, and I'm going to change this
+
+um because I want now to have a model
+
+that is going to be for a context length
+
+of 168 and for a forecast horizon of
+
+24. And I'll keep the patch length the
+
+same. My batch size for training will be
+
+32. And my number of workers, uh number
+
+of CPU cores used for data processing is
+
+eight. It's going to be really fast. So,
+
+you could just set that to one. It will
+
+be fine as
+
+well. So, I'll set that. Load the data.
+
+Um, I'm not going to do any
+
+pre-processing with padding. That's not
+
+needed because my model is now going to
+
+expect 168. Define compute
+
+metrics. Uh, define the
+
+evaluation. And now I'm going to uh
+
+instantiate my model. So for that I'm
+
+going to define a patch tst model that
+
+has these parameters here. You can see
+
+for example the embedding dimension or
+
+the model dimension is 128. That's the
+
+width of the matrices. If you make that
+
+larger you're making a bigger model. The
+
+number of attention heads, the number of
+
+hidden
+
+layers. Uh um I think that's the feed
+
+forward network dimension. Uh dropout
+
+means some of the weights will randomly
+
+be dropped and forward passes to try
+
+avoid overfitting. some of the heads
+
+will be dropped out 20% at the time. And
+
+um yeah, there's one parameter here
+
+called channel attention. And this is
+
+the parameter that you set to
+
+true if you want uh channel
+
+mixing generally causes
+
+overfitting. So yeah, just be aware of
+
+that. But this is where you would allow
+
+the inputs to kind of interact if you
+
+want to have the interactions affect
+
+your prediction.
+
+For the loss, we're using mean squared
+
+error and um yeah, we're using porm and
+
+norm type. The batch norm is apparently
+
+better than layer norm uh for these um
+
+time series models, but I haven't looked
+
+too much into it. Okay, so once we've
+
+defined the configuration, we load the
+
+model. We move it to our device and we
+
+move it to our data type should be float
+
+32. And yeah, we're running an MPS in
+
+float 32. Now, at this point, if you had
+
+a pre-trained model, which by the way,
+
+you could load by running this line
+
+instead, which would just directly load
+
+the base model. So, if you had directly
+
+loaded the base model, you could decide
+
+to add a Laura adapter. Why would you do
+
+that? It will train faster, but that's
+
+not a big deal cuz it's a tiny model.
+
+But also, Laura tends to overfit less.
+
+So, you might want to use Laura. You
+
+would do that by um importing the Laura
+
+configuration, defining which layers you
+
+want to target with these adapter these
+
+adapter
+
+matrices and defining what the rank is,
+
+the Laura alpha, the dropout. So this
+
+isn't something I've tested just because
+
+the model is small and typically you can
+
+just run full fine
+
+tuning. So here we'll run with the
+
+training arguments. We'll use a learning
+
+rate of 1 e minus 4. We're going to
+
+train for five epochs. I think I just
+
+took the defaults for this. It's kind of
+
+a surprisingly low learning rate given
+
+the model is so tiny, but um yeah, seems
+
+to work fine. Batch size is 32. Um we're
+
+going to save every epoch the model.
+
+We'll log every epoch as well. We'll
+
+load the best model at the end. Now,
+
+there's an interesting way this is set
+
+up, and it's an interesting idea I could
+
+use for later videos, too. Basically,
+
+this is using an early stopping call
+
+back. though it's going to train the
+
+model until there's no improvement in
+
+the evaluation loss. So you could put
+
+this number of epochs to something much
+
+larger like I think 100 is the default
+
+and it won't actually run 100 because
+
+it'll just plateau and then it'll
+
+automatically stop. So that's kind of a
+
+cool feature but I've just hardcoded it
+
+to stop at 5
+
+epoch. So with that we'll run the
+
+training and running on Mac here. It
+
+will take a little bit of time and yeah
+
+just while that's running uh once it
+
+does run we'll get the output from
+
+running trainer predict which is just
+
+running uh a prediction on the test data
+
+set and we'll check the output shape.
+
+The output shape should be the number of
+
+rows in the training data set times the
+
+number of predictions which is 24 is
+
+that's what we asked for and then times
+
+one because we're just predicting one
+
+time series. So we check that's correct.
+
+Uh we will save the model. Then you
+
+could optionally push it up to hugging
+
+face and then we'll re-evaluate it just
+
+by running that evaluation function from
+
+earlier. And what we're going to find uh
+
+spoiler alert here is that we do get a
+
+significant improvement. So we were at I
+
+think 7% and now we will hopefully be
+
+down somewhere around uh 3% for the mean
+
+average percentage error. Now just a
+
+warning mean average percentage error
+
+can be quite noisy. If there are any
+
+predictions that are close to zero, then
+
+you get very wide variance in the error
+
+at that point. And so it can affect your
+
+mean average. So you could look at it
+
+instead at the mean average error, which
+
+is an absolute value 14 uh one. And
+
+yeah, I mean it's it's really doing a
+
+good job here of of following the
+
+pattern. Um, and the error is is pretty
+
+low. So what I'll do is I'll just let
+
+that run out. I'll uh make sure to press
+
+enter on these lines
+
+here. I'll save the model and run a
+
+re-evaluation. And we can see in the
+
+meantime we will soon have run one uh
+
+evaluation. I'm going to start up
+
+tensorboard. I should have pointed out
+
+that in the training uh configuration
+
+here I think I have report to
+
+tensorboard. Um do I have it? No, I
+
+actually don't have it set up. I'll show
+
+you tensorboard in the next script. But
+
+if you do want uh tensorboard, you would
+
+just put in report 2 tensorboard like
+
+this. And you would also need to install
+
+tensorboard. So you do uvp piped install
+
+tensorboard
+
+q. And by the way, if you're running on
+
+runpod or something, you'd put in system
+
+to install it on the system. Just
+
+running this uh will run
+
+it in the virtual environment. And yeah,
+
+this is your uh logging directory here.
+
+So it'll be this directory here. So if
+
+you want to run TensorBoard, I'll just
+
+write it down here. You would basically
+
+do um UV run in your in your
+
+terminal. UV run TensorBoard and then
+
+log dear. And then you need to point to
+
+that logging directory. Also something I
+
+like doing if I'm logging to TensorBoard
+
+is I like putting in kind of a run name
+
+here. often I'll you know hardcode some
+
+manual run name or else put in the time
+
+and the date uh just so that you have a
+
+different folder for each of the runs
+
+that you want to put in. So what I'll do
+
+is um I'll just leave commented out for
+
+now the use of tensorboard and you'll
+
+see exactly how I use it in the other
+
+script. Okay. So yeah in the meantime
+
+you can see an output here. Uh we have
+
+the training loss the validation loss
+
+training loss is lower than validation
+
+which is generally a good thing.
+
+Um and well not a good thing but an
+
+expected thing. If the validation is a
+
+lot lower than the training loss then it
+
+means your data is very uh unevenly
+
+distributed. Somehow you're performing
+
+better on the eval split. But we can
+
+already see that the both are falling
+
+and the mean average error is falling as
+
+well. All the metrics are falling here
+
+and from the value of seven you can see
+
+that we're going down and we'll probably
+
+end up somewhere around three.
+
+So yeah, this is um a quick demo of how
+
+the patch tst model works. I'm going to
+
+move on and show you now uh the very
+
+same but for the Kronos model where we
+
+can do zero shot and hopefully get a lot
+
+better performance and then I'll even
+
+fine-tune uh the Kronos model as
+
+well. So let's move over now to the
+
+Kronos folder and open up Kronos
+
+training.
+
+And just as I did for patch tst, you
+
+want to set up a virtual
+
+environment. Make sure you install um a
+
+kernel within the virtual environment
+
+and then you'll be able to select it up
+
+here. So I'll select Kronos and we'll
+
+work through the notebook. So few things
+
+here in this notebook. We'll load the
+
+data uh prepare the splits and visualize
+
+a forecast zeroot. We'll prepare uh for
+
+training. Um, we have to prep the data
+
+and after preparing for training, we
+
+will be able to run an
+
+evaluation which uh we should see right
+
+here. Yeah. So maybe I'll even just add
+
+in a quick
+
+section here that just
+
+says run
+
+evaluation. And yeah, now we have a few
+
+nice sections within the notebook.
+
+So the very start uh we're going to run
+
+an installation. We need to install uh
+
+Kronos forecasting. Uh that's an Amazon
+
+library also parameter efficient
+
+finetuning. So we're doing Laura
+
+transformers accelerate data sets. We'll
+
+use hooking face data sets. Um evaluate
+
+bits and bites and TQDM which uh shows
+
+you progress progress bars. So we'll run
+
+that. I think I've already installed it.
+
+I can run it again. And next we'll
+
+select our device. So same as last time
+
+MPS it'll be float 32. I think actually
+
+that brain float 16 might be supported
+
+or supported kind of indirectly. So
+
+right now I'm defaulting to float 32 if
+
+it's not on CUDA.
+
+Um by the way if you're in um if you're
+
+in a T4 you can't use brain float. You
+
+have to use float 16. Um so just a note
+
+there. T4 is like the free collab
+
+notebook or
+
+Kaggle. Next, we'll define the CSV path,
+
+the time stamp column, the target
+
+column. The context length and forecast
+
+rising will keep the same. The training
+
+and validation fraction will keep the
+
+same. Um the patch length here is
+
+actually irrelevant because there is no
+
+patch. The batch size 32 and the number
+
+of workers will be eight. So here we're
+
+going to read in the data set. This is
+
+actually the exact same as the other
+
+notebook. We're just loading up and
+
+splitting the data set so that the last
+
+part is the test data, the most recent.
+
+Then we have the eval, and then the
+
+earliest history, 80% is going to be the
+
+training data. And what we're going to
+
+do is create um shorter examples then
+
+that are of length 168, which is the
+
+input, plus 24, which is the forecast
+
+length. So 192. We basically have these
+
+long uh chunks of data, and we need to
+
+split that into smaller examples. And
+
+the way we do that is by taking um
+
+basically taking a window of 192 and
+
+sliding across it uh with a stride of
+
+one. Now we don't have that much data so
+
+we use a stride of one. If we had a lot
+
+more data maybe you could use larger
+
+strides because there would be just a
+
+lot of redundancy in the data. But when
+
+you don't have a lot of data you can use
+
+a smaller stride. And so we have a
+
+function here called create data sets
+
+that's taking in uh the data frames.
+
+It's taking in information on the
+
+context length and the forecast horizon.
+
+That's the one um the 160 uh 168 + 24 so
+
+192 total and then striding by a stride
+
+of one. So we can run that and it's
+
+going to convert it into now um data
+
+sets. So we have a data set for training
+
+which is about 7,000 rows each of them
+
+192 uh numbers in it. Then uh about
+
+a,000 rows for validation and a thousand
+
+then for the test as well. So next we're
+
+going to load the data
+
+um or rather I've already loaded the
+
+data. So we're going to um load the
+
+model and visualize a forecast. The
+
+model's going to be Kronos T5 small. You
+
+could try out a larger model if you want
+
+to see better performance or a smaller
+
+one if you want um faster performance.
+
+So we can load up the model. Make sure
+
+that mattplot lib is installed so we can
+
+visualize.
+
+uh we'll define a general generate and
+
+visualize
+
+function. Uh so this is going to create
+
+a tensor for the context. So that's the
+
+168 inputs. Create a t tensor for the
+
+output and pass them in to a pipeline
+
+for prediction. So this is a function
+
+here the pipe that has taken in the
+
+model. You can see the pipe is defined
+
+earlier. In fact, it's just passed into
+
+this generation visualize. We'll see how
+
+the pipe is defined. And then we
+
+forecast using pipe.predict. predict and
+
+we can calculate some of the values here
+
+the different ones we like like mean
+
+average error and then we can plot now
+
+here I'm just doing it on one single
+
+data point so I'm not doing it on the
+
+full uh test data set so just be aware
+
+of that I'm just running a quick
+
+example and here I'm going to um
+
+evaluate so I'm actually running the
+
+function above now but passing in pipe
+
+and we'll just take a look at uh where
+
+pipe is defined and yeah you can see
+
+actually when I loaded the model
+
+um the model is being loaded through the
+
+pipe. So you pass the model ID into
+
+pipe. It's a Kronos pipeline. You need
+
+to define the model uh the device and
+
+also the the torch DT type the torch
+
+data
+
+type. So with that we can run generation
+
+and this is just running generation on
+
+one example and yeah I've chosen the
+
+first example in the training data set
+
+and here we go. You can see our mean
+
+average percentage error is
+
+1%. Um, and this is zero shot. So, we
+
+haven't even trained the Kronos uh small
+
+model, but we have very good
+
+performance. And furthermore, you'll
+
+remember Kronos can do um it can do the
+
+confidence interval because it's
+
+predicting a distribution over buckets.
+
+So, this is the 80% confidence interval
+
+and pretty much uh all of the actual
+
+values are falling within that 80%
+
+confidence interval. So this shows you
+
+how well the model is doing when um you
+
+just have zero shot on Kronos. It's not
+
+even fine-tuned for this specific
+
+application. Now Kronos is trained
+
+across a very wide variety of
+
+applications. Time series for I think
+
+traffic, healthcare, uh power, maybe
+
+finance. It's got a very wide range of
+
+data and that's why it's able to
+
+generalize quite
+
+well. So with that done, we'll see if we
+
+can improve performance more by doing
+
+some training. So to prepare for
+
+training um we will need the tokenizer
+
+to help us um format the data. Basically
+
+we will take the tokens we need to or
+
+take roer the numbers the quantized
+
+numbers convert them into tokens and
+
+then we will need to prepare the tokens
+
+into the proper arrays with some
+
+beginning of sequence and end of
+
+sequence tokens. Uh so just here I'm
+
+going to make sure the tokenizer has got
+
+the correct forecast horizon and context
+
+length. It's actually a bit surprising
+
+to me that's defined in the tokenizer,
+
+but um it is. So I need to update those.
+
+If you want to learn more about the
+
+tokenizer, you can print and then help
+
+and then
+
+tokenizer. Uh this is helpful just
+
+because it tells you what different
+
+functions are available, notably label
+
+input transform. This is the
+
+transformation to do the quantization
+
+and um the context input transform. So
+
+these are going to be useful. Output
+
+transform then is to reverse that. So
+
+we're going to be able to make use of
+
+these uh when we want to uh tokenize or
+
+detokenize. So then I've got a function
+
+here to process the data set. And yeah,
+
+what this is doing is it's splitting and
+
+encoding each example. So it's taking
+
+each of those 192, splitting up the 168
+
+and the 24, and then it's encoding the
+
+first part so it can go into the encoder
+
+because this is a T5 model. And then
+
+it's encoding um as well the second part
+
+uh the labels cuz that's basically what
+
+we're going to measure um the cross or
+
+rather yeah the cross entropy on. So
+
+we're going to get some outputs from the
+
+model and compare those to the tokenized
+
+um tokens that will come from the
+
+decoder. So I'll run this uh here the
+
+prepared data set. We're going to run it
+
+on the training set and the validation
+
+set and the test set and should just
+
+take a few moments. And we have a data
+
+set here of about 8,000 1,000
+
+1,000. And now we need to handle padding
+
+and batching. So if there are any
+
+sequences that are less than the
+
+required 168, we will left pad them. And
+
+we also will uh make sure that we have
+
+batches that are going to contain the
+
+input IDs attention mask. Um because
+
+this is auto reggressive. It's a causal
+
+model that can only look backwards. It's
+
+not able to see future tokens. Um and it
+
+also needs to have labels because that's
+
+how we evaluate the cross entropy loss.
+
+And we can now move on to training. So
+
+we basically have the data set ready. We
+
+have a data collater defined uh which is
+
+going to take the data and feed it into
+
+the trainer. Uh we are now going to load
+
+a model and this is uh the base model.
+
+So it's the same model we ran
+
+already. We're going to make sure the
+
+model has got the context length and
+
+forecast horizon defined as we want. Uh
+
+so we set those here. And now we're
+
+going to
+
+evaluate the model. So I did show you an
+
+example up here just on one example.
+
+This is just the first uh data set
+
+point. But actually I want to get the
+
+metrics across the full training set. So
+
+I'm going to run a valuation on the full
+
+uh test data set rather just so we have
+
+a baseline of what the um the mean
+
+average error is so we can compare it
+
+before and after
+
+training. Now while that's running,
+
+we'll apply Laura. So, we're going to
+
+take the model and we're going to apply
+
+adapters. We'll apply adapters to these
+
+uh target modules here. If you want to
+
+check out and figure out the names that
+
+you should use for the target modules,
+
+you should print the model like this.
+
+And when that prints out, it will show
+
+us these names. And we'll find that we
+
+can train these modules. You can also
+
+train the embeddings. I don't think
+
+training the embeddings is necessary
+
+here cuz we're not changing the
+
+tokenizer. But if you did change maybe
+
+how you're normalizing to a log basis or
+
+exponential basis something very
+
+different than the normalization used
+
+for training um for pre-training the
+
+model which was mean norm then you might
+
+want to pre-train or retrain uh the
+
+embedding
+
+layers. So embed tokens in lm head which
+
+is the reversal of the embeddings at the
+
+top of the
+
+model. So with the Laura adapters
+
+applied and training these um these
+
+embed tokens in LM head about 15% of the
+
+total parameters will be trainable. The
+
+backbone of the model is
+
+frozen and we can move on to training.
+
+So we're going to train um with a
+
+cosignuler. So the training rate will
+
+fall during training starting at 3 e
+
+minus 3 batch size of 32. We'll just
+
+train for one epoch and we will log uh
+
+every 50 steps. we will evaluate every
+
+20% of the full run. And yeah, I've got
+
+25 warm-up steps here. That's probably
+
+not important. And here you can see I'm
+
+passing in the training and the
+
+validation data set. And um that should
+
+instantiate the trainer so that we're
+
+ready to run a training here. And you
+
+can see I've run this already with the
+
+training. You can see how the training
+
+loss uh goes down here 1.92 all the way
+
+to 1.45. And the validation loss
+
+unfortunately does not decrease that
+
+much. goes from 1.72 to
+
+1.67. If you check uh the values here of
+
+the mean average percentage error, it is
+
+going down. So that's good. Um the mean
+
+average error is going down as well. But
+
+yeah, really the performance is not
+
+improving all that
+
+much. Um if you want at this point you
+
+can uh look at the training dynamics
+
+because you can see I've reported to
+
+tensorboard. So if you move to the uh
+
+Kronos folder like this, you can do UV
+
+run
+
+tensorboard and then log deer logs. And
+
+if I open up
+
+tensorboard, I should be able to see
+
+some of the runs uh from
+
+yesterday. I think one of the last runs
+
+was probably
+
+uh this one here. So you can see the
+
+eval loss uh is falling, but it's
+
+falling very slowly. Um you can check
+
+all of the losses here are falling but
+
+they're falling very slowly. The
+
+gradient norm uh should be showing here.
+
+Always you want this to be low below
+
+about one. So the training is stable and
+
+here you can see uh training loss. Um so
+
+yeah here are some examples of the
+
+training loss curves. Again this is
+
+falling meaningfully but unfortunately
+
+not really translating to the validation
+
+loss. So if we go back here to the model
+
+uh we can save the model optionally push
+
+it to hugging face and then we can run
+
+evaluation again on the test data set.
+
+Uh we can run it just on index zero for
+
+visualization. And here you can see the
+
+mean average percentage error is 1.78.
+
+It's actually higher than what we got
+
+above which was one. But this is just
+
+one data point. So you don't want to
+
+base your judgment on one data point.
+
+You want to base it on the full uh test
+
+data set of about 1,000 points. So for
+
+that we can run uh the evaluation on the
+
+test data set and we can see what kind
+
+of performance and yeah
+
+um based on that we're seeing the mean
+
+average percentage error is about uh
+
+2.87 which is to be compared to the mean
+
+average percentage error that we ran uh
+
+just before doing the training which you
+
+can see here is uh
+
+2.88. So there's a very small
+
+improvement in performance from if you
+
+take me 119.15
+
+uh to 118.68. So I don't even think
+
+that's statistically significant.
+
+Perhaps if we had more data. So I've
+
+just trained on say one and a quarter
+
+years. Maybe if you trained on 5 years
+
+you might be able to improve that a bit
+
+more. But on the other hand, because
+
+this model is so general, um it probably
+
+is able to generalize in a way that's
+
+very strong and adding this fine-tuning
+
+data is not really helping a lot more.
+
+Um because if we were to force fit it,
+
+it might even disimprove performance uh
+
+if the model starts to
+
+overfit. So yeah, in the meantime, I
+
+think I can show you uh some of those
+
+results from that evaluation. In fact, I
+
+just did the evaluation completed and
+
+yeah, it was uh 2.88. So basically on
+
+the Kronos model it performs very
+
+strongly just on zeroot. You can
+
+consider fine-tuning maybe if you have a
+
+lot of data that makes sense or if your
+
+model is from a domain that may not be
+
+included in Kronos. Kronos probably
+
+includes uh some electrical demand data
+
+already and that's maybe why it's
+
+performing well. So you may or may not
+
+see all that much improvement. Certainly
+
+not as much improvement as the patch uh
+
+tst model. Now, just let's go back to
+
+the patch tst model because I was still
+
+running the evaluation when we finished
+
+that off and we can check our results
+
+here now. Uh, we
+
+reran on the fine-tuned model and yeah,
+
+we got down to 3.28. That just matches
+
+um the run that I showed from earlier um
+
+pretty much. So, you can see the
+
+performance going to 3.28 28 rather than
+
+the earlier performance which I should
+
+have which I have here in the zeroot
+
+evaluation of uh 7.29. So yeah,
+
+basically using the electrical
+
+transformer model which is off domain
+
+got you 7.29 but pre-training from
+
+scratch uh got us down to around 3%. So
+
+we got a significant improvement in the
+
+patch uh tst
+
+model. And that rounds up the overview
+
+of patch tst and Kronos. I think the
+
+performance is uh quite impressive on
+
+both of the models. Patch tst
+
+significantly faster. I could see it
+
+having benefits if you need to run a lot
+
+of forecasts very quickly. But Kronos on
+
+the other hand, I think very
+
+generalizable if you need to quickly
+
+assess whether forecasting is going to
+
+work well with transformers. probably
+
+running the Kronos model um is going to
+
+make a lot of sense especially because
+
+you can try out the model at different
+
+sizes and see if you can improve
+
+performance uh while trading off latency
+
+on that front. I'll put a link to the
+
+materials I covered today in the
+
+description and you can find the scripts
+
+if you want to purchase repo access on
+
+trellis.com/advanced-times. And in the
+
+meantime, if you have any questions, as
+
+usual, put them down below in the
+
+comments. Cheers.

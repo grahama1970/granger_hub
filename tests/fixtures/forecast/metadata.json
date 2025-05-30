@@ -1,0 +1,65 @@
+{
+  "generated_at": "2025-05-29T11:16:07.171765",
+  "datasets": {
+    "temperature_hourly.csv": {
+      "description": "Hourly temperature data with daily seasonality",
+      "frequency": "hourly",
+      "columns": [
+        "timestamp",
+        "temperature",
+        "hour",
+        "day_of_week"
+      ],
+      "records": 720
+    },
+    "sales_daily.csv": {
+      "description": "Daily sales with weekly patterns and growth trend",
+      "frequency": "daily",
+      "columns": [
+        "date",
+        "sales",
+        "day_of_week",
+        "is_weekend"
+      ],
+      "records": 90
+    },
+    "stock_prices.csv": {
+      "description": "Stock prices with realistic volatility",
+      "frequency": "business_daily",
+      "columns": [
+        "date",
+        "close",
+        "returns",
+        "high",
+        "low",
+        "volume"
+      ],
+      "records": 252
+    },
+    "website_traffic.csv": {
+      "description": "Hourly website traffic with daily/weekly patterns",
+      "frequency": "hourly",
+      "columns": [
+        "timestamp",
+        "visitors",
+        "hour",
+        "day_of_week",
+        "is_weekend"
+      ],
+      "records": 720
+    },
+    "energy_consumption.csv": {
+      "description": "Daily energy consumption with seasonal patterns",
+      "frequency": "daily",
+      "columns": [
+        "date",
+        "consumption_mwh",
+        "temperature",
+        "day_of_week",
+        "month",
+        "is_weekend"
+      ],
+      "records": 365
+    }
+  }
+}
