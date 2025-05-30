@@ -10,7 +10,6 @@ from .example_modules import DataProducerModule, DataProcessorModule, DataAnalyz
 from .screenshot_module import ScreenshotModule
 from .browser_automation_module import BrowserAutomationModule
 from .browser_test_module import BrowserTestModule
-from .pdf_navigator_module import PDFNavigatorModule
 
 __all__ = [
     "BaseModule",
@@ -23,6 +22,5 @@ __all__ = [
     "OrchestratorModule",
     "ScreenshotModule",
     "BrowserAutomationModule",
-    "BrowserTestModule",
-    "PDFNavigatorModule"
+    "BrowserTestModule"
 ]

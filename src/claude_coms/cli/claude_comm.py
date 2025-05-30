@@ -593,65 +593,105 @@ def pdf(
     file: Path = typer.Argument(..., help="Path to PDF file"),
     page: int = typer.Option(1, "--page", "-p", help="Page number to navigate to"),
     extract_tables: bool = typer.Option(False, "--tables", "-t", help="Extract tables from page"),
-    annotate: bool = typer.Option(False, "--annotate", "-a", help="Annotate tables in screenshot"),
-    output_dir: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory for screenshots")
+    claude_config: str = typer.Option("disabled", "--claude-config", "-c", 
+                                    help="Claude config: disabled, minimal, tables_only, accuracy, research"),
+    output_format: str = typer.Option("json", "--format", "-f", help="Output format: json, markdown"),
+    output_dir: Optional[Path] = typer.Option(None, "--output", "-o", help="Output directory")
 ):
-    """Navigate PDF pages, take screenshots, and extract tables."""
-    from ..core.modules import PDFNavigatorModule
+    """Process PDF pages using Marker integration for table extraction."""
+    from ..core.adapters import MarkerAdapter, AdapterConfig
     
-    console.print(f"[cyan]PDF Navigator[/cyan] - Processing {file}")
+    console.print(f"[cyan]PDF Processing via Marker[/cyan] - {file}")
     
     if not file.exists():
         console.print(f"[red]Error:[/red] PDF file not found: {file}")
         raise typer.Exit(1)
     
     async def _process_pdf():
-        module = PDFNavigatorModule()
+        # Create adapter
+        config = AdapterConfig(name="marker-pdf", protocol="marker")
+        adapter = MarkerAdapter(config)
         
-        # If output directory specified, change working directory
-        if output_dir:
-            output_dir.mkdir(parents=True, exist_ok=True)
-            import os
-            os.chdir(output_dir)
+        # Connect to Marker
+        if not await adapter.connect():
+            console.print("[red]Error:[/red] Could not connect to Marker. Is it installed?")
+            raise typer.Exit(1)
         
         try:
-            result = await module.process({
-                "action": "navigate",
-                "file": str(file.absolute()),
+            # Set output directory
+            if output_dir:
+                output_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Determine action based on options
+            if extract_tables:
+                action = "extract_tables"
+                console.print(f"[yellow]Extracting tables from page {page}...[/yellow]")
+            else:
+                action = "extract_page"
+                console.print(f"[yellow]Extracting page {page}...[/yellow]")
+            
+            # Send request to Marker
+            result = await adapter.send({
+                "action": action,
+                "file_path": str(file.absolute()),
                 "page": page,
                 "extract_tables": extract_tables,
-                "annotate": annotate
+                "claude_config": claude_config
             })
             
             if result.get("success"):
-                console.print(f"[green]✓[/green] Successfully navigated to page {page}")
-                console.print(f"[green]Screenshot saved:[/green] {result['screenshot']}")
+                console.print(f"[green]✓[/green] Successfully processed page {page}")
                 
-                if result.get("tables"):
-                    console.print(f"\n[cyan]Found {len(result['tables'])} table(s):[/cyan]")
-                    for i, table in enumerate(result['tables']):
+                # Display metadata
+                metadata = result.get("metadata", {})
+                console.print(f"[cyan]Extraction method:[/cyan] {metadata.get('extraction_method', 'marker')}")
+                console.print(f"[cyan]Claude config:[/cyan] {metadata.get('claude_config', 'disabled')}")
+                console.print(f"[cyan]Processing time:[/cyan] {result.get('latency_ms', 0):.1f}ms")
+                
+                # Display tables if found
+                tables = result.get("tables", [])
+                if tables:
+                    console.print(f"\n[cyan]Found {len(tables)} table(s):[/cyan]")
+                    for i, table in enumerate(tables):
                         console.print(f"\n[yellow]Table {i+1}:[/yellow] {table.get('title', 'Untitled')}")
-                        if table.get('location'):
-                            console.print(f"  Location: {table['location']}")
-                        if table.get('headers'):
+                        if table.get("confidence"):
+                            console.print(f"  Confidence: {table['confidence']:.2f}")
+                        if table.get("headers"):
                             console.print(f"  Headers: {', '.join(table['headers'])}")
-                        if table.get('rows'):
+                        if table.get("rows"):
                             console.print(f"  Rows: {len(table['rows'])}")
+                            # Show first few rows as preview
+                            for j, row in enumerate(table['rows'][:3]):
+                                console.print(f"    Row {j+1}: {' | '.join(str(cell) for cell in row)}")
+                            if len(table['rows']) > 3:
+                                console.print(f"    ... and {len(table['rows']) - 3} more rows")
                 
-                if result.get("annotated_screenshot"):
-                    console.print(f"\n[green]Annotated screenshot:[/green] {result['annotated_screenshot']}")
-                
-                # If tables were extracted, save them as JSON
-                if extract_tables and result.get("tables"):
-                    import json
-                    table_file = Path(result['screenshot']).with_suffix('.json')
-                    with open(table_file, 'w') as f:
-                        json.dump({
-                            "page": page,
-                            "tables": result['tables'],
-                            "page_context": result.get("page_context", "")
-                        }, f, indent=2)
-                    console.print(f"\n[green]Table data saved:[/green] {table_file}")
+                # Save output
+                if output_dir:
+                    if output_format == "json":
+                        output_file = output_dir / f"{file.stem}_page_{page}.json"
+                        with open(output_file, 'w') as f:
+                            json.dump({
+                                "page": page,
+                                "tables": tables,
+                                "content": result.get("content", {}),
+                                "metadata": metadata
+                            }, f, indent=2)
+                        console.print(f"\n[green]Output saved:[/green] {output_file}")
+                    else:
+                        # For markdown, use Marker's native output
+                        output_file = output_dir / f"{file.stem}_page_{page}.md"
+                        # Convert again with markdown format
+                        md_result = await adapter.send({
+                            "action": "convert_full",
+                            "file_path": str(file.absolute()),
+                            "output_format": "markdown",
+                            "claude_config": claude_config
+                        })
+                        if md_result.get("success"):
+                            with open(output_file, 'w') as f:
+                                f.write(md_result.get("output", ""))
+                            console.print(f"\n[green]Markdown saved:[/green] {output_file}")
                 
             else:
                 console.print(f"[red]✗[/red] Failed: {result.get('error', 'Unknown error')}")
@@ -659,6 +699,8 @@ def pdf(
         except Exception as e:
             console.print(f"[red]Error:[/red] {e}")
             raise typer.Exit(1)
+        finally:
+            await adapter.disconnect()
     
     try:
         asyncio.run(_process_pdf())

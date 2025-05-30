@@ -256,52 +256,65 @@ await browser_module.process({
 await browser_module.stop()
 ```
 
-### PDF Navigation and Table Extraction
+### PDF Processing via Marker Integration
+
+Claude Module Communicator integrates with [Marker](https://github.com/VikParuchuri/marker) for advanced PDF processing, leveraging Marker's sophisticated table extraction and AI-powered content analysis.
 
 ```python
-from claude_coms.core.modules import PDFNavigatorModule
+from claude_coms.core.adapters import MarkerAdapter, AdapterConfig
 
-# Create PDF navigator
-pdf_module = PDFNavigatorModule()
+# Create Marker adapter
+config = AdapterConfig(name="pdf-processor", protocol="marker")
+adapter = MarkerAdapter(config)
 
-# Navigate to page 42 and extract tables
-result = await pdf_module.process({
-    "action": "navigate",
-    "file": "document.pdf",
+# Connect to Marker
+await adapter.connect()
+
+# Extract tables from page 42
+result = await adapter.send({
+    "action": "extract_tables",
+    "file_path": "document.pdf", 
     "page": 42,
-    "extract_tables": True,
-    "annotate": True
+    "claude_config": "tables_only"  # Use AI for better accuracy
 })
 
 if result["success"]:
-    print(f"Screenshot saved: {result['screenshot']}")
-    
-    # Access extracted tables
-    for table in result.get("tables", []):
+    for table in result["tables"]:
         print(f"Table: {table['title']}")
+        print(f"Confidence: {table.get('confidence', 0):.2f}")
         print(f"Headers: {table.get('headers', [])}")
         print(f"Rows: {len(table.get('rows', []))}")
-        
-        # Table data includes inferred titles
-        if table['title'].startswith("Inferred:"):
-            print("Title was inferred from surrounding context")
 ```
 
-#### CLI Usage for PDF Navigation
+#### CLI Usage for PDF Processing
 
 ```bash
-# Navigate to page 42 and take screenshot
+# Extract page 42 with basic processing
 cmc-cli pdf document.pdf --page 42
 
 # Extract tables from page 42
 cmc-cli pdf document.pdf --page 42 --tables
 
-# Extract and annotate tables
-cmc-cli pdf document.pdf --page 42 --tables --annotate
+# Use Claude AI for better table extraction
+cmc-cli pdf document.pdf --page 42 --tables --claude-config tables_only
 
-# Save output to specific directory
-cmc-cli pdf document.pdf --page 42 --tables --output ./pdf_analysis/
+# High accuracy mode (slower but better results)
+cmc-cli pdf document.pdf --page 42 --tables --claude-config accuracy
+
+# Save output as JSON
+cmc-cli pdf document.pdf --page 42 --tables --output ./analysis/ --format json
+
+# Save as Markdown
+cmc-cli pdf document.pdf --page 42 --output ./analysis/ --format markdown
 ```
+
+#### Claude Configuration Options
+
+- `disabled` - No AI assistance (fastest)
+- `minimal` - Basic AI enhancement
+- `tables_only` - AI focused on table extraction
+- `accuracy` - High accuracy mode
+- `research` - Maximum quality (slowest)
 
 ### Graph Database Queries
 
