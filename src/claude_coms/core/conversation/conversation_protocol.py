@@ -12,7 +12,11 @@ from abc import abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
 
-from .conversation_message import ConversationMessage, ConversationState
+try:
+    from .conversation_message import ConversationMessage, ConversationState
+except ImportError:
+    # For standalone testing
+    from conversation_message import ConversationMessage, ConversationState
 
 
 class ConversationIntent(Enum):

@@ -1,0 +1,53 @@
+{
+  "name": "TestCacheArangodbV2",
+  "description": "Tests cache pattern. Based on research: Optimizing multi-agent system optimization with Re Based on research: Optimizing microservice performance patterns with ",
+  "category": "document_processing",
+  "modules": [
+    "arangodb",
+    "llm_call",
+    "marker"
+  ],
+  "workflow_steps": [
+    {
+      "from_module": "coordinator",
+      "to_module": "arangodb",
+      "content": {
+        "task": "process_cache"
+      },
+      "metadata": {
+        "step": 1,
+        "pattern": "cache"
+      }
+    },
+    {
+      "from_module": "arangodb",
+      "to_module": "llm_call",
+      "content": {
+        "task": "process_cache"
+      },
+      "metadata": {
+        "step": 2,
+        "pattern": "cache"
+      }
+    },
+    {
+      "from_module": "llm_call",
+      "to_module": "marker",
+      "content": {
+        "task": "process_cache"
+      },
+      "metadata": {
+        "step": 3,
+        "pattern": "cache"
+      }
+    }
+  ],
+  "optimization_notes": [],
+  "source_patterns": [
+    "cache",
+    "Optimizing multi-agent system ",
+    "Optimizing microservice perfor"
+  ],
+  "generated_at": "2025-06-01T12:04:30.669859",
+  "file_path": "tests/integration_scenarios/generated/document_processing/test_testcachearangodbv2.py"
+}

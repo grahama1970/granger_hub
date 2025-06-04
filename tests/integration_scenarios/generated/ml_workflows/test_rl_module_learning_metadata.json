@@ -1,0 +1,40 @@
+{
+    "test_name": "test_rl_module_learning",
+    "description": "Reinforcement Learning integration for intelligent module selection",
+    "category": "ml_workflows",
+    "patterns": ["reinforcement_learning", "adaptive_routing", "module_selection"],
+    "modules": ["pdf_processor", "general_processor", "fast_processor"],
+    "features": {
+        "uses_real_rl": true,
+        "learns_from_experience": true,
+        "adapts_to_changes": true,
+        "supports_offline_training": true
+    },
+    "requirements": {
+        "rl_commons": "git+https://github.com/grahama1970/rl_commons.git@master",
+        "numpy": ">=1.24.0"
+    },
+    "test_cases": [
+        {
+            "name": "test_rl_learns_module_specialization",
+            "description": "Tests that RL learns to route tasks to specialized modules",
+            "expected_behavior": "RL should learn PDF tasks go to pdf_processor, speed tasks to fast_processor"
+        },
+        {
+            "name": "test_rl_adapts_to_performance_changes", 
+            "description": "Tests that RL adapts when module performance degrades",
+            "expected_behavior": "RL should reduce selection of degraded modules"
+        },
+        {
+            "name": "test_offline_training_integration",
+            "description": "Tests offline training with collected experiences",
+            "expected_behavior": "Offline training should maintain or improve performance"
+        }
+    ],
+    "generation_info": {
+        "generated_date": "2025-06-01",
+        "generator_version": "1.0",
+        "manual_review": false,
+        "optimization_applied": "Real RL integration, no mocking"
+    }
+}

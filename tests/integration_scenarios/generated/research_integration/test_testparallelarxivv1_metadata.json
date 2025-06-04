@@ -1,0 +1,55 @@
+{
+  "name": "TestParallelArxivV1",
+  "description": "Tests parallel pattern. Based on research: Optimizing multi-agent system optimization with Re Based on research: Optimizing microservice performance patterns with ",
+  "category": "research_integration",
+  "modules": [
+    "arxiv",
+    "youtube_transcripts",
+    "llm_call"
+  ],
+  "workflow_steps": [
+    {
+      "from_module": "coordinator",
+      "to_module": "arxiv",
+      "content": {
+        "task": "analyze_parallel",
+        "parallel_group": 1
+      },
+      "metadata": {
+        "step": 1,
+        "pattern": "parallel"
+      }
+    },
+    {
+      "from_module": "coordinator",
+      "to_module": "youtube_transcripts",
+      "content": {
+        "task": "analyze_parallel",
+        "parallel_group": 1
+      },
+      "metadata": {
+        "step": 2,
+        "pattern": "parallel"
+      }
+    },
+    {
+      "from_module": "arxiv",
+      "to_module": "llm_call",
+      "content": {
+        "task": "aggregate_results"
+      },
+      "metadata": {
+        "step": 3,
+        "pattern": "aggregation"
+      }
+    }
+  ],
+  "optimization_notes": [],
+  "source_patterns": [
+    "parallel",
+    "Optimizing multi-agent system ",
+    "Optimizing microservice perfor"
+  ],
+  "generated_at": "2025-06-01T12:04:30.669605",
+  "file_path": "tests/integration_scenarios/generated/research_integration/test_testparallelarxivv1.py"
+}

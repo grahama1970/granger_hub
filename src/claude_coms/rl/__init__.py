@@ -1,50 +1,66 @@
-# claude_coms/rl/__init__.py
 """
-Reinforcement Learning components for Claude Module Communicator.
+RL Integration for Claude Module Communicator
 
-This package implements DeepRetrieval-style RL optimization for:
-- Communication route optimization
-- Schema adaptation learning  
-- Module selection policies
-
-Uses local Ollama server with qwen3:30b-a3b-q8_0 model for better performance.
+Provides functions for intelligent Hub routing using RL Commons.
+No mocks, no classes unless needed for state, functional approach.
 """
 
-from .rewards import CommunicationReward
-from .ollama_integration import OllamaClient, OllamaConfig, get_ollama_client, get_model_capabilities
+from claude_coms.rl.state_extraction import (
+    extract_task_state,
+    extract_pipeline_state,
+    extract_error_state,
+    extract_timeout_context
+)
 
-# Only import other components if available
-try:
-    from .episodes import CommunicationEpisode
-    from .graph_integration import GraphRLIntegration
-    EPISODES_AVAILABLE = True
-except ImportError:
-    EPISODES_AVAILABLE = False
-    CommunicationEpisode = None
-    GraphRLIntegration = None
+from claude_coms.rl.reward_calculation import (
+    calculate_reward,
+    calculate_module_selection_reward,
+    calculate_pipeline_reward,
+    calculate_resource_reward
+)
 
-# Only import verl components if available
-try:
-    from .verl_trainer import (
-        ModuleCommunicationRewardModel,
-        ModuleCommunicationTrainer
-    )
-    VERL_AVAILABLE = True
-except ImportError:
-    VERL_AVAILABLE = False
-    ModuleCommunicationRewardModel = None
-    ModuleCommunicationTrainer = None
+from claude_coms.rl.hub_decisions import (
+    initialize_rl_agents,
+    select_module_with_rl,
+    optimize_pipeline_with_rl,
+    allocate_resources_with_rl,
+    handle_error_with_rl,
+    record_decision_outcome
+)
+
+from claude_coms.rl.experience_collection import (
+    initialize_experience_db,
+    log_experience,
+    load_experiences,
+    train_agents_offline,
+    get_experience_statistics
+)
 
 __all__ = [
-    'CommunicationReward',
-    'CommunicationEpisode', 
-    'GraphRLIntegration',
-    'ModuleCommunicationRewardModel',
-    'ModuleCommunicationTrainer',
-    'OllamaClient',
-    'OllamaConfig',
-    'get_ollama_client',
-    'get_model_capabilities',
-    'VERL_AVAILABLE',
-    'EPISODES_AVAILABLE'
+    # State extraction
+    'extract_task_state',
+    'extract_pipeline_state', 
+    'extract_error_state',
+    'extract_timeout_context',
+    
+    # Reward calculation
+    'calculate_reward',
+    'calculate_module_selection_reward',
+    'calculate_pipeline_reward',
+    'calculate_resource_reward',
+    
+    # Hub decisions
+    'initialize_rl_agents',
+    'select_module_with_rl',
+    'optimize_pipeline_with_rl',
+    'allocate_resources_with_rl',
+    'handle_error_with_rl',
+    'record_decision_outcome',
+    
+    # Experience collection
+    'initialize_experience_db',
+    'log_experience',
+    'load_experiences',
+    'train_agents_offline',
+    'get_experience_statistics'
 ]

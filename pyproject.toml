@@ -38,12 +38,14 @@ dependencies = [
     # Async support (required for MCP)
     "aiohttp>=3.9.1",
     "aiofiles>=23.2.1",
-    "aiosqlite>=0.19.0",  # Async SQLite for progress tracking
+    "aiosqlite>=0.19.0", # Async SQLite for progress tracking
     "anyio>=4.2.0",
     # HTTP client
     "httpx>=0.24.0",
     # Data processing
     "pandas>=2.0.0", # If needed for data manipulation
+    # Reinforcement Learning for Hub Optimization
+    "rl-commons @ git+https://github.com/grahama1970/rl_commons.git@master",
     "numpy>=1.24.0",
     "scikit-learn>=1.3.0", # For embeddings/ML
     # Utilities
@@ -63,12 +65,15 @@ dependencies = [
     "litellm>=1.0.0", # For Perplexity API calls
     "allure-pytest>=2.14.2",
     "fastmcp>=2.5.1",
+    "jinja2>=3.1.0",  # For prompt templates
     # LLM Integration
-    "llm_call @ git+https://github.com/grahama1970/claude_max_proxy.git@master",
+    "llm_call @ git+https://github.com/grahama1970/claude_max_proxy.git@main",
     # Test Reporting
     "claude-test-reporter @ git+https://github.com/grahama1970/claude-test-reporter.git",
     # Screenshot and Browser Automation
-    "mcp-screenshot @ git+https://github.com/grahama1970/mcp-screenshot.git@main",
+    "mcp-screenshot @ https://github.com/grahama1970/mcp-screenshot.git",
+    "schedule",
+    "pytest-json-report>=1.5.0",
 ]
 
 [project.optional-dependencies]

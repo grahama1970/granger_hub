@@ -23,7 +23,7 @@ from rich.table import Table
 from rich import print
 
 from ..core import ModuleCommunicator
-from .slash_mcp_mixin import add_slash_mcp_commands
+from .granger_slash_mcp_mixin import add_slash_mcp_commands
 
 # Create console for pretty output
 console = Console()
@@ -745,8 +745,20 @@ def health():
         console.print("[yellow]⚠[/yellow]  No modules registered")
 
 
-# Add slash command and MCP generation capabilities
-add_slash_mcp_commands(app, command_prefix="generate")
+# Add enhanced slash command and MCP generation capabilities with prompt support
+from ..mcp import get_prompt_registry
+
+# Get the prompt registry for the CLI
+prompt_registry = get_prompt_registry()
+
+# Add slash commands with all enhanced features
+add_slash_mcp_commands(
+    app, 
+    command_prefix="generate",
+    prompt_registry=prompt_registry,
+    enable_analytics=True,
+    enable_smart_bundling=True
+)
 
 
 def main():

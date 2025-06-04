@@ -1,0 +1,45 @@
+{
+  "name": "TestMergedPattern(3sources)_evolved",
+  "description": "Auto-generated test for Merged Pattern (3 sources) with optimizations (evolved)",
+  "category": "ml_workflows",
+  "modules": [
+    "llm_call",
+    "test_reporter"
+  ],
+  "workflow_steps": [
+    {
+      "to_module": "arangodb",
+      "content": {
+        "task": "check_cache",
+        "ttl": 3600
+      },
+      "metadata": {
+        "optimization": "cache",
+        "step": 0
+      }
+    },
+    {
+      "from_module": "coordinator",
+      "to_module": "llm_call",
+      "content": {
+        "task": "step_1"
+      }
+    },
+    {
+      "from_module": "llm_call",
+      "to_module": "test_reporter",
+      "content": {
+        "task": "step_2"
+      }
+    }
+  ],
+  "optimization_notes": [
+    "Add caching layer for repeated operations"
+  ],
+  "source_patterns": [
+    "Merged Pattern (3 sources)",
+    "evolution"
+  ],
+  "generated_at": "2025-06-01T12:02:16.317009",
+  "file_path": "tests/integration_scenarios/generated/ml_workflows/test_testmergedpattern(3sources)_evolved.py"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "TestTestPatternLlm_CallV1",
+  "description": "Tests test pattern pattern. ",
+  "category": "ml_workflows",
+  "modules": [
+    "llm_call",
+    "test_reporter"
+  ],
+  "workflow_steps": [
+    {
+      "from_module": "coordinator",
+      "to_module": "llm_call",
+      "content": {
+        "task": "process_test_pattern"
+      },
+      "metadata": {
+        "step": 1,
+        "pattern": "test_pattern"
+      }
+    },
+    {
+      "from_module": "llm_call",
+      "to_module": "test_reporter",
+      "content": {
+        "task": "process_test_pattern"
+      },
+      "metadata": {
+        "step": 2,
+        "pattern": "test_pattern"
+      }
+    }
+  ],
+  "optimization_notes": [
+    "Add caching layer for repeated operations"
+  ],
+  "source_patterns": [
+    "test_pattern",
+    "Test Finding"
+  ],
+  "generated_at": "2025-06-01T12:04:30.656003",
+  "file_path": "tests/integration_scenarios/generated/ml_workflows/test_testtestpatternllm_callv1.py"
+}

@@ -1,0 +1,277 @@
+"""
+Flexible module mocking for testing
+"""
+
+from typing import Dict, Any, Callable, Optional, Union, List
+import asyncio
+import random
+import time
+from dataclasses import dataclass, field
+
+
+@dataclass
+class MockResponse:
+    """Encapsulates a mock response configuration"""
+    response: Any
+    delay: float = 0
+    error_rate: float = 0
+    side_effects: Optional[Callable] = None
+
+
+class ModuleMock:
+    """Mock a module's behavior for testing"""
+    
+    def __init__(self, module_name: str):
+        self.module_name = module_name
+        self.responses: Dict[str, Union[Any, MockResponse]] = {}
+        self.call_history: List[Dict[str, Any]] = []
+        self.default_delay = 0
+        self.default_error_rate = 0
+        self.call_count = 0
+        self.is_available = True
+        self.state = {}  # For stateful mocks
+    
+    def set_response(self, task: str, response: Any, delay: float = 0, error_rate: float = 0) -> None:
+        """
+        Set canned response for a task
+        
+        Args:
+            task: Task name to respond to
+            response: Response data
+            delay: Optional delay in seconds
+            error_rate: Probability of error (0-1)
+        """
+        self.responses[task] = MockResponse(
+            response=response,
+            delay=delay,
+            error_rate=error_rate
+        )
+    
+    def set_dynamic_response(self, task: str, handler: Callable[[Dict[str, Any]], Any]) -> None:
+        """
+        Set dynamic response handler that computes response based on input
+        
+        Args:
+            task: Task name to respond to
+            handler: Function that takes message and returns response
+        """
+        self.responses[task] = handler
+    
+    def set_error(self, task: str, error: Exception) -> None:
+        """
+        Set error response for a task
+        
+        Args:
+            task: Task name that should error
+            error: Exception to raise
+        """
+        self.responses[task] = error
+    
+    def set_sequence(self, task: str, responses: List[Any]) -> None:
+        """
+        Set a sequence of responses that will be returned in order
+        
+        Args:
+            task: Task name
+            responses: List of responses to return sequentially
+        """
+        self.responses[task] = {"_sequence": responses, "_index": 0}
+    
+    def set_responses(self, responses: Dict[str, Any]) -> None:
+        """
+        Bulk set responses from a dictionary
+        
+        Args:
+            responses: Dict mapping task names to responses
+        """
+        for task, response in responses.items():
+            if isinstance(response, dict) and "response" in response:
+                # Handle MockResponse-like dict
+                self.set_response(
+                    task,
+                    response["response"],
+                    response.get("delay", 0),
+                    response.get("error_rate", 0)
+                )
+            else:
+                self.set_response(task, response)
+    
+    def set_availability(self, available: bool) -> None:
+        """Set module availability"""
+        self.is_available = available
+    
+    def get_call_history(self, task: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get call history, optionally filtered by task
+        
+        Args:
+            task: Optional task name to filter by
+            
+        Returns:
+            List of calls made to this mock
+        """
+        if task:
+            return [call for call in self.call_history if call.get("task") == task]
+        return self.call_history
+    
+    def reset(self) -> None:
+        """Reset mock state"""
+        self.call_history = []
+        self.call_count = 0
+        self.state = {}
+    
+    def assert_called(self, task: str, times: Optional[int] = None) -> None:
+        """
+        Assert that a task was called
+        
+        Args:
+            task: Task name to check
+            times: Optional exact number of times it should have been called
+        """
+        calls = self.get_call_history(task)
+        if times is not None:
+            assert len(calls) == times, f"{task} called {len(calls)} times, expected {times}"
+        else:
+            assert len(calls) > 0, f"{task} was not called"
+    
+    def assert_not_called(self, task: str) -> None:
+        """Assert that a task was not called"""
+        calls = self.get_call_history(task)
+        assert len(calls) == 0, f"{task} was called {len(calls)} times"
+    
+    async def process(self, message: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Process a message and return mock response
+        
+        Args:
+            message: Message to process
+            
+        Returns:
+            Mock response based on configuration
+        """
+        # Check availability
+        if not self.is_available:
+            raise RuntimeError(f"{self.module_name} is not available")
+        
+        # Record call
+        self.call_count += 1
+        call_record = {
+            "message": message,
+            "timestamp": time.time(),
+            "call_number": self.call_count,
+            "task": message.get("task", "default")
+        }
+        self.call_history.append(call_record)
+        
+        # Get task
+        task = message.get("task", "default")
+        
+        # Get response configuration
+        response_config = self.responses.get(task, {"status": "ok", "module": self.module_name})
+        
+        # Handle different response types
+        if isinstance(response_config, Exception):
+            raise response_config
+        
+        if callable(response_config) and not isinstance(response_config, MockResponse):
+            # Dynamic handler
+            return response_config(message)
+        
+        if isinstance(response_config, dict) and "_sequence" in response_config:
+            # Sequential responses
+            sequence = response_config["_sequence"]
+            index = response_config["_index"]
+            if index < len(sequence):
+                response = sequence[index]
+                response_config["_index"] += 1
+            else:
+                response = {"status": "sequence_exhausted"}
+        else:
+            # Standard response
+            if isinstance(response_config, MockResponse):
+                delay = response_config.delay
+                error_rate = response_config.error_rate
+                response = response_config.response
+                
+                # Apply side effects if any
+                if response_config.side_effects:
+                    response_config.side_effects(message, self.state)
+            else:
+                delay = self.default_delay
+                error_rate = self.default_error_rate
+                response = response_config
+        
+        # Simulate delay
+        if delay > 0:
+            await asyncio.sleep(delay)
+        
+        # Simulate errors
+        if error_rate > 0 and random.random() < error_rate:
+            raise RuntimeError(f"Simulated error in {self.module_name} (rate: {error_rate})")
+        
+        # Return response
+        if isinstance(response, dict):
+            return {**response, "_mock": True, "_module": self.module_name}
+        else:
+            return {"result": response, "_mock": True, "_module": self.module_name}
+
+
+class ModuleMockGroup:
+    """Manage a group of module mocks"""
+    
+    def __init__(self):
+        self.mocks: Dict[str, ModuleMock] = {}
+    
+    def add_mock(self, name: str, mock: Optional[ModuleMock] = None) -> ModuleMock:
+        """
+        Add a mock to the group
+        
+        Args:
+            name: Module name
+            mock: Optional pre-configured mock
+            
+        Returns:
+            The mock instance
+        """
+        if mock is None:
+            mock = ModuleMock(name)
+        self.mocks[name] = mock
+        return mock
+    
+    def get_mock(self, name: str) -> Optional[ModuleMock]:
+        """Get a mock by name"""
+        return self.mocks.get(name)
+    
+    def set_responses(self, responses: Dict[str, Dict[str, Any]]) -> None:
+        """
+        Bulk set responses for multiple mocks
+        
+        Args:
+            responses: Dict of module_name -> {task -> response}
+        """
+        for module_name, module_responses in responses.items():
+            if module_name in self.mocks:
+                self.mocks[module_name].set_responses(module_responses)
+    
+    def reset_all(self) -> None:
+        """Reset all mocks"""
+        for mock in self.mocks.values():
+            mock.reset()
+    
+    def get_all_calls(self) -> Dict[str, List[Dict[str, Any]]]:
+        """Get call history for all mocks"""
+        return {
+            name: mock.call_history
+            for name, mock in self.mocks.items()
+        }
+    
+    def print_call_summary(self) -> None:
+        """Print a summary of all calls"""
+        print("\nModule Call Summary:")
+        print("-" * 40)
+        for name, mock in self.mocks.items():
+            print(f"{name}: {mock.call_count} calls")
+            for task in set(call["task"] for call in mock.call_history):
+                task_calls = mock.get_call_history(task)
+                print(f"  - {task}: {len(task_calls)} calls")
+        print("-" * 40)

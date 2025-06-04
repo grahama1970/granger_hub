@@ -1,0 +1,369 @@
+{
+  "Module1": {
+    "name": "Module1",
+    "system_prompt": "Test module 1 for concurrent conversations",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "Module2": {
+    "name": "Module2",
+    "system_prompt": "Test module 2 for concurrent conversations",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "TimeoutModule1": {
+    "name": "TimeoutModule1",
+    "system_prompt": "Test module TimeoutModule1",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "TimeoutModule2": {
+    "name": "TimeoutModule2",
+    "system_prompt": "Test module TimeoutModule2",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "InfiniteModule1": {
+    "name": "InfiniteModule1",
+    "system_prompt": "Test module InfiniteModule1",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "InfiniteModule2": {
+    "name": "InfiniteModule2",
+    "system_prompt": "Test module InfiniteModule2",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "AnalyticsModule1": {
+    "name": "AnalyticsModule1",
+    "system_prompt": "Test module AnalyticsModule1",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "AnalyticsModule2": {
+    "name": "AnalyticsModule2",
+    "system_prompt": "Test module AnalyticsModule2",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "AnalyticsModule3": {
+    "name": "AnalyticsModule3",
+    "system_prompt": "Test module AnalyticsModule3",
+    "capabilities": [
+      "test",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "DataProcessor": {
+    "name": "DataProcessor",
+    "system_prompt": "Process data and maintain conversation context",
+    "capabilities": [
+      "data_processing",
+      "pattern_extraction",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array"
+        },
+        "conversation_id": {
+          "type": "string"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "DataAnalyzer": {
+    "name": "DataAnalyzer",
+    "system_prompt": "Analyze processed data and provide insights",
+    "capabilities": [
+      "data_analysis",
+      "pattern_recognition",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "ReportGenerator": {
+    "name": "ReportGenerator",
+    "system_prompt": "Generate reports from analyzed data",
+    "capabilities": [
+      "report_generation",
+      "summarization",
+      "conversation"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "Module3": {
+    "name": "Module3",
+    "system_prompt": "Test module 3 for concurrent conversations",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "Module4": {
+    "name": "Module4",
+    "system_prompt": "Test module 4 for concurrent conversations",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "WorkflowModule1": {
+    "name": "WorkflowModule1",
+    "system_prompt": "Simple test module WorkflowModule1",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "WorkflowModule2": {
+    "name": "WorkflowModule2",
+    "system_prompt": "Simple test module WorkflowModule2",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "WorkflowModule3": {
+    "name": "WorkflowModule3",
+    "system_prompt": "Simple test module WorkflowModule3",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "ConcurrentModule1": {
+    "name": "ConcurrentModule1",
+    "system_prompt": "Simple test module ConcurrentModule1",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "ConcurrentModule2": {
+    "name": "ConcurrentModule2",
+    "system_prompt": "Simple test module ConcurrentModule2",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "ConcurrentModule3": {
+    "name": "ConcurrentModule3",
+    "system_prompt": "Simple test module ConcurrentModule3",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "ConcurrentModule4": {
+    "name": "ConcurrentModule4",
+    "system_prompt": "Simple test module ConcurrentModule4",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "producer": {
+    "name": "producer",
+    "system_prompt": {},
+    "capabilities": {},
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "consumer": {
+    "name": "consumer",
+    "system_prompt": "Consumer module",
+    "capabilities": {},
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

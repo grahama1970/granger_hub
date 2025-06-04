@@ -10,6 +10,10 @@ from .cli_adapter import CLIAdapter
 from .rest_adapter import RESTAdapter
 from .mcp_adapter import MCPAdapter
 from .marker_adapter import MarkerAdapter
+from .adapter_registry import AdapterRegistry, AdapterFactory, AdapterInfo
+from .hardware_adapter import HardwareAdapter, HardwareConfig, StreamMetadata
+from .jtag_adapter import JTAGAdapter, JTAGConfig
+from .scpi_adapter import SCPIAdapter, SCPIConfig
 
 __all__ = [
     "ProtocolAdapter",
@@ -17,5 +21,15 @@ __all__ = [
     "CLIAdapter",
     "RESTAdapter",
     "MCPAdapter",
-    "MarkerAdapter"
+    "MarkerAdapter",
+    "AdapterRegistry",
+    "AdapterFactory",
+    "AdapterInfo",
+    "HardwareAdapter",
+    "HardwareConfig",
+    "StreamMetadata",
+    "JTAGAdapter",
+    "JTAGConfig",
+    "SCPIAdapter",
+    "SCPIConfig"
 ]

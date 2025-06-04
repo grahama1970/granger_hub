@@ -6,16 +6,14 @@ with conversation support, following the 3-layer architecture.
 """
 
 # Import from submodules
-from .modules import (
-    BaseModule,
-    Message,
-    ModuleRegistry,
-    ModuleInfo,
-    DataProducerModule,
-    DataProcessorModule,
-    DataAnalyzerModule,
-    OrchestratorModule
-)
+from .modules import BaseModule, ModuleRegistry, ModuleInfo
+
+# Import example modules if available
+try:
+    from .modules import DataProducerModule, DataProcessorModule, DataAnalyzerModule, OrchestratorModule
+    HAS_EXAMPLE_MODULES = True
+except ImportError:
+    HAS_EXAMPLE_MODULES = False
 
 from .conversation import (
     ConversationMessage,
@@ -38,13 +36,8 @@ __version__ = "0.1.0"
 __all__ = [
     # Module core
     "BaseModule",
-    "Message",
     "ModuleRegistry",
     "ModuleInfo",
-    "DataProducerModule",
-    "DataProcessorModule",
-    "DataAnalyzerModule",
-    "OrchestratorModule",
     
     # Conversation core
     "ConversationMessage",
@@ -62,3 +55,12 @@ __all__ = [
     # High-level orchestrator
     "ModuleCommunicator"
 ]
+
+# Add example modules if available
+if HAS_EXAMPLE_MODULES:
+    __all__.extend([
+        "DataProducerModule",
+        "DataProcessorModule",
+        "DataAnalyzerModule",
+        "OrchestratorModule"
+    ])

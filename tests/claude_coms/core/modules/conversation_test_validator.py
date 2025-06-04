@@ -13,7 +13,12 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
-from claude_test_reporter import UniversalReportGenerator, TestReporter
+try:
+    from claude_test_reporter import UniversalReportGenerator, TestReporter
+except ImportError:
+    # Fallback if claude_test_reporter not available
+    UniversalReportGenerator = None
+    TestReporter = None
 
 
 class ConversationTestValidator:
@@ -37,17 +42,25 @@ class ConversationTestValidator:
         ]
         
         # Configure report generator for conversation tests
-        self.report_generator = UniversalReportGenerator(
-            title="Multi-Turn Conversation Test Results",
-            theme_color="#8B5CF6",  # Purple for conversations
-            logo="💬",
-            custom_css="""
-            .verdict-real { color: #10B981; font-weight: bold; }
-            .verdict-fake { color: #EF4444; font-weight: bold; }
-            .confidence-high { background-color: #FEE2E2; }
-            .evidence { font-family: monospace; font-size: 0.9em; }
-            """
-        )
+        try:
+            self.report_generator = UniversalReportGenerator(
+                title="Multi-Turn Conversation Test Results",
+                theme_color="#8B5CF6",  # Purple for conversations
+                logo="💬",
+                custom_css="""
+                .verdict-real { color: #10B981; font-weight: bold; }
+                .verdict-fake { color: #EF4444; font-weight: bold; }
+                .confidence-high { background-color: #FEE2E2; }
+                .evidence { font-family: monospace; font-size: 0.9em; }
+                """
+            )
+        except TypeError:
+            # Fallback without custom_css if not supported
+            self.report_generator = UniversalReportGenerator(
+                title="Multi-Turn Conversation Test Results",
+                theme_color="#8B5CF6",  # Purple for conversations
+                logo="💬"
+            )
     
     def validate_pytest_results(self, json_report_path: str) -> Dict[str, Any]:
         """

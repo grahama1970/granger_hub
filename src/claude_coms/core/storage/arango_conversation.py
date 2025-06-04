@@ -580,6 +580,114 @@ class ArangoConversationStore:
         logger.info(f"Archived {len(archived)} old conversations")
         return len(archived)
     
+    async def get_module_conversations(self, module_name: str) -> List[Dict[str, Any]]:
+        """Get all conversations for a specific module.
+        
+        Args:
+            module_name: Module name to search for
+            
+        Returns:
+            List of conversations
+        """
+        return await self.search_conversations(participant=module_name)
+    
+    async def get_recent_conversations(self, limit: int = 10) -> List[Dict[str, Any]]:
+        """Get recent conversations.
+        
+        Args:
+            limit: Maximum number of conversations
+            
+        Returns:
+            List of recent conversations
+        """
+        query = """
+        FOR conv IN conversations
+            SORT conv.last_message_at DESC
+            LIMIT @limit
+            RETURN conv
+        """
+        
+        cursor = self.db.aql.execute(query, bind_vars={"limit": limit})
+        return list(cursor)
+    
+    async def get_conversation_analytics(self) -> Dict[str, Any]:
+        """Get conversation analytics.
+        
+        Returns:
+            Analytics data
+        """
+        # Count conversations
+        conv_count = self.db.collection("conversations").count()
+        
+        # Count messages
+        msg_count = self.db.collection("messages").count()
+        
+        # Get active modules
+        query = """
+        FOR conv IN conversations
+            FOR participant IN conv.participants
+                COLLECT module = participant WITH COUNT INTO count
+                RETURN {module: module, conversation_count: count}
+        """
+        
+        cursor = self.db.aql.execute(query)
+        active_modules = list(cursor)
+        
+        # Get status breakdown
+        status_query = """
+        FOR conv IN conversations
+            COLLECT status = conv.status WITH COUNT INTO count
+            RETURN {status: status, count: count}
+        """
+        
+        status_cursor = self.db.aql.execute(status_query)
+        status_breakdown = {item["status"]: item["count"] for item in status_cursor}
+        
+        return {
+            "total_conversations": conv_count,
+            "total_messages": msg_count,
+            "active_modules": active_modules,
+            "status_breakdown": status_breakdown,
+            "average_messages_per_conversation": msg_count / conv_count if conv_count > 0 else 0
+        }
+    
+    async def get_module_interaction_graph(self) -> Dict[str, Any]:
+        """Get module interaction graph data.
+        
+        Returns:
+            Graph data with nodes and edges
+        """
+        # Get all unique modules
+        module_query = """
+        FOR conv IN conversations
+            FOR participant IN conv.participants
+                COLLECT module = participant
+                RETURN module
+        """
+        
+        cursor = self.db.aql.execute(module_query)
+        nodes = [{"id": module, "label": module} for module in cursor]
+        
+        # Get interaction edges
+        edge_query = """
+        FOR conv IN conversations
+            LET pair = (
+                conv.participants[0] < conv.participants[1] 
+                ? [conv.participants[0], conv.participants[1]]
+                : [conv.participants[1], conv.participants[0]]
+            )
+            COLLECT source = pair[0], target = pair[1] WITH COUNT INTO weight
+            RETURN {source: source, target: target, weight: weight}
+        """
+        
+        edge_cursor = self.db.aql.execute(edge_query)
+        edges = list(edge_cursor)
+        
+        return {
+            "nodes": nodes,
+            "edges": edges
+        }
+
     async def close(self):
         """Close database connection."""
         if self.client:

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "claude-module-communicator": {
+      "command": "python",
+      "args": [
+        "-m",
+        "claude_coms.mcp.fastmcp_server"
+      ],
+      "env": {
+        "PYTHONPATH": "./src"
+      }
+    }
+  }
+}

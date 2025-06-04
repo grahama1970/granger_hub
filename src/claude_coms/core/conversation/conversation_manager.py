@@ -15,8 +15,16 @@ from datetime import datetime
 from pathlib import Path
 import uuid
 
-from .conversation_message import ConversationMessage, ConversationState
-from ..modules.module_registry import ModuleRegistry
+try:
+    from .conversation_message import ConversationMessage, ConversationState
+    from ..modules.module_registry import ModuleRegistry
+except ImportError:
+    # For standalone testing
+    from conversation_message import ConversationMessage, ConversationState
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent / "modules"))
+    from module_registry import ModuleRegistry
 
 
 class ConversationManager:
@@ -39,6 +47,7 @@ class ConversationManager:
         
         # In-memory conversation tracking
         self.active_conversations: Dict[str, ConversationState] = {}
+        self.conversations = self.active_conversations  # Alias for compatibility
         self.message_history: Dict[str, List[ConversationMessage]] = {}
         self.module_conversations: Dict[str, List[str]] = {}  # module -> conversation IDs
         
@@ -157,7 +166,7 @@ class ConversationManager:
         
         # Update conversation state
         conversation.add_message(message.id)
-        conversation.turn_count += 1  # Increment turn count
+        # Note: turn_count is incremented by add_message in ConversationState
         conversation.last_activity = datetime.now().isoformat()
         self.message_history[message.conversation_id].append(message)
         
@@ -167,10 +176,10 @@ class ConversationManager:
         
         # Find target module
         target_info = self.registry.get_module(message.target)
-        if not target_info or target_info.status != "active":
+        if not target_info:
             return {
                 "error": f"Target module {message.target} not available",
-                "available_modules": [m.name for m in self.registry.list_modules() if m.status == "active"]
+                "available_modules": [m.name for m in self.registry.list_modules()]
             }
         
         # In a real implementation, this would send to the actual module
@@ -408,3 +417,74 @@ class ConversationManager:
             ))
         
         return messages
+    
+    async def end_conversation(self, conversation_id: str, reason: str = "completed"):
+        """End a conversation.
+        
+        Args:
+            conversation_id: Conversation to end
+            reason: Reason for ending (completed, timeout, error)
+        """
+        if conversation_id in self.active_conversations:
+            conversation = self.active_conversations[conversation_id]
+            conversation.status = reason
+            conversation.last_activity = datetime.now().isoformat()
+            await self._persist_conversation(conversation)
+            
+            # Remove from active conversations
+            del self.active_conversations[conversation_id]
+    
+    async def complete_conversation(self, conversation_id: str):
+        """Mark a conversation as successfully completed.
+        
+        Args:
+            conversation_id: Conversation to complete
+        """
+        await self.end_conversation(conversation_id, "completed")
+    
+    async def get_conversation_history(self, conversation_id: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Get conversation history.
+        
+        Args:
+            conversation_id: Optional specific conversation. If None, returns all.
+            
+        Returns:
+            List of conversation records
+        """
+        # Simulate database read
+        await asyncio.sleep(0.02)
+        
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        if conversation_id:
+            cursor.execute("""
+                SELECT conversation_id, participants, started_at, last_activity,
+                       status, turn_count, context
+                FROM conversations
+                WHERE conversation_id = ?
+            """, (conversation_id,))
+        else:
+            cursor.execute("""
+                SELECT conversation_id, participants, started_at, last_activity,
+                       status, turn_count, context
+                FROM conversations
+                ORDER BY started_at DESC
+            """)
+        
+        rows = cursor.fetchall()
+        conn.close()
+        
+        conversations = []
+        for row in rows:
+            conversations.append({
+                "conversation_id": row[0],
+                "participants": json.loads(row[1]),
+                "started_at": row[2],
+                "last_activity": row[3],
+                "status": row[4],
+                "turn_count": row[5],
+                "context": json.loads(row[6]) if row[6] else {}
+            })
+        
+        return conversations

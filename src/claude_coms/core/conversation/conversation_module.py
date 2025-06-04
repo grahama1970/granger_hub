@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional, List, Union
 from datetime import datetime
 import asyncio
 
-from ..modules.base_module import BaseModule, Message
+from ..modules.base_module import BaseModule
 from .conversation_message import ConversationMessage, ConversationState
 from ..modules.module_registry import ModuleRegistry
 
@@ -36,11 +36,12 @@ class ConversationModule(BaseModule):
             auto_register: Whether to auto-register with the registry
             conversation_timeout: Seconds before conversation times out
         """
-        super().__init__(name, system_prompt, capabilities, registry, auto_register)
+        super().__init__(name, system_prompt, capabilities, registry)
         
         # Conversation state management
         self.conversations: Dict[str, ConversationState] = {}
         self.conversation_history: Dict[str, List[ConversationMessage]] = {}
+        self.is_running = False
         self.conversation_timeout = conversation_timeout
         
         # Add conversation capabilities
@@ -57,9 +58,9 @@ class ConversationModule(BaseModule):
         self.register_handler("end_conversation", self._handle_end_conversation)
         self.register_handler("get_conversation_state", self._handle_get_conversation_state)
     
-    async def _handle_start_conversation(self, message: Message) -> Dict[str, Any]:
+    async def _handle_start_conversation(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Handle conversation initiation."""
-        conv_msg = ConversationMessage.from_message(message.to_dict() if hasattr(message, 'to_dict') else message)
+        conv_msg = ConversationMessage.from_dict(data)
         
         # Create new conversation state
         conversation = ConversationState(
@@ -88,9 +89,9 @@ class ConversationModule(BaseModule):
         
         return response.to_dict()
     
-    async def _handle_continue_conversation(self, message: Message) -> Dict[str, Any]:
+    async def _handle_continue_conversation(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Handle continuing an existing conversation."""
-        conv_msg = ConversationMessage.from_message(message.to_dict() if hasattr(message, 'to_dict') else message)
+        conv_msg = ConversationMessage.from_message(data)
         
         # Check if conversation exists
         if conv_msg.conversation_id not in self.conversations:
@@ -128,9 +129,9 @@ class ConversationModule(BaseModule):
         
         return response.to_dict()
     
-    async def _handle_end_conversation(self, message: Message) -> Dict[str, Any]:
+    async def _handle_end_conversation(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Handle conversation termination."""
-        conversation_id = message.content.get("conversation_id") if isinstance(message.content, dict) else None
+        conversation_id = data.get("conversation_id") if isinstance(data, dict) else None
         
         if not conversation_id or conversation_id not in self.conversations:
             return {"error": "Conversation not found"}
@@ -146,9 +147,9 @@ class ConversationModule(BaseModule):
                         datetime.fromisoformat(conversation.started_at)).total_seconds()
         }
     
-    async def _handle_get_conversation_state(self, message: Message) -> Dict[str, Any]:
+    async def _handle_get_conversation_state(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Handle request for conversation state."""
-        conversation_id = message.content.get("conversation_id") if isinstance(message.content, dict) else None
+        conversation_id = data.get("conversation_id") if isinstance(data, dict) else None
         
         if not conversation_id or conversation_id not in self.conversations:
             return {"error": "Conversation not found"}
@@ -199,7 +200,7 @@ class ConversationModule(BaseModule):
             ]
         })
     
-    async def handle_message(self, message: Union[Message, Dict[str, Any]]) -> Any:
+    async def handle_message(self, message: Union[Dict[str, Any], Any]) -> Any:
         """Enhanced message handler with conversation support."""
         # Check if this is a conversation message
         if isinstance(message, dict):
@@ -241,7 +242,7 @@ class ConversationModule(BaseModule):
     
     async def start(self):
         """Start the module with conversation cleanup task."""
-        await super().start()
+        self.is_running = True
         
         # Start conversation cleanup task
         asyncio.create_task(self._conversation_cleanup_loop())
@@ -251,3 +252,7 @@ class ConversationModule(BaseModule):
         while self.is_running:
             await self.cleanup_inactive_conversations()
             await asyncio.sleep(60)  # Check every minute
+    
+    async def stop(self):
+        """Stop the module."""
+        self.is_running = False

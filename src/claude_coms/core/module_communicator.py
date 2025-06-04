@@ -57,14 +57,13 @@ class ModuleCommunicator:
         # Register with registry
         info = ModuleInfo(
             name=name,
-            module_class=module.__class__.__name__,
-            capabilities=getattr(module, 'capabilities', []),
-            version=getattr(module, 'version', '1.0.0'),
-            description=getattr(module, 'description', ''),
-            dependencies=getattr(module, 'dependencies', [])
+            system_prompt=module.system_prompt,
+            capabilities=module.capabilities,
+            input_schema=module.get_input_schema() if hasattr(module, 'get_input_schema') else None,
+            output_schema=module.get_output_schema() if hasattr(module, 'get_output_schema') else None
         )
         
-        return self.registry.register(info)
+        return self.registry.register_module(info)
     
     async def discover_modules(self, pattern: Optional[str] = None) -> List[Dict[str, Any]]:
         """Discover available modules.
@@ -85,10 +84,10 @@ class ModuleCommunicator:
         return [
             {
                 'name': m.name,
-                'class': m.module_class,
+                'system_prompt': m.system_prompt,
                 'capabilities': m.capabilities,
-                'version': m.version,
-                'description': m.description
+                'input_schema': m.input_schema,
+                'output_schema': m.output_schema
             }
             for m in modules
         ]
@@ -291,6 +290,160 @@ class ModuleCommunicator:
                 "status": "completed"
             }
         ]
+    
+    async def start_conversation(self, initiator: str, target: str, 
+                                initial_message: Dict[str, Any],
+                                conversation_type: str = "task") -> Dict[str, Any]:
+        """Start a conversation between modules.
+        
+        Args:
+            initiator: Initiating module name
+            target: Target module name
+            initial_message: Initial message content
+            conversation_type: Type of conversation (task, negotiation, etc.)
+            
+        Returns:
+            Conversation details including ID
+        """
+        try:
+            # Create conversation
+            conversation = await self.conversation_manager.create_conversation(
+                initiator=initiator,
+                target=target,
+                initial_message={
+                    "type": conversation_type,
+                    "content": initial_message,
+                    "timestamp": datetime.now().isoformat()
+                }
+            )
+            
+            # Start conversation monitoring
+            asyncio.create_task(self._monitor_conversation(conversation.conversation_id))
+            
+            return {
+                "success": True,
+                "conversation_id": conversation.conversation_id,
+                "participants": conversation.participants,
+                "status": conversation.status,
+                "type": conversation_type
+            }
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
+    
+    async def _monitor_conversation(self, conversation_id: str):
+        """Monitor a conversation for timeout and logging.
+        
+        Args:
+            conversation_id: Conversation to monitor
+        """
+        timeout_seconds = 300  # 5 minute timeout
+        check_interval = 30    # Check every 30 seconds
+        
+        start_time = datetime.now()
+        
+        while True:
+            await asyncio.sleep(check_interval)
+            
+            # Check if conversation still exists
+            if conversation_id not in self.conversation_manager.conversations:
+                break
+                
+            conversation = self.conversation_manager.conversations[conversation_id]
+            
+            # Check for timeout
+            elapsed = (datetime.now() - start_time).total_seconds()
+            if elapsed > timeout_seconds:
+                await self.conversation_manager.end_conversation(
+                    conversation_id, 
+                    reason="timeout"
+                )
+                break
+            
+            # Check if conversation completed
+            if conversation.status in ["completed", "failed"]:
+                break
+    
+    async def get_conversation_analytics(self, 
+                                       start_date: Optional[datetime] = None,
+                                       end_date: Optional[datetime] = None) -> Dict[str, Any]:
+        """Get analytics about conversations.
+        
+        Args:
+            start_date: Start of date range
+            end_date: End of date range
+            
+        Returns:
+            Analytics data
+        """
+        try:
+            # Get all conversations in range
+            all_conversations = await self.conversation_manager.get_conversation_history()
+            
+            # Filter by date if provided
+            if start_date or end_date:
+                filtered = []
+                for conv in all_conversations:
+                    conv_time = datetime.fromisoformat(conv.get("started_at", ""))
+                    if start_date and conv_time < start_date:
+                        continue
+                    if end_date and conv_time > end_date:
+                        continue
+                    filtered.append(conv)
+                all_conversations = filtered
+            
+            # Calculate analytics
+            total_conversations = len(all_conversations)
+            completed = sum(1 for c in all_conversations if c.get("status") == "completed")
+            failed = sum(1 for c in all_conversations if c.get("status") == "failed")
+            active = sum(1 for c in all_conversations if c.get("status") == "active")
+            
+            # Average turns and duration
+            total_turns = sum(c.get("turn_count", 0) for c in all_conversations)
+            total_duration = sum(
+                (datetime.fromisoformat(c.get("last_activity", c.get("started_at", ""))) - 
+                 datetime.fromisoformat(c.get("started_at", ""))).total_seconds()
+                for c in all_conversations if c.get("started_at")
+            )
+            
+            avg_turns = total_turns / total_conversations if total_conversations > 0 else 0
+            avg_duration = total_duration / total_conversations if total_conversations > 0 else 0
+            
+            # Module participation
+            module_stats = {}
+            for conv in all_conversations:
+                for participant in conv.get("participants", []):
+                    if participant not in module_stats:
+                        module_stats[participant] = {"initiated": 0, "participated": 0}
+                    module_stats[participant]["participated"] += 1
+                    
+                # First participant is the initiator
+                participants = conv.get("participants", [])
+                if participants and participants[0] in module_stats:
+                    module_stats[participants[0]]["initiated"] += 1
+            
+            return {
+                "total_conversations": total_conversations,
+                "completed": completed,
+                "failed": failed,
+                "active": active,
+                "average_turns": round(avg_turns, 2),
+                "average_duration_seconds": round(avg_duration, 2),
+                "module_statistics": module_stats,
+                "date_range": {
+                    "start": start_date.isoformat() if start_date else None,
+                    "end": end_date.isoformat() if end_date else None
+                }
+            }
+            
+        except Exception as e:
+            return {
+                "error": str(e),
+                "total_conversations": 0
+            }
     
     async def shutdown(self):
         """Shutdown the communicator gracefully."""

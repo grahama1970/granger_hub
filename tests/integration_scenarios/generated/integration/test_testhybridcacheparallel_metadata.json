@@ -1,0 +1,77 @@
+{
+  "name": "TestHybridCacheParallel",
+  "description": "Hybrid scenario combining cache and parallel patterns",
+  "category": "integration",
+  "modules": [
+    "marker",
+    "sparta",
+    "arangodb",
+    "arxiv"
+  ],
+  "workflow_steps": [
+    {
+      "to_module": "arangodb",
+      "content": {
+        "task": "check_cache",
+        "key": "scenario_data"
+      },
+      "metadata": {
+        "pattern": "cache",
+        "conditional": true
+      }
+    },
+    {
+      "to_module": "marker",
+      "content": {
+        "task": "process_marker",
+        "parallel": true
+      },
+      "metadata": {
+        "pattern": "parallel",
+        "group": 1
+      }
+    },
+    {
+      "to_module": "sparta",
+      "content": {
+        "task": "process_sparta",
+        "parallel": true
+      },
+      "metadata": {
+        "pattern": "parallel",
+        "group": 1
+      }
+    },
+    {
+      "to_module": "arangodb",
+      "content": {
+        "task": "process_arangodb",
+        "parallel": true
+      },
+      "metadata": {
+        "pattern": "parallel",
+        "group": 1
+      }
+    },
+    {
+      "to_module": "test_reporter",
+      "content": {
+        "task": "aggregate_results",
+        "format": "comprehensive"
+      },
+      "metadata": {
+        "pattern": "aggregation"
+      }
+    }
+  ],
+  "optimization_notes": [
+    "Implements cache for performance",
+    "Uses parallel for reliability"
+  ],
+  "source_patterns": [
+    "cache",
+    "parallel"
+  ],
+  "generated_at": "2025-06-01T12:04:30.670292",
+  "file_path": "tests/integration_scenarios/generated/integration/test_testhybridcacheparallel.py"
+}

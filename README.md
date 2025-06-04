@@ -48,6 +48,12 @@ Validate that output schemas from one module match input schemas of the next mod
 ### 🕸️ Graph Database Integration
 - ArangoDB backend for complex relationships
 - Graph traversal and analysis
+
+### 💬 Multi-Turn Conversations
+- **Persistent Context**: Maintain conversation state across multiple turns
+- **Conversation Analytics**: Track and analyze conversation patterns
+- **Concurrent Conversations**: Modules can handle multiple conversations simultaneously
+- **Conversation Persistence**: SQLite and ArangoDB storage backends
 - Module dependency tracking
 - Knowledge gap detection
 
@@ -444,8 +450,67 @@ cd examples
 python claude_external_models_demo.py
 ```
 
+### Multi-Turn Conversations
+
+Enable modules to have context-aware conversations:
+
+```python
+from claude_module_communicator import ModuleCommunicator
+from claude_coms.core.conversation import ConversationModule
+
+# Define conversation-aware modules
+class DataProcessor(ConversationModule):
+    async def process(self, data):
+        # Access conversation history
+        conv_id = data.get("conversation_id")
+        if conv_id in self.conversation_history:
+            # Use previous context
+            history = self.conversation_history[conv_id]
+            
+        # Process with context awareness
+        return {"result": processed_data, "context_used": True}
+
+# Start a conversation
+comm = ModuleCommunicator()
+result = await comm.start_conversation(
+    initiator="DataProcessor",
+    target="DataAnalyzer",
+    initial_message={"task": "analyze_patterns", "data": [1, 2, 3]},
+    conversation_type="analysis"
+)
+
+# Continue conversation with context
+conversation_id = result["conversation_id"]
+# ... modules exchange messages maintaining context
+
+# Get conversation analytics
+analytics = await comm.get_conversation_analytics()
+print(f"Active conversations: {analytics['active']}")
+print(f"Average turns: {analytics['average_turns']}")
+```
+
+### Conversation Persistence
+
+Conversations are automatically persisted to SQLite and optionally to ArangoDB:
+
+```python
+# With ArangoDB for graph analytics
+from claude_coms.core.storage import ArangoConversationStore
+
+store = ArangoConversationStore()
+await store.initialize()
+
+# Query conversation history
+history = await store.get_module_conversations("DataProcessor")
+
+# Get interaction graph
+graph = await store.get_module_interaction_graph()
+```
+
 ## 📖 Documentation
 
+- [Conversation API](docs/conversation_api.md) - Multi-turn conversation support
+- [Conversation Troubleshooting](docs/conversation_troubleshooting.md) - Common issues and solutions
 - [External Models Guide](docs/EXTERNAL_MODELS_GUIDE.md) - Complete LLM integration guide
 - [Testing Documentation](docs/TESTING_CHANGES.md) - Real data testing approach
 - [MCP Setup Guide](docs/usage/MCP_SETUP_CLAUDE_CODE.md) - Claude Desktop integration

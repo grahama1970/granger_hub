@@ -13,7 +13,6 @@ Following the 3-layer architecture:
 # Import core functionality from the proper location
 from .core.modules import (
     BaseModule,
-    Message,
     ModuleRegistry,
     ModuleInfo,
     DataProducerModule,
@@ -39,7 +38,6 @@ from .core.conversation import (
 __all__ = [
     # Core module classes
     "BaseModule",
-    "Message",
     "ModuleRegistry",
     "ModuleInfo",
     

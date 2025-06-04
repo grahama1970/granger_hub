@@ -1,29 +1,40 @@
 """
-MCP (Model Context Protocol) Integration via CLI Slash Commands.
+MCP (Model Context Protocol) Integration with Enhanced Prompt Support.
 
-This module provides MCP integration through the CLI layer using slash commands,
-rather than a separate server. The slash_mcp_mixin in the CLI layer generates
-MCP-compatible interfaces directly from Typer commands.
+This module provides MCP integration through multiple approaches:
+1. CLI slash commands via granger_slash_mcp_mixin (primary)
+2. FastMCP server for advanced use cases
+3. Prompt infrastructure for intelligent interactions
 
-The integration approach:
-1. CLI commands are defined in claude_coms.cli
-2. slash_mcp_mixin.py adds MCP generation capabilities
-3. Generated slash commands can be used by Claude Desktop
+The integration now includes:
+- Dynamic prompt management
+- Hub-specific prompts for module orchestration
+- Enhanced MCP server with prompt support
+- Backwards compatibility with original architecture
 
-This is a more lightweight approach than running a separate MCP server.
-
-ARCHITECTURE NOTE:
-The files in this directory (server.py, handlers.py, tools.py) were originally
-designed for a FastAPI-based MCP server. However, the actual implementation uses
-CLI slash commands via src/claude_coms/cli/slash_mcp_mixin.py.
-
-These files are kept for reference but are NOT USED in the current architecture.
-The actual MCP functionality is provided through:
-- src/claude_coms/cli/slash_mcp_mixin.py - Generates MCP commands from Typer CLI
-- src/claude_coms/cli/commands.py - Contains the actual CLI commands
+Key Components:
+- prompts.py: Core prompt infrastructure
+- hub_prompts.py: Hub-specific prompt definitions
+- server.py: Enhanced MCP server (when needed)
+- ../cli/granger_slash_mcp_mixin.py: Primary integration point
 """
 
-# MCP functionality is provided through CLI slash commands
-# See claude_coms.cli.slash_mcp_mixin for implementation
+# Import prompt infrastructure
+from .prompts import (
+    Prompt,
+    PromptRegistry,
+    get_prompt_registry,
+    set_prompt_registry
+)
 
-__all__ = []
+# Import hub-specific prompts (auto-registers on import)
+from . import hub_prompts
+
+# Export public API
+__all__ = [
+    'Prompt',
+    'PromptRegistry', 
+    'get_prompt_registry',
+    'set_prompt_registry',
+    'hub_prompts'
+]

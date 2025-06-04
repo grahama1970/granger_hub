@@ -219,6 +219,17 @@ class RESTAdapter(ProtocolAdapter):
                 'bytes_sent': len(data)
             }
     
+    async def receive(self, timeout: Optional[float] = None) -> Optional[Dict[str, Any]]:
+        """
+        Receive data from REST API.
+        
+        For REST, this is typically used for long-polling or SSE.
+        Returns None as REST is request-response based.
+        """
+        # REST is typically request-response, not push-based
+        # Override in subclasses for SSE or WebSocket support
+        return None
+    
     async def health_check(self) -> Dict[str, Any]:
         """Check REST API health."""
         health = await super().health_check()

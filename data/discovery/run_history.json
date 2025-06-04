@@ -1,0 +1,57 @@
+[
+  {
+    "run_id": "discovery_20250601_113648",
+    "start_time": "2025-06-01T11:36:48.852514",
+    "end_time": "2025-06-01T11:36:48.860046",
+    "findings_count": 10,
+    "patterns_discovered": 5,
+    "scenarios_generated": 0,
+    "scenarios_saved": [],
+    "errors": [
+      "'bool' object is not iterable"
+    ],
+    "metrics": {}
+  },
+  {
+    "run_id": "discovery_20250601_120039",
+    "start_time": "2025-06-01T12:00:39.802559",
+    "end_time": "2025-06-01T12:00:39.806998",
+    "findings_count": 10,
+    "patterns_discovered": 5,
+    "scenarios_generated": 0,
+    "scenarios_saved": [],
+    "errors": [
+      "'bool' object is not iterable"
+    ],
+    "metrics": {}
+  },
+  {
+    "run_id": "discovery_20250601_120302",
+    "start_time": "2025-06-01T12:03:02.658545",
+    "end_time": "2025-06-01T12:03:02.662906",
+    "findings_count": 10,
+    "patterns_discovered": 5,
+    "scenarios_generated": 10,
+    "scenarios_saved": [
+      "tests/integration_scenarios/generated/research_integration/test_testparallelarxivv1.py",
+      "tests/integration_scenarios/generated/document_processing/test_testcachearangodbv2.py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testmessagequeuellm_callv3.py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testapigatewayllm_callv4.py",
+      "tests/integration_scenarios/generated/integration/test_testhybridcacheparallel.py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testmergedpattern(3sources).py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testmergedpattern(3sources).py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testcircuitbreakerpattern(mergedfrom2sources).py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testmergedpattern(3sources).py",
+      "tests/integration_scenarios/generated/ml_workflows/test_testmergedpattern(3sources).py"
+    ],
+    "errors": [],
+    "metrics": {
+      "average_finding_relevance": 0.8,
+      "pattern_diversity": 3,
+      "module_coverage": 7,
+      "optimization_patterns_used": 8,
+      "unique_patterns_found": 4,
+      "scenarios_per_pattern": 2.0
+    }
+  }
+]

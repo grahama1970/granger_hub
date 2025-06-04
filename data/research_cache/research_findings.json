@@ -1,0 +1,200 @@
+[
+  {
+    "source": "arxiv",
+    "title": "Optimizing multi-agent system optimization with Reinforcement Learning",
+    "content": "We present a novel approach to multi-agent system optimization using deep reinforcement learning. Our method achieves 40% performance improvement through intelligent caching and parallel processing strategies.",
+    "url": "https://arxiv.org/abs/2024.00001",
+    "relevance_score": 0.8999999999999999,
+    "patterns_found": [
+      "parallel",
+      "cache"
+    ],
+    "metadata": {
+      "authors": [
+        "Smith, J.",
+        "Doe, A."
+      ],
+      "published": "2025-05-02T11:35:35.539971",
+      "category": "optimization"
+    },
+    "discovered_at": "2025-06-01T11:35:35.540000"
+  },
+  {
+    "source": "arxiv",
+    "title": "Optimizing microservice performance patterns with Reinforcement Learning",
+    "content": "We present a novel approach to microservice performance patterns using deep reinforcement learning. Our method achieves 40% performance improvement through intelligent caching and parallel processing strategies.",
+    "url": "https://arxiv.org/abs/2024.00002",
+    "relevance_score": 0.8999999999999999,
+    "patterns_found": [
+      "parallel",
+      "cache"
+    ],
+    "metadata": {
+      "authors": [
+        "Smith, J.",
+        "Doe, A."
+      ],
+      "published": "2025-05-02T11:35:35.540002",
+      "category": "optimization"
+    },
+    "discovered_at": "2025-06-01T11:35:35.540016"
+  },
+  {
+    "source": "perplexity",
+    "title": "Perplexity: latest advances in system integration performance",
+    "content": "Based on recent developments in latest advances in system integration performance:\n\n1. **Parallel Processing Pattern**: Modern systems use parallel processing with work-stealing algorithms to optimize throughput.\n\n2. **Circuit Breaker Implementation**: Netflix's Hystrix pattern is widely adopted, with modifications for cloud-native environments.\n\n3. **Event Sourcing**: Combined with CQRS, provides excellent scalability for optimization systems.\n\n4. **Caching Strategies**: Multi-level caching with Redis and CDN integration shows 60% latency reduction.\n\nThese patterns are particularly effective when combined with container orchestration platforms like Kubernetes.",
+    "url": null,
+    "relevance_score": 0.8,
+    "patterns_found": [],
+    "metadata": {
+      "query": "latest advances in system integration performance latest 2024 best practices implementation examples",
+      "category": "optimization",
+      "timestamp": "2025-06-01T11:35:35.540035"
+    },
+    "discovered_at": "2025-06-01T11:35:35.540038"
+  },
+  {
+    "source": "youtube",
+    "title": "Advanced distributed AI orchestration optimization - Conference Talk 2024",
+    "content": "Today we'll explore distributed AI orchestration optimization. The key insight is using event-driven architecture with circuit breakers for resilience.",
+    "url": "https://youtube.com/watch?v=1abc",
+    "relevance_score": 0.7999999999999999,
+    "patterns_found": [],
+    "metadata": {
+      "channel": "TechConf",
+      "duration": 2400,
+      "views": 15000,
+      "category": "optimization"
+    },
+    "discovered_at": "2025-06-01T11:35:35.540026"
+  },
+  {
+    "source": "screenshot",
+    "title": "Architecture: microservice-patterns",
+    "content": "Microservice architecture with API gateway, service mesh, and event bus",
+    "url": "https://example.com/microservice-patterns.png",
+    "relevance_score": 0.7,
+    "patterns_found": [
+      "message_queue",
+      "api_gateway"
+    ],
+    "metadata": {
+      "components": [
+        "API Gateway",
+        "Service A",
+        "Service B",
+        "Message Queue",
+        "Database"
+      ],
+      "connections": [
+        {
+          "from": "API Gateway",
+          "to": "Service A",
+          "type": "REST"
+        },
+        {
+          "from": "Service A",
+          "to": "Message Queue",
+          "type": "async"
+        },
+        {
+          "from": "Message Queue",
+          "to": "Service B",
+          "type": "async"
+        }
+      ],
+      "patterns_detected": [
+        "api_gateway",
+        "async_messaging",
+        "service_mesh"
+      ]
+    },
+    "discovered_at": "2025-06-01T11:35:35.540078"
+  },
+  {
+    "source": "screenshot",
+    "title": "Architecture: event-driven-architecture",
+    "content": "Microservice architecture with API gateway, service mesh, and event bus",
+    "url": "https://example.com/event-driven-architecture.png",
+    "relevance_score": 0.7,
+    "patterns_found": [
+      "message_queue",
+      "api_gateway"
+    ],
+    "metadata": {
+      "components": [
+        "API Gateway",
+        "Service A",
+        "Service B",
+        "Message Queue",
+        "Database"
+      ],
+      "connections": [
+        {
+          "from": "API Gateway",
+          "to": "Service A",
+          "type": "REST"
+        },
+        {
+          "from": "Service A",
+          "to": "Message Queue",
+          "type": "async"
+        },
+        {
+          "from": "Message Queue",
+          "to": "Service B",
+          "type": "async"
+        }
+      ],
+      "patterns_detected": [
+        "api_gateway",
+        "async_messaging",
+        "service_mesh"
+      ]
+    },
+    "discovered_at": "2025-06-01T11:35:35.540089"
+  },
+  {
+    "source": "screenshot",
+    "title": "Architecture: ml-pipeline-architecture",
+    "content": "Microservice architecture with API gateway, service mesh, and event bus",
+    "url": "https://example.com/ml-pipeline-architecture.png",
+    "relevance_score": 0.7,
+    "patterns_found": [
+      "message_queue",
+      "api_gateway"
+    ],
+    "metadata": {
+      "components": [
+        "API Gateway",
+        "Service A",
+        "Service B",
+        "Message Queue",
+        "Database"
+      ],
+      "connections": [
+        {
+          "from": "API Gateway",
+          "to": "Service A",
+          "type": "REST"
+        },
+        {
+          "from": "Service A",
+          "to": "Message Queue",
+          "type": "async"
+        },
+        {
+          "from": "Message Queue",
+          "to": "Service B",
+          "type": "async"
+        }
+      ],
+      "patterns_detected": [
+        "api_gateway",
+        "async_messaging",
+        "service_mesh"
+      ]
+    },
+    "discovered_at": "2025-06-01T11:35:35.540097"
+  }
+]

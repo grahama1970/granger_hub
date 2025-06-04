@@ -1,0 +1,41 @@
+{
+  "name": "TestMessageQueueLlm_CallV3",
+  "description": "Tests message queue pattern. ",
+  "category": "ml_workflows",
+  "modules": [
+    "llm_call",
+    "test_reporter"
+  ],
+  "workflow_steps": [
+    {
+      "from_module": "coordinator",
+      "to_module": "llm_call",
+      "content": {
+        "task": "process_message_queue"
+      },
+      "metadata": {
+        "step": 1,
+        "pattern": "message_queue"
+      }
+    },
+    {
+      "from_module": "llm_call",
+      "to_module": "test_reporter",
+      "content": {
+        "task": "process_message_queue"
+      },
+      "metadata": {
+        "step": 2,
+        "pattern": "message_queue"
+      }
+    }
+  ],
+  "optimization_notes": [],
+  "source_patterns": [
+    "message_queue",
+    "Architecture: microservice-pat",
+    "Architecture: event-driven-arc"
+  ],
+  "generated_at": "2025-06-01T12:04:30.669980",
+  "file_path": "tests/integration_scenarios/generated/ml_workflows/test_testmessagequeuellm_callv3.py"
+}
