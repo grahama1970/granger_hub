@@ -10,7 +10,7 @@ TODO: Implement tests for:
 """
 
 import pytest
-from claude_coms.core.llm import external_llm_module, llm_config, llm_integration
+from granger_hub.core.llm import external_llm_module, llm_config, llm_integration
 
 
 class TestLLMIntegration:

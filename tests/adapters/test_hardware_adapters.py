@@ -6,7 +6,7 @@ from typing import Dict, Any
 
 import pytest
 
-from claude_coms.core.adapters import (
+from granger_hub.core.adapters import (
     JTAGAdapter,
     JTAGConfig,
     SCPIAdapter, 

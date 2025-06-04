@@ -9,7 +9,7 @@ import json
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch, AsyncMock
 
-from src.claude_coms.discovery import (
+from src.granger_hub.discovery import (
     ResearchAgent, 
     OptimizationAnalyzer,
     PatternRecognizer,
@@ -17,9 +17,9 @@ from src.claude_coms.discovery import (
     EvolutionEngine,
     DiscoveryOrchestrator
 )
-from src.claude_coms.discovery.research.research_agent import ResearchFinding, ResearchQuery
-from src.claude_coms.discovery.analysis.optimization_analyzer import InteractionPattern, OptimizationScore
-from src.claude_coms.discovery.generation.scenario_generator import GeneratedScenario
+from src.granger_hub.discovery.research.research_agent import ResearchFinding, ResearchQuery
+from src.granger_hub.discovery.analysis.optimization_analyzer import InteractionPattern, OptimizationScore
+from src.granger_hub.discovery.generation.scenario_generator import GeneratedScenario
 
 
 class TestResearchAgent:
@@ -530,7 +530,7 @@ if __name__ == "__main__":
         __file__,
         "-v",
         "--tb=short",
-        "--cov=src.claude_coms.discovery",
+        "--cov=src.granger_hub.discovery",
         "--cov-report=html",
         "--cov-report=term",
         "-m", "not integration"  # Skip integration tests for quick run

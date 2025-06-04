@@ -8,7 +8,7 @@ PROJECTS=(
     "/home/graham/workspace/experiments/youtube_transcripts/"
     "/home/graham/workspace/experiments/claude_max_proxy/"
     "/home/graham/workspace/mcp-servers/arxiv-mcp-server/"
-    "/home/graham/workspace/experiments/claude-module-communicator/"
+    "/home/graham/workspace/experiments/granger_hub/"
     "/home/graham/workspace/experiments/claude-test-reporter/"
     "/home/graham/workspace/experiments/unsloth_wip/"
     "/home/graham/workspace/experiments/marker-ground-truth/"

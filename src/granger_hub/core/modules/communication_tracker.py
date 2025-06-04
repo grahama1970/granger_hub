@@ -18,7 +18,7 @@ from loguru import logger
 
 # Import Task from task_executor to avoid duplication
 if TYPE_CHECKING:
-    from ..claude_coms.task_executor import Task
+    from ..granger_hub.task_executor import Task
 
 
 class ProgressTracker:

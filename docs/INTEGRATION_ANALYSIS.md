@@ -10,7 +10,7 @@ Claude Module Communicator is positioned to be the central orchestrator for 11 d
 - **Purpose**: Extract and process cybersecurity data from various sources
 - **Communication**: CLI with JSON output, MCP server
 - **Data Types**: Text, structured security data
-- **Status**: Already uses claude-module-communicator
+- **Status**: Already uses granger_hub
 
 ### 2. **Marker** (PDF Generation)
 - **Purpose**: Convert text/markdown to high-quality PDFs

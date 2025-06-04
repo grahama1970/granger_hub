@@ -5,21 +5,21 @@ Provides functions for intelligent Hub routing using RL Commons.
 No mocks, no classes unless needed for state, functional approach.
 """
 
-from claude_coms.rl.state_extraction import (
+from granger_hub.rl.state_extraction import (
     extract_task_state,
     extract_pipeline_state,
     extract_error_state,
     extract_timeout_context
 )
 
-from claude_coms.rl.reward_calculation import (
+from granger_hub.rl.reward_calculation import (
     calculate_reward,
     calculate_module_selection_reward,
     calculate_pipeline_reward,
     calculate_resource_reward
 )
 
-from claude_coms.rl.hub_decisions import (
+from granger_hub.rl.hub_decisions import (
     initialize_rl_agents,
     select_module_with_rl,
     optimize_pipeline_with_rl,
@@ -28,7 +28,7 @@ from claude_coms.rl.hub_decisions import (
     record_decision_outcome
 )
 
-from claude_coms.rl.experience_collection import (
+from granger_hub.rl.experience_collection import (
     initialize_experience_db,
     log_experience,
     load_experiences,

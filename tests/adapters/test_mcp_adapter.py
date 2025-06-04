@@ -17,7 +17,7 @@ try:
 except ImportError:
     MCP_AVAILABLE = False
 
-from claude_coms.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
+from granger_hub.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
 
 
 class MCPAdapter(ProtocolAdapter):

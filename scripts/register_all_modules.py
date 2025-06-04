@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Register all companion modules in the claude-module-communicator."""
+"""Register all companion modules in the granger_hub."""
 
 import json
 from pathlib import Path

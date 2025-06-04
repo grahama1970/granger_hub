@@ -11,9 +11,9 @@ from dotenv import load_dotenv
 load_dotenv()
 sys.path.insert(0, 'src')
 
-from claude_coms.rl.metrics.learning_curves import LearningCurvesCalculator
-from claude_coms.rl.metrics.models import RLMetric
-from claude_coms.rl.metrics.arangodb_store import ArangoDBMetricsStore
+from granger_hub.rl.metrics.learning_curves import LearningCurvesCalculator
+from granger_hub.rl.metrics.models import RLMetric
+from granger_hub.rl.metrics.arangodb_store import ArangoDBMetricsStore
 from arango import ArangoClient
 
 print("\n" + "="*60)

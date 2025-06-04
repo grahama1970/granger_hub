@@ -28,13 +28,13 @@ except ImportError as e:
         "pip install git+https://github.com/grahama1970/rl_commons.git@master"
     ) from e
 
-from claude_coms.rl.state_extraction import (
+from granger_hub.rl.state_extraction import (
     extract_task_state,
     extract_pipeline_state,
     extract_error_state,
     extract_timeout_context
 )
-from claude_coms.rl.reward_calculation import (
+from granger_hub.rl.reward_calculation import (
     calculate_module_selection_reward,
     calculate_pipeline_reward,
     calculate_resource_reward

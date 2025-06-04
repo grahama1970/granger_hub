@@ -1,10 +1,10 @@
 {
   "mcpServers": {
-    "claude-module-communicator": {
+    "granger_hub": {
       "command": "python",
       "args": [
         "-m",
-        "claude_coms.mcp.fastmcp_server"
+        "granger_hub.mcp.fastmcp_server"
       ],
       "env": {
         "PYTHONPATH": "./src"

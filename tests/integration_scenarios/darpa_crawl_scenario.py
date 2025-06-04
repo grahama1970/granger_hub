@@ -3,7 +3,7 @@ Integration scenario: DARPA Crawl with Granger modules
 Purpose: Demonstrate hub-and-spoke pattern for DARPA proposal generation
 
 This scenario shows how DARPA Crawl uses other Granger modules via
-claude-module-communicator instead of duplicating their logic.
+granger_hub instead of duplicating their logic.
 """
 
 import asyncio
@@ -11,8 +11,8 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-from claude_coms import ModuleCommunicator
-from claude_coms.core.modules import ExternalLLMModule
+from granger_hub import ModuleCommunicator
+from granger_hub.core.modules import ExternalLLMModule
 from darpa_crawl.darpa_module import DARPACrawlModule
 
 

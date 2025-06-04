@@ -10,7 +10,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from claude_coms.discovery.self_improvement_engine import SelfImprovementEngine
+from granger_hub.discovery.self_improvement_engine import SelfImprovementEngine
 
 
 async def test_basic_functionality():
@@ -110,7 +110,7 @@ async def test_discovery_components():
     # Test Research Agent
     print("1️⃣ Testing Research Agent...")
     try:
-        from claude_coms.discovery.research import ResearchAgent
+        from granger_hub.discovery.research import ResearchAgent
         agent = ResearchAgent()
         
         # Conduct minimal research
@@ -130,7 +130,7 @@ async def test_discovery_components():
     # Test Pattern Recognizer
     print("\n2️⃣ Testing Pattern Recognizer...")
     try:
-        from claude_coms.discovery.analysis import PatternRecognizer
+        from granger_hub.discovery.analysis import PatternRecognizer
         recognizer = PatternRecognizer()
         
         patterns = await recognizer.recognize_patterns(findings[:1])
@@ -143,7 +143,7 @@ async def test_discovery_components():
     # Test Scenario Generator
     print("\n3️⃣ Testing Scenario Generator...")
     try:
-        from claude_coms.discovery.generation import ScenarioGenerator
+        from granger_hub.discovery.generation import ScenarioGenerator
         generator = ScenarioGenerator()
         
         scenarios = await generator.generate_from_research(

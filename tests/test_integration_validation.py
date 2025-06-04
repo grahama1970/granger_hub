@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 import pytest
 
-from claude_coms.core.adapters import (
+from granger_hub.core.adapters import (
     AdapterRegistry,
     AdapterFactory,
     CLIAdapter,
@@ -16,17 +16,17 @@ from claude_coms.core.adapters import (
     MCPAdapter,
     AdapterConfig
 )
-from claude_coms.core.binary_handler import BinaryDataHandler, BinaryFileHandler
-from claude_coms.core.event_system import (
+from granger_hub.core.binary_handler import BinaryDataHandler, BinaryFileHandler
+from granger_hub.core.event_system import (
     EventBus,
     Event,
     EventPriority
 )
-from claude_coms.core.event_integration import (
+from granger_hub.core.event_integration import (
     EventAwareModule,
     EventAwareModuleCommunicator
 )
-from claude_coms.core.modules import BaseModule, ModuleInfo
+from granger_hub.core.modules import BaseModule, ModuleInfo
 from pathlib import Path
 
 

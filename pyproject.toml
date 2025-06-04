@@ -5,9 +5,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "claude-module-communicator"
+name = "granger_hub"
 version = "0.4.0"
-description = "Claude Based Module Communicator (MCP) Server for Cybersecurity Data Extraction and Analysis"
+description = "Granger Hub - Central orchestration hub for the Granger autonomous research ecosystem"
 readme = "README.md"
 requires-python = ">=3.10.11"
 license = { text = "MIT" }
@@ -67,7 +67,7 @@ dependencies = [
     "fastmcp>=2.5.1",
     "jinja2>=3.1.0",  # For prompt templates
     # LLM Integration
-    "llm_call @ git+https://github.com/grahama1970/claude_max_proxy.git@main",
+    "llm_call @ git+https://github.com/grahama1970/llm_call.git@main",
     # Test Reporting
     "claude-test-reporter @ git+https://github.com/grahama1970/claude-test-reporter.git",
     # Screenshot and Browser Automation
@@ -102,10 +102,10 @@ testpaths = ["tests"]
 [project.scripts]
 # sparta-mcp-server = "sparta_mcp_server:main"  # MCP server entry point
 # sparta-cli = "sparta_mcp_server.cli.app:app"  # CLI for testing/management
-cmc-cli = "claude_coms.cli.claude_comm:main"  # CLI for module communication
+granger-cli = "granger_hub.cli.claude_comm:main"  # CLI for Granger hub
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/claude_module_communicator", "src/claude_coms"]
+packages = ["src/granger_hub"]
 
 [tool.hatch.metadata]
 allow-direct-references = true

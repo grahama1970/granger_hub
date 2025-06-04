@@ -19,7 +19,7 @@ import json
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "claude_coms" / "core" / "modules"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "granger_hub" / "core" / "modules"))
 
 # Import directly from modules
 from module_registry import ModuleRegistry, ModuleInfo

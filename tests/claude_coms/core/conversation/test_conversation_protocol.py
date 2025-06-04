@@ -15,11 +15,11 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.core.conversation import (
+from granger_hub.core.conversation import (
     ConversationProtocol, ConversationIntent, ConversationPhase,
     ConversationHandshake, ConversationResponse, SchemaProposal
 )
-from claude_coms.core.conversation import ConversationMessage
+from granger_hub.core.conversation import ConversationMessage
 
 
 def test_handshake_creation():

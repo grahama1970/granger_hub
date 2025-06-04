@@ -9,7 +9,7 @@ import asyncio
 from pathlib import Path
 from unittest.mock import patch, MagicMock, AsyncMock
 
-from claude_coms.core.modules.browser_automation_module import BrowserAutomationModule
+from granger_hub.core.modules.browser_automation_module import BrowserAutomationModule
 
 
 @pytest.fixture
@@ -97,7 +97,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_navigate_action(self, browser_module, mock_playwright):
         """Test navigation to a URL."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -124,7 +124,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_navigate_missing_url(self, browser_module, mock_playwright):
         """Test navigation without URL fails."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -140,7 +140,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_click_action(self, browser_module, mock_playwright):
         """Test clicking an element."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -165,7 +165,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_fill_action(self, browser_module, mock_playwright):
         """Test filling a form field."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -188,7 +188,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_hover_action(self, browser_module, mock_playwright):
         """Test hovering over an element."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -208,7 +208,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_screenshot_full_page(self, browser_module, mock_playwright):
         """Test taking a full page screenshot."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -237,7 +237,7 @@ class TestBrowserAutomationModule:
         mock_element.screenshot = AsyncMock()
         mock_playwright["page"].query_selector = AsyncMock(return_value=mock_element)
         
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -261,7 +261,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_evaluate_javascript(self, browser_module, mock_playwright):
         """Test evaluating JavaScript in page context."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -283,7 +283,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_wait_for_selector(self, browser_module, mock_playwright):
         """Test waiting for a selector."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -317,7 +317,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_headless_mode(self, browser_module, mock_playwright):
         """Test browser runs in headless mode by default."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             
@@ -338,7 +338,7 @@ class TestBrowserAutomationModule:
     @pytest.mark.asyncio
     async def test_headed_mode(self, browser_module, mock_playwright):
         """Test browser can run in headed mode."""
-        with patch('claude_coms.core.modules.browser_automation_module.async_playwright', 
+        with patch('granger_hub.core.modules.browser_automation_module.async_playwright', 
                   return_value=mock_playwright["async_playwright"]):
             await browser_module.start()
             

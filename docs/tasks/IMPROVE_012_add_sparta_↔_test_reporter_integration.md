@@ -18,7 +18,7 @@ No current integration tests between these critical modules
 
 - sparta
 - test_reporter
-- claude-module-communicator
+- granger_hub
 
 ## Implementation Steps
 

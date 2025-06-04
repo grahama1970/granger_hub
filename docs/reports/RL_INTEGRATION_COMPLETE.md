@@ -2,7 +2,7 @@
 
 ## Summary
 
-Successfully integrated `rl_commons` library into claude-module-communicator for real reinforcement learning of module interactions. The integration is **NOT mocked** - it uses actual RL algorithms from the rl_commons library.
+Successfully integrated `rl_commons` library into granger_hub for real reinforcement learning of module interactions. The integration is **NOT mocked** - it uses actual RL algorithms from the rl_commons library.
 
 ## Implementation Details
 

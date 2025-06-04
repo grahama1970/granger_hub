@@ -9,7 +9,7 @@ import json
 import tempfile
 from pathlib import Path
 from typer.testing import CliRunner
-from claude_coms.cli.communication_commands import app
+from granger_hub.cli.communication_commands import app
 
 runner = CliRunner()
 

@@ -50,7 +50,7 @@ I've successfully integrated reinforcement learning into the Claude Module Commu
 
 ```bash
 # Run the Ollama integration demo
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 python examples/rl_training_with_ollama.py
 ```
 

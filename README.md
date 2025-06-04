@@ -80,11 +80,11 @@ Validate that output schemas from one module match input schemas of the next mod
 
 ```bash
 # Install from GitHub
-pip install git+https://github.com/grahama1970/claude-module-communicator.git@master
+pip install git+https://github.com/grahama1970/granger_hub.git@master
 
 # Or clone and install locally
-git clone https://github.com/grahama1970/claude-module-communicator.git
-cd claude-module-communicator
+git clone https://github.com/grahama1970/granger_hub.git
+cd granger_hub
 pip install -e .
 ```
 
@@ -527,7 +527,7 @@ Follow the guidelines in `CLAUDE.md`:
 
 ### Project Structure
 ```
-claude-module-communicator/
+granger_hub/
 ├── src/
 │   └── claude_coms/          # Main package
 │       ├── cli/              # CLI interface

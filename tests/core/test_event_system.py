@@ -13,10 +13,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import tempfile
 
-from claude_coms.core.event_system import (
+from granger_hub.core.event_system import (
     EventBus, Event, EventHandler, EventPriority, SystemEvents, ModuleEventMixin
 )
-from claude_coms.core.event_integration import (
+from granger_hub.core.event_integration import (
     EventAwareModuleCommunicator, EventAwareModule, EventSubscriberModule
 )
 

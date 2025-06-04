@@ -63,8 +63,8 @@ class SelfImprovementEngine:
         # Project definitions
         self.projects = {
             "hub": {
-                "name": "claude-module-communicator",
-                "path": self.workspace_root / "claude-module-communicator",
+                "name": "granger_hub",
+                "path": self.workspace_root / "granger_hub",
                 "role": "hub"
             },
             "spokes": {
@@ -93,7 +93,7 @@ class SelfImprovementEngine:
         
         # Analyze hub
         hub_analysis = await self._analyze_project(
-            "claude-module-communicator",
+            "granger_hub",
             self.projects["hub"]["path"],
             "hub"
         )
@@ -691,7 +691,7 @@ Track these KPIs to measure improvement impact:
             title=f"Add {spoke1} ↔ {spoke2} Integration",
             priority="high",
             category="integration",
-            affected_projects=[spoke1, spoke2, "claude-module-communicator"],
+            affected_projects=[spoke1, spoke2, "granger_hub"],
             description=f"Create integration between {spoke1} and {spoke2} modules",
             rationale=f"No current integration tests between these critical modules",
             implementation_steps=[

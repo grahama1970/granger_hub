@@ -7,7 +7,7 @@ from typer.testing import CliRunner
 from unittest.mock import patch, AsyncMock, MagicMock
 import json
 
-from claude_coms.cli.claude_comm import app
+from granger_hub.cli.claude_comm import app
 
 
 runner = CliRunner()
@@ -25,7 +25,7 @@ class TestScreenshotCommand:
         assert "--region" in result.stdout
         assert "--quality" in result.stdout
     
-    @patch('claude_coms.core.modules.screenshot_module.ScreenshotModule')
+    @patch('granger_hub.core.modules.screenshot_module.ScreenshotModule')
     def test_screenshot_basic(self, mock_module_class):
         """Test basic screenshot capture."""
         # Create mock module instance
@@ -44,7 +44,7 @@ class TestScreenshotCommand:
         assert "Screenshot saved" in result.stdout
         assert "/tmp/screenshot.jpg" in result.stdout
     
-    @patch('claude_coms.core.modules.screenshot_module.ScreenshotModule')
+    @patch('granger_hub.core.modules.screenshot_module.ScreenshotModule')
     def test_screenshot_with_options(self, mock_module_class):
         """Test screenshot with all options."""
         mock_module = AsyncMock()
@@ -72,7 +72,7 @@ class TestScreenshotCommand:
         assert call_args["region"] == "center"
         assert call_args["quality"] == 85
     
-    @patch('claude_coms.core.modules.screenshot_module.ScreenshotModule')
+    @patch('granger_hub.core.modules.screenshot_module.ScreenshotModule')
     def test_screenshot_url(self, mock_module_class):
         """Test screenshot of URL."""
         mock_module = AsyncMock()
@@ -97,7 +97,7 @@ class TestScreenshotCommand:
         assert call_args["url"] == "https://example.com"
         assert call_args["wait"] == 5
     
-    @patch('claude_coms.core.modules.screenshot_module.ScreenshotModule')
+    @patch('granger_hub.core.modules.screenshot_module.ScreenshotModule')
     def test_screenshot_with_description(self, mock_module_class):
         """Test screenshot with AI description."""
         mock_module = AsyncMock()
@@ -130,7 +130,7 @@ class TestScreenshotCommand:
         assert "Description:" in result.stdout
         assert "A screenshot showing a web page" in result.stdout
     
-    @patch('claude_coms.core.modules.screenshot_module.ScreenshotModule')
+    @patch('granger_hub.core.modules.screenshot_module.ScreenshotModule')
     def test_screenshot_failure(self, mock_module_class):
         """Test screenshot failure handling."""
         mock_module = AsyncMock()
@@ -160,7 +160,7 @@ class TestBrowserCommand:
         assert "--url" in result.stdout
         assert "--selector" in result.stdout
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_navigate(self, mock_module_class):
         """Test browser navigate action."""
         mock_module = AsyncMock()
@@ -188,7 +188,7 @@ class TestBrowserCommand:
         assert call_args["action"] == "navigate"
         assert call_args["url"] == "https://example.com"
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_click(self, mock_module_class):
         """Test browser click action."""
         mock_module = AsyncMock()
@@ -211,7 +211,7 @@ class TestBrowserCommand:
         assert result.exit_code == 0
         assert "Action completed successfully" in result.stdout
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_fill(self, mock_module_class):
         """Test browser fill action."""
         mock_module = AsyncMock()
@@ -235,7 +235,7 @@ class TestBrowserCommand:
         assert result.exit_code == 0
         assert "Action completed successfully" in result.stdout
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_screenshot(self, mock_module_class):
         """Test browser screenshot action."""
         mock_module = AsyncMock()
@@ -258,7 +258,7 @@ class TestBrowserCommand:
         assert result.exit_code == 0
         assert "Action completed successfully" in result.stdout
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_navigate_missing_url(self, mock_module_class):
         """Test browser navigate without URL shows error."""
         mock_module = AsyncMock()
@@ -275,7 +275,7 @@ class TestBrowserCommand:
         # The error should be shown in output
         assert "URL is required" in result.stdout
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_headed_mode(self, mock_module_class):
         """Test browser in headed mode."""
         mock_module = AsyncMock()
@@ -299,7 +299,7 @@ class TestBrowserCommand:
         call_args = mock_module.process.call_args[0][0]
         assert call_args["headless"] is False
     
-    @patch('claude_coms.core.modules.browser_automation_module.BrowserAutomationModule')
+    @patch('granger_hub.core.modules.browser_automation_module.BrowserAutomationModule')
     def test_browser_action_failure(self, mock_module_class):
         """Test browser action failure handling."""
         mock_module = AsyncMock()

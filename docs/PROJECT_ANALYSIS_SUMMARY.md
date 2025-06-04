@@ -1,8 +1,8 @@
-# Project Analysis Summary: Communication Needs for claude-module-communicator
+# Project Analysis Summary: Communication Needs for granger_hub
 
 ## Overview
 
-This document analyzes 10 projects to understand their functionality and communication requirements for seamless integration via claude-module-communicator.
+This document analyzes 10 projects to understand their functionality and communication requirements for seamless integration via granger_hub.
 
 ## Projects Analyzed
 
@@ -18,7 +18,7 @@ This document analyzes 10 projects to understand their functionality and communi
 
 **Communication Needs**:
 - **Outputs**: Enriched STIX JSON, downloaded PDFs/HTML, NIST controls formatted for ArangoDB
-- **Protocol**: Already uses claude-module-communicator with ArangoHybrid interface
+- **Protocol**: Already uses granger_hub with ArangoHybrid interface
 - **Message Types**: batch_processing_request, progress updates
 - **Example Usage**:
 ```python
@@ -44,7 +44,7 @@ arango.send_message("sparta", "marker", {
 **Communication Needs**:
 - **Inputs**: PDF files, processing configurations
 - **Outputs**: Markdown, JSON, ArangoDB graph structures
-- **Protocol**: MCP server, planning claude-module-communicator integration
+- **Protocol**: MCP server, planning granger_hub integration
 - **Message Types**: Document processing requests, results with metadata
 
 ### 3. ArangoDB Memory Bank
@@ -207,7 +207,7 @@ arango.send_message("sparta", "marker", {
 - Test Reporter consuming results from multiple projects
 - Screenshot tool analyzing visual outputs
 
-## Required Features for claude-module-communicator
+## Required Features for granger_hub
 
 ### Core Features Needed
 

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, Any
 import tempfile
 
-from claude_coms.core.adapters import MarkerAdapter, AdapterConfig
+from granger_hub.core.adapters import MarkerAdapter, AdapterConfig
 
 
 class TestMarkerAdapterReal:

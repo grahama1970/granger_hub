@@ -14,7 +14,7 @@ def main():
     
     # Test 1: Import core modules
     try:
-        from claude_coms.cli.granger_slash_mcp_mixin import add_slash_mcp_commands
+        from granger_hub.cli.granger_slash_mcp_mixin import add_slash_mcp_commands
         print("✅ Imported granger_slash_mcp_mixin")
     except ImportError as e:
         print(f"❌ Failed to import granger_slash_mcp_mixin: {e}")
@@ -22,7 +22,7 @@ def main():
     
     # Test 2: Import prompt infrastructure
     try:
-        from claude_coms.mcp import (
+        from granger_hub.mcp import (
             Prompt, PromptRegistry, get_prompt_registry, set_prompt_registry
         )
         print("✅ Imported prompt infrastructure")
@@ -32,7 +32,7 @@ def main():
     
     # Test 3: Import hub prompts
     try:
-        from claude_coms.mcp.hub_prompts import get_hub_prompt_examples
+        from granger_hub.mcp.hub_prompts import get_hub_prompt_examples
         print("✅ Imported hub prompts")
     except ImportError as e:
         print(f"❌ Failed to import hub prompts: {e}")
@@ -83,7 +83,7 @@ def main():
     # Test 6: Verify CLI integration
     print("\n🖥️  Testing CLI integration...")
     try:
-        from claude_coms.cli.claude_comm import app
+        from granger_hub.cli.claude_comm import app
         commands = [cmd.name for cmd in app.registered_commands]
         
         granger_commands = [
@@ -105,7 +105,7 @@ def main():
     # Test 7: Verify FastMCP server
     print("\n🚀 Testing FastMCP server creation...")
     try:
-        from claude_coms.mcp.fastmcp_server import create_hub_mcp_server
+        from granger_hub.mcp.fastmcp_server import create_hub_mcp_server
         # Don't actually create it, just verify import
         print("✅ FastMCP server module imported successfully")
     except ImportError:

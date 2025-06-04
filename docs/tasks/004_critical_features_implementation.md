@@ -174,7 +174,7 @@ class EventBus:
 - Multi-protocol orchestration
 
 ## Success Criteria
-1. All 11 projects can communicate through claude-module-communicator
+1. All 11 projects can communicate through granger_hub
 2. Binary files (PDFs, images) can be passed between modules
 3. Real-time events propagate to all interested modules
 4. Protocol differences are transparent to module developers

@@ -6,7 +6,7 @@ from typing import Dict, Any, List
 
 import pytest
 
-from claude_coms.core.discovery import (
+from granger_hub.core.discovery import (
     ServiceDiscovery,
     ServiceInfo,
     ServiceStatus,

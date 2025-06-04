@@ -10,7 +10,7 @@ TODO: Implement tests for:
 """
 
 import pytest
-from claude_coms.core.storage import (
+from granger_hub.core.storage import (
     arango_conversation,
     arango_expert,
     arango_expert_llm,

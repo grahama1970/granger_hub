@@ -1,4 +1,4 @@
-# claude_coms/rl/rewards.py
+# granger_hub/rl/rewards.py
 from dataclasses import dataclass
 from typing import Dict, List, Any
 import numpy as np

@@ -17,7 +17,7 @@ from fastapi.responses import JSONResponse
 from sse_starlette.sse import EventSourceResponse
 
 from ..claude_module_communicator import ModuleCommunicator
-from ..claude_coms.base_module import BaseModule
+from ..granger_hub.base_module import BaseModule
 from .handlers import MCPRequestHandler, MCPResponseHandler
 from .tools import MCPToolRegistry
 

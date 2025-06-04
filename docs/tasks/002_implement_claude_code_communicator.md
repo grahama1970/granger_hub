@@ -1,6 +1,6 @@
 # Task 002: Implement Claude Code-Based Module Communication
 
-**Project**: claude-module-communicator
+**Project**: granger_hub
 **Goal**: Implement actual module communication using Claude Code instances
 
 ## Task Breakdown
@@ -518,7 +518,7 @@ if __name__ == "__main__":
 ## Run Command
 
 ```bash
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 export PYTHONPATH="${PYTHONPATH}:${PWD}"
 

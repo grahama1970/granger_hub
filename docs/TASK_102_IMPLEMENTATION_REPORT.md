@@ -159,7 +159,7 @@ async def select_module(modules, context):
 
 1. **Run Tests**:
    ```bash
-   cd /home/graham/workspace/experiments/claude-module-communicator
+   cd /home/graham/workspace/experiments/granger_hub
    ./run_rl_metrics_tests.sh
    ```
 
@@ -175,7 +175,7 @@ async def select_module(modules, context):
 ## Task Completion Checklist
 
 - [x] Create RL metrics collection schema in ArangoDB
-- [x] Add metrics ingestion endpoints in claude-module-communicator
+- [x] Add metrics ingestion endpoints in granger_hub
 - [x] Store module selection decisions, rewards, and outcomes
 - [x] Create time-series indexes for performance queries
 - [x] Test with real ArangoDB (no mocking)

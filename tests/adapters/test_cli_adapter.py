@@ -15,7 +15,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from claude_coms.core.adapters import CLIAdapter, AdapterConfig
+from granger_hub.core.adapters import CLIAdapter, AdapterConfig
 
 
 class TestCLIAdapterReal:

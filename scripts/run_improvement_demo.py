@@ -11,7 +11,7 @@ from datetime import datetime
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.discovery.self_improvement_engine import SelfImprovementEngine
+from granger_hub.discovery.self_improvement_engine import SelfImprovementEngine
 from loguru import logger
 
 

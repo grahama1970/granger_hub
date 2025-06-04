@@ -15,7 +15,7 @@ import json
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.discovery import DiscoveryOrchestrator
+from granger_hub.discovery import DiscoveryOrchestrator
 from loguru import logger
 
 
@@ -89,7 +89,7 @@ async def test_components():
     
     # Test Research Agent
     print("1️⃣ Testing Research Agent...")
-    from claude_coms.discovery.research import ResearchAgent
+    from granger_hub.discovery.research import ResearchAgent
     agent = ResearchAgent()
     findings = await agent.conduct_research(categories=["optimization"], force_refresh=False)
     print(f"   ✓ Found {len(findings)} research items")
@@ -98,7 +98,7 @@ async def test_components():
     
     # Test Pattern Recognizer
     print("\n2️⃣ Testing Pattern Recognizer...")
-    from claude_coms.discovery.analysis import PatternRecognizer
+    from granger_hub.discovery.analysis import PatternRecognizer
     recognizer = PatternRecognizer()
     patterns = await recognizer.recognize_patterns(findings[:3])
     print(f"   ✓ Recognized {len(patterns)} patterns")
@@ -107,7 +107,7 @@ async def test_components():
     
     # Test Optimization Analyzer
     print("\n3️⃣ Testing Optimization Analyzer...")
-    from claude_coms.discovery.analysis import OptimizationAnalyzer
+    from granger_hub.discovery.analysis import OptimizationAnalyzer
     analyzer = OptimizationAnalyzer()
     if patterns:
         score = await analyzer.analyze_pattern(patterns[0])
@@ -116,7 +116,7 @@ async def test_components():
     
     # Test Scenario Generator
     print("\n4️⃣ Testing Scenario Generator...")
-    from claude_coms.discovery.generation import ScenarioGenerator
+    from granger_hub.discovery.generation import ScenarioGenerator
     generator = ScenarioGenerator()
     scenarios = await generator.generate_from_research(findings[:3], max_scenarios=1)
     print(f"   ✓ Generated {len(scenarios)} scenarios")
@@ -125,7 +125,7 @@ async def test_components():
     
     # Test Evolution Engine
     print("\n5️⃣ Testing Evolution Engine...")
-    from claude_coms.discovery.learning import EvolutionEngine
+    from granger_hub.discovery.learning import EvolutionEngine
     evolution = EvolutionEngine()
     insights = evolution.get_learning_insights()
     print(f"   ✓ Scenarios analyzed: {insights['total_scenarios_analyzed']}")

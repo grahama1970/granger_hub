@@ -11,9 +11,9 @@ from typer.testing import CliRunner
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.cli.claude_comm import app
-from claude_coms.mcp import get_prompt_registry
-from claude_coms.mcp.hub_prompts import get_hub_prompt_examples
+from granger_hub.cli.claude_comm import app
+from granger_hub.mcp import get_prompt_registry
+from granger_hub.mcp.hub_prompts import get_hub_prompt_examples
 
 
 runner = CliRunner()
@@ -203,7 +203,7 @@ def test_smart_bundling():
 def test_fastmcp_server_creation():
     """Test that FastMCP server can be created."""
     try:
-        from claude_coms.mcp.fastmcp_server import create_hub_mcp_server
+        from granger_hub.mcp.fastmcp_server import create_hub_mcp_server
         
         # Create server (but don't run it)
         mcp = create_hub_mcp_server()
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     print("✓ Hub prompt examples")
     
     # Test CLI commands exist
-    from claude_coms.cli.claude_comm import app
+    from granger_hub.cli.claude_comm import app
     command_names = [cmd.name for cmd in app.registered_commands]
     assert "generate-claude" in command_names
     assert "list-prompts" in command_names

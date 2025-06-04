@@ -49,7 +49,7 @@ tests/
 ### Quick Start - Run All Tests
 ```bash
 # From project root
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 pytest tests/ -v
 ```

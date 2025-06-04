@@ -18,9 +18,9 @@ import sys
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.core.conversation import ConversationManager
-from claude_coms.core.conversation import ConversationMessage
-from claude_coms.core.modules import ModuleRegistry, ModuleInfo
+from granger_hub.core.conversation import ConversationManager
+from granger_hub.core.conversation import ConversationMessage
+from granger_hub.core.modules import ModuleRegistry, ModuleInfo
 
 
 @pytest.fixture

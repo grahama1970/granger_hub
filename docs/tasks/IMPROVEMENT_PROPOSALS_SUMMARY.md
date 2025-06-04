@@ -24,26 +24,26 @@ Implement Tests parallel pattern. Based on research: Optimizing multi-agent syst
 Implement Tests cache pattern. Based on research: Optimizing multi-agent system optimization with Re Based on research: Optimizing microservice performance patterns with  using modules: arangodb, llm_...
 
 ### IMPROVE_011: Add marker ↔ arangodb Integration
-**Category**: integration | **Effort**: 2-3 days | **Projects**: marker, arangodb, claude-module-communicator
+**Category**: integration | **Effort**: 2-3 days | **Projects**: marker, arangodb, granger_hub
 Create integration between marker and arangodb modules...
 
 ### IMPROVE_012: Add sparta ↔ test_reporter Integration
-**Category**: integration | **Effort**: 2-3 days | **Projects**: sparta, test_reporter, claude-module-communicator
+**Category**: integration | **Effort**: 2-3 days | **Projects**: sparta, test_reporter, granger_hub
 Create integration between sparta and test_reporter modules...
 
 
 ## Medium Priority Improvements
 
 ### IMPROVE_013: Add arxiv-mcp-server ↔ unsloth_wip Integration
-**Category**: integration | **Effort**: 2-3 days | **Projects**: arxiv-mcp-server, unsloth_wip, claude-module-communicator
+**Category**: integration | **Effort**: 2-3 days | **Projects**: arxiv-mcp-server, unsloth_wip, granger_hub
 Create integration between arxiv-mcp-server and unsloth_wip modules...
 
 ### IMPROVE_014: Add youtube_transcripts ↔ arangodb Integration
-**Category**: integration | **Effort**: 2-3 days | **Projects**: youtube_transcripts, arangodb, claude-module-communicator
+**Category**: integration | **Effort**: 2-3 days | **Projects**: youtube_transcripts, arangodb, granger_hub
 Create integration between youtube_transcripts and arangodb modules...
 
 ### IMPROVE_015: Add claude_max_proxy ↔ test_reporter Integration
-**Category**: integration | **Effort**: 2-3 days | **Projects**: claude_max_proxy, test_reporter, claude-module-communicator
+**Category**: integration | **Effort**: 2-3 days | **Projects**: claude_max_proxy, test_reporter, granger_hub
 Create integration between claude_max_proxy and test_reporter modules...
 
 ### IMPROVE_003: Implement TestMessageQueueLlm_CallV3

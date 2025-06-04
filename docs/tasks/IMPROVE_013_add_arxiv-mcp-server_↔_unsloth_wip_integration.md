@@ -18,7 +18,7 @@ No current integration tests between these critical modules
 
 - arxiv-mcp-server
 - unsloth_wip
-- claude-module-communicator
+- granger_hub
 
 ## Implementation Steps
 

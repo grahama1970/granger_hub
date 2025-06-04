@@ -34,7 +34,7 @@
   - Maximum 3 test loops per task; escalate failures to project lead.  
 - **Environment Setup**:  
   - Python 3.9+, pytest 7.4+  
-  - claude-module-communicator installed with all dependencies
+  - granger_hub installed with all dependencies
   - No external API keys required for core conversation tests
 
 ---

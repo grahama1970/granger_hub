@@ -16,9 +16,9 @@ from datetime import datetime, timedelta
 from arango import ArangoClient
 from arango.exceptions import DatabaseCreateError
 
-from claude_coms.rl.metrics.learning_curves import LearningCurvesCalculator
-from claude_coms.rl.metrics.models import RLMetric
-from claude_coms.rl.metrics.arangodb_store import ArangoDBStore
+from granger_hub.rl.metrics.learning_curves import LearningCurvesCalculator
+from granger_hub.rl.metrics.models import RLMetric
+from granger_hub.rl.metrics.arangodb_store import ArangoDBStore
 
 
 @pytest.fixture

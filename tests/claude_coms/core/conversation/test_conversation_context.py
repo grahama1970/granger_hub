@@ -18,8 +18,8 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.core.conversation import ConversationModule, ConversationMessage, ConversationState
-from claude_coms.core.modules import ModuleRegistry
+from granger_hub.core.conversation import ConversationModule, ConversationMessage, ConversationState
+from granger_hub.core.modules import ModuleRegistry
 
 
 class TestConversationModule(ConversationModule):

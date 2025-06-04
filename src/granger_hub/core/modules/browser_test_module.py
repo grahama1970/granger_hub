@@ -51,7 +51,7 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 import subprocess
 
-from claude_coms.core.modules.base_module import BaseModule
+from granger_hub.core.modules.base_module import BaseModule
 from .browser_automation_module import BrowserAutomationModule
 from .screenshot_module import ScreenshotModule
 

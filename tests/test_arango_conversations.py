@@ -20,9 +20,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Check if ArangoDB is available
 try:
     from arango import ArangoClient
-    from claude_coms.core.storage.arango_conversation import ArangoConversationStore
-    from claude_coms.core.conversation import ConversationManager, ConversationMessage
-    from claude_coms.core.modules import ModuleRegistry
+    from granger_hub.core.storage.arango_conversation import ArangoConversationStore
+    from granger_hub.core.conversation import ConversationManager, ConversationMessage
+    from granger_hub.core.modules import ModuleRegistry
     ARANGO_AVAILABLE = True
 except ImportError:
     ARANGO_AVAILABLE = False

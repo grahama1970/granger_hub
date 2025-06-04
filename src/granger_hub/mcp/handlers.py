@@ -13,7 +13,7 @@ from datetime import datetime
 import uuid
 
 from ..claude_module_communicator import ModuleCommunicator
-from ..claude_coms.task_executor import Task
+from ..granger_hub.task_executor import Task
 
 logger = logging.getLogger(__name__)
 
@@ -148,7 +148,7 @@ class MCPRequestHandler:
         
         # In a real implementation, this would dynamically load the module
         # For now, we'll create a basic module
-        from ..claude_coms.base_module import BaseModule
+        from ..granger_hub.base_module import BaseModule
         
         module = BaseModule(
             name=params["name"],

@@ -2,7 +2,7 @@
 
 ## Summary
 
-The claude-module-communicator project has been thoroughly cleaned and organized. All files are now in their appropriate locations, and the project structure follows best practices.
+The granger_hub project has been thoroughly cleaned and organized. All files are now in their appropriate locations, and the project structure follows best practices.
 
 ## Changes Made
 
@@ -57,7 +57,7 @@ Root directory now contains only:
 Run this before every push to ensure nothing is broken:
 
 ```bash
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 pytest tests/ -v --tb=short
 ```

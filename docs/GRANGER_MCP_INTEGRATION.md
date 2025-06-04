@@ -141,7 +141,7 @@ Add to Claude Desktop's MCP config:
 ```json
 {
   "mcpServers": {
-    "claude-module-communicator": {
+    "granger_hub": {
       "command": "python",
       "args": ["-m", "claude_coms.mcp.fastmcp_server"],
       "env": {

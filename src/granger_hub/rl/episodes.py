@@ -1,4 +1,4 @@
-# claude_coms/rl/episodes.py
+# granger_hub/rl/episodes.py
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
 import logging

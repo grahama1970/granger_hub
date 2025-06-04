@@ -15,10 +15,10 @@ print("="*60)
 # Verify all files were created
 import os
 files_created = {
-    'Backend module': 'src/claude_coms/rl/metrics/learning_curves.py',
+    'Backend module': 'src/granger_hub/rl/metrics/learning_curves.py',
     'API endpoints': '../chat/backend/dashboard/learning_curves.py',
     'React component': '../chat/frontend/src/components/dashboard/LearningCurves.jsx',
-    'Backend tests': 'tests/claude_coms/rl/metrics/test_learning_curves.py',
+    'Backend tests': 'tests/granger_hub/rl/metrics/test_learning_curves.py',
     'Frontend tests': '../chat/frontend/src/components/dashboard/__tests__/LearningCurves.test.js'
 }
 
@@ -33,7 +33,7 @@ for desc, filepath in files_created.items():
 # Verify imports work
 print("\n🔍 Import Verification:")
 try:
-    from claude_coms.rl.metrics.learning_curves import LearningCurvesCalculator
+    from granger_hub.rl.metrics.learning_curves import LearningCurvesCalculator
     print("   ✅ LearningCurvesCalculator imported successfully")
     
     # Check all methods exist

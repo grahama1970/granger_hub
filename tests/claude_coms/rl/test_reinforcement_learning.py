@@ -10,7 +10,7 @@ TODO: Implement tests for:
 """
 
 import pytest
-from claude_coms.rl import episodes, rewards, ollama_integration
+from granger_hub.rl import episodes, rewards, ollama_integration
 
 
 class TestReinforcementLearning:

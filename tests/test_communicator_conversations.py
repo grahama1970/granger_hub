@@ -12,9 +12,9 @@ from typing import Dict, Any
 from datetime import datetime, timedelta
 import json
 
-from claude_coms.core.module_communicator import ModuleCommunicator
-from claude_coms.core.modules import BaseModule, ModuleRegistry
-from claude_coms.core.conversation import ConversationMessage
+from granger_hub.core.module_communicator import ModuleCommunicator
+from granger_hub.core.modules import BaseModule, ModuleRegistry
+from granger_hub.core.conversation import ConversationMessage
 
 
 class SimpleTestModule(BaseModule):

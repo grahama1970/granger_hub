@@ -13,7 +13,7 @@ from pathlib import Path
 import tempfile
 import json
 
-from claude_coms.core.adapters import (
+from granger_hub.core.adapters import (
     ProtocolAdapter, AdapterConfig,
     CLIAdapter, RESTAdapter, MCPAdapter,
     AdapterRegistry, AdapterFactory

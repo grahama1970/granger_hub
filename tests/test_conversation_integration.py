@@ -14,9 +14,9 @@ import json
 import os
 from pathlib import Path
 
-from claude_coms.core.module_communicator import ModuleCommunicator
-from claude_coms.core.modules import BaseModule, ModuleInfo
-from claude_coms.core.conversation import ConversationMessage, ConversationModule
+from granger_hub.core.module_communicator import ModuleCommunicator
+from granger_hub.core.modules import BaseModule, ModuleInfo
+from granger_hub.core.conversation import ConversationMessage, ConversationModule
 
 
 class DataProcessorModule(ConversationModule):

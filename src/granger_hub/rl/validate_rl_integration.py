@@ -11,7 +11,7 @@ import asyncio
 import numpy as np
 from typing import Dict, Any, List
 
-from claude_coms.rl import (
+from granger_hub.rl import (
     initialize_rl_agents,
     select_module_with_rl,
     record_decision_outcome,
@@ -112,7 +112,7 @@ async def main():
         })
         
         # Record outcome for learning
-        from claude_coms.rl.hub_decisions import _module_to_index, _log_decision
+        from granger_hub.rl.hub_decisions import _module_to_index, _log_decision
         
         decision_id = _log_decision(
             decision_type="module_selection",
@@ -159,7 +159,7 @@ async def main():
     print("\n4. Verifying RL is using rl_commons...")
     
     # Check that we're using real RL objects
-    from claude_coms.rl.hub_decisions import _module_selector
+    from granger_hub.rl.hub_decisions import _module_selector
     print(f"  Module selector type: {type(_module_selector)}")
     print(f"  Module selector class: {_module_selector.__class__.__module__}")
     

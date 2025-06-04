@@ -10,7 +10,7 @@ import asyncio
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-from claude_coms.core.modules.screenshot_module import ScreenshotModule
+from granger_hub.core.modules.screenshot_module import ScreenshotModule
 
 
 @pytest.fixture

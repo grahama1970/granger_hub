@@ -24,7 +24,7 @@ from typing import Dict, Any, List
 from loguru import logger
 from arango import ArangoClient
 
-from claude_coms.rl.metrics import (
+from granger_hub.rl.metrics import (
     RLMetricsCollector,
     ArangoDBMetricsStore,
     RLMetric,

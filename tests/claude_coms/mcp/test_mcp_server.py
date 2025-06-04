@@ -10,7 +10,7 @@ TODO: Implement tests for:
 """
 
 import pytest
-from claude_coms.mcp import server, handlers, tools
+from granger_hub.mcp import server, handlers, tools
 
 
 class TestMCPServer:

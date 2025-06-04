@@ -11,7 +11,7 @@ sys.path.insert(0, 'src')
 
 # Test imports
 try:
-    from claude_coms.rl.metrics.learning_curves import LearningCurvesCalculator
+    from granger_hub.rl.metrics.learning_curves import LearningCurvesCalculator
     print("✅ Successfully imported LearningCurvesCalculator")
 except Exception as e:
     print(f"❌ Failed to import: {e}")

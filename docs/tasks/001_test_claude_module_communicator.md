@@ -1,6 +1,6 @@
 # Task 001: Test Claude Module Communicator Components
 
-**Project**: claude-module-communicator
+**Project**: granger_hub
 **Goal**: Create comprehensive tests for all project components with real data validation
 
 ## Task Breakdown
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 **Expected Command**:
 ```bash
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 pytest tests/cli/test_communication_commands.py -v
 ```
@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 **Expected Command**:
 ```bash
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 pytest tests/core/test_progress_utils.py -v
 ```
@@ -365,7 +365,7 @@ if __name__ == "__main__":
 
 2. **Run all tests**:
    ```bash
-   cd /home/graham/workspace/experiments/claude-module-communicator
+   cd /home/graham/workspace/experiments/granger_hub
    source .venv/bin/activate
    export PYTHONPATH="${PYTHONPATH}:${PWD}"
    pytest tests/ -v --tb=short

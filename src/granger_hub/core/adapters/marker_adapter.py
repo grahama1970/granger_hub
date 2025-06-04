@@ -35,7 +35,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 import tempfile
 
-from claude_coms.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
+from granger_hub.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
 
 
 class MarkerAdapter(ProtocolAdapter):

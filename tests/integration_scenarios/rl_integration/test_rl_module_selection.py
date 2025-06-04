@@ -11,9 +11,9 @@ from typing import Dict, Any, List
 import numpy as np
 from pathlib import Path
 
-from claude_coms.core.module_communicator import ModuleCommunicator
-from claude_coms.core.modules.base_module import BaseModule
-from claude_coms.rl import (
+from granger_hub.core.module_communicator import ModuleCommunicator
+from granger_hub.core.modules.base_module import BaseModule
+from granger_hub.rl import (
     initialize_rl_agents,
     select_module_with_rl,
     record_decision_outcome,
@@ -21,7 +21,7 @@ from claude_coms.rl import (
     log_experience,
     train_agents_offline
 )
-from claude_coms.rl.experience_collection import initialize_experience_db
+from granger_hub.rl.experience_collection import initialize_experience_db
 
 
 class PDFProcessorModule(BaseModule):
@@ -373,7 +373,7 @@ class TestRLModuleSelection:
         print("\nPerforming offline training...")
         
         # Create mock agents for training
-        from claude_coms.rl.hub_decisions import _module_selector
+        from granger_hub.rl.hub_decisions import _module_selector
         
         training_metrics = train_agents_offline(
             agents={'module_selector': _module_selector},

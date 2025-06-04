@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import aiosqlite
 import pytest
-from claude_coms.core.modules.progress_utils import (
+from granger_hub.core.modules.progress_utils import (
     init_database,
     update_session_stats,
     get_session_statistics,

@@ -13,7 +13,7 @@ Key Features:
 - MCP server with FastMCP
 
 Usage:
-    from claude_coms.cli.granger_slash_mcp_mixin import add_slash_mcp_commands
+    from granger_hub.cli.granger_slash_mcp_mixin import add_slash_mcp_commands
     
     app = typer.Typer()
     add_slash_mcp_commands(app)  # That's it!
@@ -189,7 +189,7 @@ def add_slash_mcp_commands(
     ):
         """Generate MCP (Model Context Protocol) configuration with enhanced features."""
         
-        server_name = name or app.info.name or "claude-module-communicator"
+        server_name = name or app.info.name or "granger_hub"
         
         # Build tool definitions with enhanced metadata
         tools = {}
@@ -243,7 +243,7 @@ def add_slash_mcp_commands(
             },
             "server": {
                 "command": sys.executable,
-                "args": ["-m", "claude_coms.cli.claude_comm", "serve-mcp", "--host", host, "--port", str(port)],
+                "args": ["-m", "granger_hub.cli.claude_comm", "serve-mcp", "--host", host, "--port", str(port)],
                 "transport": "stdio"
             },
             "tools": tools,
@@ -289,9 +289,9 @@ def add_slash_mcp_commands(
         # Load config if provided
         if config and config.exists():
             config_data = json.loads(config.read_text())
-            server_name = config_data.get("name", "claude-module-communicator")
+            server_name = config_data.get("name", "granger_hub")
         else:
-            server_name = app.info.name or "claude-module-communicator"
+            server_name = app.info.name or "granger_hub"
         
         # Create FastMCP instance with enhanced setup
         mcp = FastMCP(server_name)
@@ -327,7 +327,7 @@ def add_slash_mcp_commands(
             if reload:
                 import uvicorn
                 uvicorn.run(
-                    "claude_coms.mcp.server:app",
+                    "granger_hub.mcp.server:app",
                     host=host,
                     port=port,
                     reload=True,

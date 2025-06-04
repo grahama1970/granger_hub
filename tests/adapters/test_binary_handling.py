@@ -14,11 +14,11 @@ from pathlib import Path
 import tempfile
 import hashlib
 
-from claude_coms.core.binary_handler import (
+from granger_hub.core.binary_handler import (
     BinaryDataHandler, BinaryFileHandler, CompressionMethod
 )
-from claude_coms.core.adapters import ProtocolAdapter, AdapterConfig
-from claude_coms.core.adapters.binary_adapter_mixin import BinaryAdapterMixin
+from granger_hub.core.adapters import ProtocolAdapter, AdapterConfig
+from granger_hub.core.adapters.binary_adapter_mixin import BinaryAdapterMixin
 
 
 class MockBinaryAdapter(ProtocolAdapter, BinaryAdapterMixin):

@@ -19,7 +19,7 @@ from tests.integration_scenarios.base.scenario_test_base import ScenarioTestBase
 from tests.integration_scenarios.base.result_assertions import ScenarioAssertions
 from tests.integration_scenarios.base.module_mock import ModuleMock
 
-from claude_coms.rl import (
+from granger_hub.rl import (
     initialize_rl_agents,
     select_module_with_rl,
     record_decision_outcome,
@@ -27,7 +27,7 @@ from claude_coms.rl import (
     train_agents_offline,
     extract_task_state
 )
-from claude_coms.rl.experience_collection import initialize_experience_db
+from granger_hub.rl.experience_collection import initialize_experience_db
 
 
 class TestRLModuleLearning(ScenarioTestBase):
@@ -236,7 +236,7 @@ class TestRLModuleLearning(ScenarioTestBase):
                 
                 # Record outcome for RL learning
                 # Get the action index for the selected module
-                from claude_coms.rl.hub_decisions import _module_to_index, _log_decision
+                from granger_hub.rl.hub_decisions import _module_to_index, _log_decision
                 
                 selected_module = self.rl_decisions[-1]['selected']
                 action_index = _module_to_index.get(selected_module, 0)
@@ -262,12 +262,12 @@ class TestRLModuleLearning(ScenarioTestBase):
                 )
                 
                 # Also log to experience DB for statistics
-                from claude_coms.rl import log_experience
-                from claude_coms.rl.experience_collection import EXPERIENCE_DB_PATH
+                from granger_hub.rl import log_experience
+                from granger_hub.rl.experience_collection import EXPERIENCE_DB_PATH
                 # Temporarily set test DB
                 original_db = EXPERIENCE_DB_PATH
-                import claude_coms.rl.experience_collection
-                claude_coms.rl.experience_collection.EXPERIENCE_DB_PATH = test_db
+                import granger_hub.rl.experience_collection
+                granger_hub.rl.experience_collection.EXPERIENCE_DB_PATH = test_db
                 log_experience(
                     decision_type="module_selection",
                     state=np.array(extract_task_state(task)),
@@ -276,7 +276,7 @@ class TestRLModuleLearning(ScenarioTestBase):
                     metadata={'module': selected_module, 'task': task}
                 )
                 # Restore
-                claude_coms.rl.experience_collection.EXPERIENCE_DB_PATH = original_db
+                granger_hub.rl.experience_collection.EXPERIENCE_DB_PATH = original_db
                 
                 rewards_over_time.append(reward)
                 
@@ -323,12 +323,12 @@ class TestRLModuleLearning(ScenarioTestBase):
         assert late_avg > 0, "RL should achieve some positive rewards"
         
         # Get statistics
-        import claude_coms.rl.experience_collection
+        import granger_hub.rl.experience_collection
         # Temporarily set the test DB path
-        original_path = claude_coms.rl.experience_collection.EXPERIENCE_DB_PATH
-        claude_coms.rl.experience_collection.EXPERIENCE_DB_PATH = test_db
+        original_path = granger_hub.rl.experience_collection.EXPERIENCE_DB_PATH
+        granger_hub.rl.experience_collection.EXPERIENCE_DB_PATH = test_db
         stats = get_experience_statistics()
-        claude_coms.rl.experience_collection.EXPERIENCE_DB_PATH = original_path
+        granger_hub.rl.experience_collection.EXPERIENCE_DB_PATH = original_path
         print(f"\nExperience statistics:")
         print(f"  Total experiences: {stats['total_experiences']}")
         print(f"  Average reward: {stats['avg_reward']:.3f}")
@@ -438,7 +438,7 @@ class TestRLModuleLearning(ScenarioTestBase):
         
         # Perform offline training
         print("\nPerforming offline training...")
-        from claude_coms.rl.hub_decisions import _module_selector
+        from granger_hub.rl.hub_decisions import _module_selector
         
         if _module_selector:
             metrics = train_agents_offline(

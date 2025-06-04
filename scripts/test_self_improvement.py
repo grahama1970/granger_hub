@@ -37,7 +37,7 @@ def run_tests_with_reporting():
             "--tb=short",
             "--json-report",
             f"--json-report-file=test_report_{Path(test_file).stem}.json",
-            "--cov=src.claude_coms.discovery",
+            "--cov=src.granger_hub.discovery",
             "--cov-append"
         ]
         
@@ -84,7 +84,7 @@ def run_tests_with_reporting():
     
     coverage_cmd = [
         sys.executable, "-m", "coverage", "report",
-        "--include=src/claude_coms/discovery/*"
+        "--include=src/granger_hub/discovery/*"
     ]
     
     subprocess.run(coverage_cmd)
@@ -92,7 +92,7 @@ def run_tests_with_reporting():
     # Generate HTML coverage report
     subprocess.run([
         sys.executable, "-m", "coverage", "html",
-        "--include=src/claude_coms/discovery/*"
+        "--include=src/granger_hub/discovery/*"
     ])
     
     print("\n📁 HTML coverage report generated: htmlcov/index.html")

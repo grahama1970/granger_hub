@@ -63,7 +63,7 @@ The test structure validates readiness for MCP (Model Context Protocol) server i
 
 To run all tests:
 ```bash
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 export PYTHONPATH="${PYTHONPATH}:${PWD}"
 pytest tests/ -v

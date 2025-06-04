@@ -26,7 +26,7 @@ from .hub_prompts import get_hub_prompt_examples
 
 
 def create_hub_mcp_server(
-    name: str = "claude-module-communicator",
+    name: str = "granger_hub",
     communicator: Optional[ModuleCommunicator] = None,
     enable_analytics: bool = True
 ) -> 'FastMCP':

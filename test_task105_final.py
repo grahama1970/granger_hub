@@ -12,7 +12,7 @@ sys.path.insert(0, 'src')
 
 # Test imports
 try:
-    from claude_coms.rl.metrics.learning_curves import LearningCurvesCalculator
+    from granger_hub.rl.metrics.learning_curves import LearningCurvesCalculator
     from arango import ArangoClient
     print("✅ Successfully imported required modules")
 except Exception as e:

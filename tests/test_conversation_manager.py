@@ -17,8 +17,8 @@ import sys
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "claude_coms" / "core" / "modules"))
-sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "claude_coms" / "core" / "conversation"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "granger_hub" / "core" / "modules"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "granger_hub" / "core" / "conversation"))
 
 from conversation_manager import ConversationManager
 from conversation_message import ConversationMessage, ConversationState

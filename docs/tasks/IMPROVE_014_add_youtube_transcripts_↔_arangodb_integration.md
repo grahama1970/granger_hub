@@ -18,7 +18,7 @@ No current integration tests between these critical modules
 
 - youtube_transcripts
 - arangodb
-- claude-module-communicator
+- granger_hub
 
 ## Implementation Steps
 

@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "MCP server for cmc-server",
   "server": {
-    "command": "/home/graham/workspace/experiments/claude-module-communicator/.venv/bin/python",
+    "command": "/home/graham/workspace/experiments/granger_hub/.venv/bin/python",
     "args": [
-      "/home/graham/workspace/experiments/claude-module-communicator/.venv/bin/cmc-cli",
+      "/home/graham/workspace/experiments/granger_hub/.venv/bin/cmc-cli",
       "serve-mcp",
       "--host",
       "localhost",

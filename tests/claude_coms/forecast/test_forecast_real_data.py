@@ -9,10 +9,10 @@ import pytest
 import numpy as np
 from pathlib import Path
 
-from claude_coms.forecast.data_handlers import load_time_series
-from claude_coms.forecast.model_backends import TimeSeriesRegressor
-from claude_coms.forecast.visualization import ForecastVisualizer
-from claude_coms.forecast.data_handlers import save_forecast_results
+from granger_hub.forecast.data_handlers import load_time_series
+from granger_hub.forecast.model_backends import TimeSeriesRegressor
+from granger_hub.forecast.visualization import ForecastVisualizer
+from granger_hub.forecast.data_handlers import save_forecast_results
 
 
 class TestRealWorldForecasting:
@@ -191,7 +191,7 @@ class TestRealWorldForecasting:
         data = load_time_series(fixture_path / "temperature_hourly.csv")
         
         # Create streaming forecaster
-        from src.claude_coms.forecast import StreamingTimeSeriesRegressor
+        from src.granger_hub.forecast import StreamingTimeSeriesRegressor
         
         forecaster = StreamingTimeSeriesRegressor(
             model_type="ollama",

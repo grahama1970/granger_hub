@@ -8,7 +8,7 @@ Third-party documentation:
 - asyncio: https://docs.python.org/3/library/asyncio.html
 
 Sample input:
-    from claude_coms.rl.metrics.integration import with_metrics_collection
+    from granger_hub.rl.metrics.integration import with_metrics_collection
     
     @with_metrics_collection
     async def select_module(modules, context):
@@ -153,7 +153,7 @@ def integrate_metrics_collection():
     logger.info("Integrating RL metrics collection into hub decisions")
     
     # Import would be circular, so we do it here
-    from claude_coms.rl import hub_decisions
+    from granger_hub.rl import hub_decisions
     
     # Wrap the decision functions
     original_select = hub_decisions.select_module_for_task

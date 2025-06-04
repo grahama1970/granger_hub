@@ -16,7 +16,7 @@ from pathlib import Path
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from claude_coms.core.conversation import ConversationMessage, ConversationState
+from granger_hub.core.conversation import ConversationMessage, ConversationState
 
 
 def test_message_fields():

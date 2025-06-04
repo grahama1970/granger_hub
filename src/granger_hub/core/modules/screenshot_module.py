@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 
-from claude_coms.core.modules.base_module import BaseModule
+from granger_hub.core.modules.base_module import BaseModule
 
 
 class ScreenshotModule(BaseModule):

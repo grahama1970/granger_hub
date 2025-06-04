@@ -10,12 +10,12 @@ import shutil
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch, AsyncMock
 
-from src.claude_coms.discovery.self_improvement_engine import (
+from src.granger_hub.discovery.self_improvement_engine import (
     SelfImprovementEngine,
     ProjectAnalysis,
     ImprovementProposal
 )
-from src.claude_coms.discovery.discovery_orchestrator import DiscoveryRun
+from src.granger_hub.discovery.discovery_orchestrator import DiscoveryRun
 
 
 class TestSelfImprovementEngine:
@@ -29,7 +29,7 @@ class TestSelfImprovementEngine:
         test_workspace.mkdir()
         
         # Create hub project
-        hub_path = test_workspace / "claude-module-communicator"
+        hub_path = test_workspace / "granger_hub"
         hub_path.mkdir()
         (hub_path / "src").mkdir()
         (hub_path / "tests").mkdir()
@@ -54,7 +54,7 @@ class TestSelfImprovementEngine:
         
         # Verify hub was analyzed
         assert "hub" in analyses
-        assert analyses["hub"].project_name == "claude-module-communicator"
+        assert analyses["hub"].project_name == "granger_hub"
         assert analyses["hub"].role == "hub"
         
         # Verify some spokes were analyzed
@@ -427,9 +427,9 @@ class TestPerformanceAndReliability:
 @pytest.mark.asyncio
 async def test_improvement_task_validation():
     """Validate generated improvement tasks"""
-    from src.claude_coms.discovery.self_improvement_engine import run_self_improvement
+    from src.granger_hub.discovery.self_improvement_engine import run_self_improvement
     
-    with patch('src.claude_coms.discovery.self_improvement_engine.SelfImprovementEngine') as MockEngine:
+    with patch('src.granger_hub.discovery.self_improvement_engine.SelfImprovementEngine') as MockEngine:
         mock_engine = MockEngine.return_value
         mock_engine.analyze_ecosystem = AsyncMock(return_value={})
         mock_engine.discover_improvements = AsyncMock(return_value=[
@@ -465,7 +465,7 @@ if __name__ == "__main__":
         __file__,
         "-v",
         "--tb=short",
-        "--cov=src.claude_coms.discovery.self_improvement_engine",
+        "--cov=src.granger_hub.discovery.self_improvement_engine",
         "--cov-report=html",
         "--cov-report=term"
     ])

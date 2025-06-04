@@ -10,7 +10,7 @@ import pytest
 import time
 from typing import Dict, Any
 
-from claude_coms.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
+from granger_hub.core.adapters.base_adapter import ProtocolAdapter, AdapterConfig
 
 
 class InstantNetworkAdapter(ProtocolAdapter):

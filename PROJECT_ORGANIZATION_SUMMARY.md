@@ -24,7 +24,7 @@
 ## Current Project Structure
 
 ```
-claude-module-communicator/
+granger_hub/
 ├── src/                    # Source code (hub-spoke architecture)
 │   └── claude_coms/       # Main package
 │       ├── cli/           # CLI commands
@@ -79,7 +79,7 @@ Key files:
 
 ```bash
 # Quick test before push
-cd /home/graham/workspace/experiments/claude-module-communicator
+cd /home/graham/workspace/experiments/granger_hub
 source .venv/bin/activate
 pytest tests/ -v --tb=short
 

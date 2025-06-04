@@ -318,7 +318,7 @@ def main():
     import sys
     
     if len(sys.argv) < 2:
-        print("Usage: python -m claude_coms.conversation_test_validator <pytest_json_report>")
+        print("Usage: python -m granger_hub.conversation_test_validator <pytest_json_report>")
         sys.exit(1)
     
     json_report = sys.argv[1]

@@ -1,4 +1,4 @@
-# claude_coms/rl/ollama_integration.py
+# granger_hub/rl/ollama_integration.py
 """
 Ollama integration for RL training in Claude Module Communicator.
 
