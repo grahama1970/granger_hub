@@ -37,4 +37,4 @@ The communicator will:
 4. Track delivery status
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

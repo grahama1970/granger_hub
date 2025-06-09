@@ -1,5 +1,6 @@
 """
 Scenario Generator - Creates new test scenarios from discovered patterns
+Module: scenario_generator.py
 
 Automatically generates integration test scenarios based on research findings.
 """

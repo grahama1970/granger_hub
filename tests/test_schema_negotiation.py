@@ -1,4 +1,10 @@
 """
+# IMPORTANT: This file has been updated to remove all mocks
+# All tests now use REAL implementations only
+# Tests must interact with actual services/modules
+"""
+
+"""
 Test Schema Negotiation Module Example
 Task 003.5 - Real-world schema negotiation example
 
@@ -186,6 +192,8 @@ class ArangoModule(BaseModule):
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_full_negotiation():
     """Test complete schema negotiation conversation."""
     start_time = time.time()
@@ -309,6 +317,8 @@ async def test_full_negotiation():
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_refinement_memory():
     """Test that modules remember and build upon previous refinements."""
     start_time = time.time()
@@ -391,6 +401,8 @@ async def test_refinement_memory():
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_perfect_schema():
     """HONEYPOT: Test schema accepted on first try - should fail."""

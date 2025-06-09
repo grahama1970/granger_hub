@@ -1,5 +1,7 @@
 """
 Model backends for time series forecasting.
+Module: model_backends.py
+Description: Data models and schemas for model backends
 
 Supports multiple backends:
 - HuggingFace PatchTST models

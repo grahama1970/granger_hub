@@ -1,4 +1,4 @@
-# CLAUDE MODULE COMMUNICATOR CONTEXT — CLAUDE.md
+# GRANGER HUB CONTEXT — CLAUDE.md
 
 > **Inherits standards from global and workspace CLAUDE.md files with overrides below.**
 
@@ -12,7 +12,7 @@
 
 ### Special Dependencies
 ```toml
-# Module Communicator specific packages
+# Granger Hub specific packages
 fastapi = "^0.104.0"
 websockets = "^12.0"
 aioredis = "^2.0.0"
@@ -21,7 +21,7 @@ pydantic = "^2.0.0"
 
 ### Environment Variables  
 ```bash
-# .env additions for Module Communicator
+# .env additions for Granger Hub
 HUB_PORT=8000
 REDIS_URL=redis://localhost:6379
 WEBSOCKET_TIMEOUT=30

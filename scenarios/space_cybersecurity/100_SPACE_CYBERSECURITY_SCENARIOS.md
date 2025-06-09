@@ -1,4 +1,4 @@
-# 100 Space Cybersecurity Scenarios for Claude Module Communicator
+# 100 Space Cybersecurity Scenarios for Granger Hub
 
 ## Satellite Security Scenarios (1-20)
 

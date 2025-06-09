@@ -1,7 +1,7 @@
 # External Models Integration Guide
 
 ## Overview
-The Claude Module Communicator now has seamless integration with external LLMs through the `claude_max_proxy` project, enabling Claude instances to:
+The Granger Hub now has seamless integration with external LLMs through the `claude_max_proxy` project, enabling Claude instances to:
 - Communicate with other Claude instances
 - Query Gemini, GPT-4, and other models
 - Compare responses from multiple models

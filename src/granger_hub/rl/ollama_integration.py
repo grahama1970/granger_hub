@@ -1,6 +1,24 @@
+"""
+Module: ollama_integration.py
+Description: Implementation of ollama integration functionality
+
+External Dependencies:
+- requests: https://requests.readthedocs.io/
+- dataclasses: [Documentation URL]
+
+Sample Input:
+>>> # Add specific examples based on module functionality
+
+Expected Output:
+>>> # Add expected output examples
+
+Example Usage:
+>>> # Add usage examples
+"""
+
 # granger_hub/rl/ollama_integration.py
 """
-Ollama integration for RL training in Claude Module Communicator.
+Ollama integration for RL training in Granger Hub.
 
 This module provides direct integration with the local Ollama server
 for reinforcement learning tasks.

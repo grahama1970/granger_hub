@@ -1,5 +1,7 @@
 """
 Learning curves calculation and analysis for RL metrics.
+Module: learning_curves.py
+Description: Implementation of learning curves functionality
 
 This module queries performance metrics from ArangoDB and calculates
 learning curves with moving averages and trend lines for visualization.

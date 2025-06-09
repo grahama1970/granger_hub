@@ -1,5 +1,6 @@
 """
 Scikit-learn compatible wrapper for time series forecasting models.
+Module: sklearn_wrapper.py
 
 Provides a unified interface that works like sklearn models with fit/predict
 methods, making it easy to integrate into existing ML pipelines.

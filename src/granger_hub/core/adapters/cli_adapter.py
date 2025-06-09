@@ -1,5 +1,6 @@
 """
-CLI Protocol Adapter for Claude Module Communicator.
+CLI Protocol Adapter for Granger Hub.
+Module: cli_adapter.py
 
 Enables communication with CLI-based tools by executing commands
 and parsing their JSON output.

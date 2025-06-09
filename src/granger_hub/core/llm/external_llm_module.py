@@ -19,7 +19,7 @@ Sample Input:
 
 Expected Output:
 {
-    "response": "Model's analysis and suggestions...",
+    "response": "Model's analysis and suggestions...",'
     "model_used": "gemini/gemini-2.0-flash-exp",
     "tokens": 350,
     "success": true
@@ -31,8 +31,8 @@ from typing import Dict, Any, List, Optional
 import json
 from datetime import datetime
 
-from .base_module import BaseModule
-from .module_registry import ModuleRegistry
+from ..modules.base_module import BaseModule
+from ..modules.module_registry import ModuleRegistry
 from .llm_integration import LLMCapableMixin, LLMConfig
 
 # Try to import claude_max_proxy components
@@ -358,7 +358,7 @@ Please provide your perspective as a Claude AI assistant."""
 if __name__ == "__main__":
     async def validate():
         """Validate with real external LLM calls."""
-        print("🤖 Validating External LLM Module...\n")
+        print(" Validating External LLM Module...\n")
         
         # Note: Requires API keys to be set
         import os
@@ -378,10 +378,10 @@ if __name__ == "__main__":
         })
         
         if result["success"]:
-            print(f"✅ Response: {result['response']}")
+            print(f" Response: {result['response']}")
             print(f"   Model: {result['model_used']}")
         else:
-            print(f"❌ Error: {result.get('error')}")
+            print(f" Error: {result.get('error')}")
         
         # Test 2: Model comparison
         print("\n2️⃣ Testing model comparison...")
@@ -392,7 +392,7 @@ if __name__ == "__main__":
         })
         
         if result["success"]:
-            print("✅ Responses:")
+            print(" Responses:")
             for model, response in result["responses"].items():
                 print(f"   {model}: {response}")
         
@@ -405,9 +405,9 @@ if __name__ == "__main__":
         })
         
         if result["success"]:
-            print(f"✅ Inter-model response: {result['response'][:100]}...")
+            print(f" Inter-model response: {result['response'][:100]}...")
         
-        print("\n✅ External LLM Module validation complete!")
+        print("\n External LLM Module validation complete!")
         return True
     
     # Run validation

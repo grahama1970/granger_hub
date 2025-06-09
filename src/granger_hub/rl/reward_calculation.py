@@ -1,5 +1,7 @@
 """
 Reward calculation functions for Hub RL learning.
+Module: reward_calculation.py
+Description: Functions for reward calculation operations
 
 Defines how to calculate rewards for different Hub decisions to guide learning.
 Pure functions following CLAUDE.md standards.
@@ -400,4 +402,4 @@ if __name__ == "__main__":
     assert summary["mean"] > 0, "Average reward should be positive"
     assert summary["positive_ratio"] > 0.5, "Most rewards should be positive"
     
-    logger.success("✅ All reward calculation tests passed!")
+    logger.success(" All reward calculation tests passed!")

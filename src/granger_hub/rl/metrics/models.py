@@ -1,5 +1,7 @@
 """
 Data models for RL metrics collection
+Module: models.py
+Description: Data models and schemas for models
 
 This module defines the structure of RL metrics that will be stored
 in ArangoDB for tracking module selection decisions and performance.
@@ -168,7 +170,7 @@ if __name__ == "__main__":
         reward=0.85,
         module_id="marker"
     )
-    print(f"✓ RLMetric: {metric.id[:8]}... created at {metric.timestamp}")
+    print(f" RLMetric: {metric.id[:8]}... created at {metric.timestamp}")
     
     # Test ModuleDecision
     decision = ModuleDecision(
@@ -178,7 +180,7 @@ if __name__ == "__main__":
         task_type="pdf_extraction",
         task_complexity=0.6
     )
-    print(f"✓ ModuleDecision: selected {decision.selected_module}")
+    print(f" ModuleDecision: selected {decision.selected_module}")
     
     # Test PipelineExecution
     pipeline = PipelineExecution(
@@ -186,6 +188,6 @@ if __name__ == "__main__":
         modules_planned=["marker", "gpt4", "storage"],
         modules_executed=["marker", "gpt4"]
     )
-    print(f"✓ PipelineExecution: {pipeline.pipeline_id}")
+    print(f" PipelineExecution: {pipeline.pipeline_id}")
     
     print("\nAll models validated successfully!")

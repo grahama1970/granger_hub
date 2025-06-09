@@ -1,3 +1,12 @@
+
+import sys
+from pathlib import Path
+
+# Add src to path
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
 """Tests for service discovery and health monitoring."""
 
 import asyncio
@@ -18,7 +27,9 @@ class TestServiceDiscovery:
     """Test service discovery functionality."""
     
     @pytest.mark.asyncio
-    async def test_manual_service_registration(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_manual_service_registration(self):
         """Test manual service registration and health checking."""
         start_time = time.time()
         
@@ -90,7 +101,9 @@ class TestServiceDiscovery:
         assert duration > 1.0
         
     @pytest.mark.asyncio
-    async def test_failover_strategies(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_failover_strategies(self):
         """Test different failover strategies."""
         start_time = time.time()
         
@@ -162,7 +175,9 @@ class TestServiceDiscovery:
         assert duration > 0.0001
         
     @pytest.mark.asyncio
-    async def test_circuit_breaker(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_circuit_breaker(self):
         """Test circuit breaker functionality."""
         start_time = time.time()
         
@@ -208,7 +223,9 @@ class TestServiceDiscovery:
         assert duration > 1.0
         
     @pytest.mark.asyncio
-    async def test_health_score_calculation(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_health_score_calculation(self):
         """Test health score calculation."""
         start_time = time.time()
         
@@ -268,7 +285,9 @@ class TestServiceDiscovery:
         assert duration < 0.1  # Should be fast
         
     @pytest.mark.asyncio
-    async def test_concurrent_health_checks(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_concurrent_health_checks(self):
         """Test concurrent health checking of multiple services."""
         start_time = time.time()
         

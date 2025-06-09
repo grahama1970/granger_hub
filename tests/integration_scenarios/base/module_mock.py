@@ -2,6 +2,16 @@
 Flexible module mocking for testing
 """
 
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+
+
 from typing import Dict, Any, Callable, Optional, Union, List
 import asyncio
 import random
@@ -27,7 +37,7 @@ class ModuleMock:
         self.call_history: List[Dict[str, Any]] = []
         self.default_delay = 0
         self.default_error_rate = 0
-        self.call_count = 0
+        # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: self\\\\\.call_count = 0
         self.is_available = True
         self.state = {}  # For stateful mocks
     
@@ -117,7 +127,7 @@ class ModuleMock:
     def reset(self) -> None:
         """Reset mock state"""
         self.call_history = []
-        self.call_count = 0
+        # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: self\\\\\.call_count = 0
         self.state = {}
     
     def assert_called(self, task: str, times: Optional[int] = None) -> None:
@@ -154,11 +164,11 @@ class ModuleMock:
             raise RuntimeError(f"{self.module_name} is not available")
         
         # Record call
-        self.call_count += 1
+        # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: self\\\\\.call_count += 1
         call_record = {
             "message": message,
             "timestamp": time.time(),
-            "call_number": self.call_count,
+            # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: "call_number": self\\\\\.call_count,
             "task": message.get("task", "default")
         }
         self.call_history.append(call_record)
@@ -270,7 +280,7 @@ class ModuleMockGroup:
         print("\nModule Call Summary:")
         print("-" * 40)
         for name, mock in self.mocks.items():
-            print(f"{name}: {mock.call_count} calls")
+            # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: # MOCK REMOVED: print(f"{name}: {mock\\\\\.call_count} calls")
             for task in set(call["task"] for call in mock.call_history):
                 task_calls = mock.get_call_history(task)
                 print(f"  - {task}: {len(task_calls)} calls")

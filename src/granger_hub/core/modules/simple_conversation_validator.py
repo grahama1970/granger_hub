@@ -88,12 +88,12 @@ def main():
     
     print("\nDetailed Results:")
     for test in results["tests"]:
-        status = "✅" if test["verdict"] == "REAL" else "❌"
+        status = "" if test["verdict"] == "REAL" else ""
         print(f"{status} {test['test']}: {test['verdict']} - {test['reason']}")
     
     # Overall verdict
     if results['summary']['real_percentage'] >= 60:
-        print("\n🎉 VERDICT: Tests appear to be REAL multi-turn conversations!")
+        print("\n VERDICT: Tests appear to be REAL multi-turn conversations!")
     else:
         print("\n⚠️  VERDICT: Tests appear to be FAKE - implement real conversation logic!")
 

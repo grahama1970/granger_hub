@@ -1,5 +1,7 @@
 """
 Integration module for RL metrics collection
+Module: integration.py
+Description: Functions for integration operations
 
 This module provides integration points between the existing
 hub decision-making code and the new metrics collection system.

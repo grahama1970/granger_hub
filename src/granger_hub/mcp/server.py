@@ -1,8 +1,9 @@
 """
 MCP Server implementation for Claude Desktop integration.
+Module: server.py
 
 This server provides the bridge between the module communication framework
-and Claude Desktop's MCP protocol, enabling seamless integration.
+and Claude Desktop's MCP protocol, enabling seamless integration.'
 """
 
 import asyncio
@@ -16,8 +17,8 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
 from sse_starlette.sse import EventSourceResponse
 
-from ..claude_module_communicator import ModuleCommunicator
-from ..granger_hub.base_module import BaseModule
+from ..core.module_communicator import ModuleCommunicator
+from ..core.modules.base_module import BaseModule
 from .handlers import MCPRequestHandler, MCPResponseHandler
 from .tools import MCPToolRegistry
 
@@ -54,7 +55,7 @@ class MCPServer:
             config: Server configuration
         """
         self.config = config
-        self.app = FastAPI(title="Claude Module Communicator MCP Server")
+        self.app = FastAPI(title="Granger Hub MCP Server")
         self.communicator = ModuleCommunicator(
             registry_path=config.module_registry_path,
             progress_db=config.progress_db_path

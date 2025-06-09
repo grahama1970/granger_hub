@@ -1,6 +1,26 @@
+"""
+Module: claude_comm.py
+Description: Implementation of claude comm functionality
+
+External Dependencies:
+- typer: [Documentation URL]
+- asyncio: [Documentation URL]
+- rich: [Documentation URL]
+- : [Documentation URL]
+
+Sample Input:
+>>> # Add specific examples based on module functionality
+
+Expected Output:
+>>> # Add expected output examples
+
+Example Usage:
+>>> # Add usage examples
+"""
+
 #!/usr/bin/env python3
 """
-Claude Module Communicator CLI - Typer Version.
+Granger Hub CLI - Typer Version.
 
 This CLI provides commands for managing inter-module communication
 using Claude Code instances.
@@ -31,7 +51,7 @@ console = Console()
 # Create Typer app
 app = typer.Typer(
     name="cmc-cli",
-    help="Claude Module Communicator - Orchestrate inter-module communication",
+    help="Granger Hub - Orchestrate inter-module communication",
     context_settings={"help_option_names": ["-h", "--help"]}
 )
 
@@ -712,7 +732,7 @@ def pdf(
 @app.command()
 def version():
     """Show version information."""
-    console.print("[cyan]Claude Module Communicator CLI[/cyan]")
+    console.print("[cyan]Granger Hub CLI[/cyan]")
     console.print("Version: 0.4.0")
     console.print("Orchestrate inter-module communication with ease!")
 

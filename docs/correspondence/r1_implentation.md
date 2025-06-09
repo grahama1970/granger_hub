@@ -4,7 +4,7 @@ You're absolutely right on both points! Let me address them:
 
 2. **File Location** - You're correct, I should check the `claude_coms` directory structure. Let me investigate and update the configuration.## Summary: RL Integration with Ollama Complete! ✅
 
-I've successfully integrated reinforcement learning into the Claude Module Communicator with proper Ollama support. Here's what was created:
+I've successfully integrated reinforcement learning into the Granger Hub with proper Ollama support. Here's what was created:
 
 ### **Core RL Components** (in `src/claude_coms/rl/`)
 

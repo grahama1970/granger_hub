@@ -22,8 +22,8 @@ from typing import Dict, Any, Optional, List, Set, Tuple
 from datetime import datetime, timedelta
 import json
 
-from .base_module import BaseModule
-from .module_registry import ModuleRegistry
+from ..modules.base_module import BaseModule
+from ..modules.module_registry import ModuleRegistry
 from .graph_backend import ArangoGraphBackend, ModuleNode
 from .graph_communicator import GraphCommunicator
 

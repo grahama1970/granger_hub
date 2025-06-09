@@ -1,5 +1,6 @@
 """
 ArangoDB storage for RL metrics
+Module: arangodb_store.py
 
 This module handles storing and retrieving RL metrics in ArangoDB,
 with support for time-series queries and aggregations.
@@ -359,7 +360,7 @@ if __name__ == "__main__":
         try:
             # Initialize
             await store.initialize()
-            print("✓ Connected to ArangoDB")
+            print(" Connected to ArangoDB")
             
             # Test storing a metric
             metric = RLMetric(
@@ -369,7 +370,7 @@ if __name__ == "__main__":
                 module_id="marker"
             )
             key = await store.store_metric(metric)
-            print(f"✓ Stored metric with key: {key}")
+            print(f" Stored metric with key: {key}")
             
             # Test storing a decision
             decision = ModuleDecision(
@@ -382,21 +383,21 @@ if __name__ == "__main__":
                 reward=0.85
             )
             key = await store.store_decision(decision)
-            print(f"✓ Stored decision with key: {key}")
+            print(f" Stored decision with key: {key}")
             
             # Test fetching metrics
             metrics = await store.get_recent_metrics(limit=5)
-            print(f"✓ Fetched {len(metrics)} recent metrics")
+            print(f" Fetched {len(metrics)} recent metrics")
             
             # Test module performance
             perf = await store.get_module_performance("marker")
-            print(f"✓ Module performance: {perf}")
+            print(f" Module performance: {perf}")
             
             await store.close()
-            print("✓ Connection closed")
+            print(" Connection closed")
             
         except Exception as e:
-            print(f"✗ Error: {e}")
+            print(f" Error: {e}")
             raise
     
     asyncio.run(test_store())

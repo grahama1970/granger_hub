@@ -1,5 +1,7 @@
 """
 Dynamic Interaction Discovery System
+Module: __init__.py
+Description: Package initialization and exports
 
 Autonomous research and test generation for multi-module interactions.
 """

@@ -1,5 +1,6 @@
 """
 MCP request and response handlers for Claude Desktop integration.
+Module: handlers.py
 
 These handlers process incoming MCP protocol messages and format
 responses according to the MCP specification.
@@ -12,8 +13,8 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 import uuid
 
-from ..claude_module_communicator import ModuleCommunicator
-from ..granger_hub.task_executor import Task
+from ..core.module_communicator import ModuleCommunicator
+from ..core.modules.task_executor import Task
 
 logger = logging.getLogger(__name__)
 

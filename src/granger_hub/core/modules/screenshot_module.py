@@ -1,5 +1,6 @@
 """
-Screenshot Module for Claude Module Communicator.
+Screenshot Module for Granger Hub.
+Module: screenshot_module.py
 
 This module provides screenshot capture and browser automation capabilities
 by integrating with the mcp-screenshot package.
@@ -41,8 +42,66 @@ class ScreenshotModule(BaseModule):
     
     def __init__(self, registry=None):
         """Initialize the ScreenshotModule."""
+        # Store schemas as instance attributes BEFORE calling super().__init__
+        self.input_schema = {
+            "action": {
+                "type": "string",
+                "enum": ["capture", "describe", "verify", "click", "fill"],
+                "description": "The action to perform"
+            },
+            "region": {
+                "type": "string",
+                "enum": ["full", "left-half", "right-half", "top-half", "bottom-half", "center"],
+                "description": "Screen region to capture",
+                "default": "full"
+            },
+            "url": {
+                "type": "string",
+                "description": "URL to capture (for web screenshots)"
+            },
+            "file": {
+                "type": "string", 
+                "description": "File path for describe/verify actions"
+            },
+            "output": {
+                "type": "string",
+                "description": "Output filename"
+            },
+            "quality": {
+                "type": "integer",
+                "minimum": 30,
+                "maximum": 90,
+                "default": 70,
+                "description": "JPEG quality"
+            },
+            "prompt": {
+                "type": "string",
+                "description": "Custom prompt for description/verification"
+            },
+            "selector": {
+                "type": "string",
+                "description": "CSS selector for click/fill actions"
+            },
+            "value": {
+                "type": "string",
+                "description": "Value to fill in form fields"
+            },
+            "wait": {
+                "type": "integer",
+                "default": 3,
+                "description": "Wait time in seconds for dynamic content"
+            }
+        }
+        self.output_schema = {
+            "success": {"type": "boolean"},
+            "result": {"type": "object"},
+            "error": {"type": "string"}
+        }
+        
+        # Now call super().__init__ after schemas are set
         super().__init__(
             name="ScreenshotModule",
+            system_prompt="I am a screenshot module that can capture screenshots, describe images, and perform visual verification.",
             capabilities=[
                 "screenshot_capture",
                 "url_capture", 
@@ -50,63 +109,17 @@ class ScreenshotModule(BaseModule):
                 "visual_verification",
                 "browser_automation"
             ],
-            input_schema={
-                "action": {
-                    "type": "string",
-                    "enum": ["capture", "describe", "verify", "click", "fill"],
-                    "description": "The action to perform"
-                },
-                "region": {
-                    "type": "string",
-                    "enum": ["full", "left-half", "right-half", "top-half", "bottom-half", "center"],
-                    "description": "Screen region to capture",
-                    "default": "full"
-                },
-                "url": {
-                    "type": "string",
-                    "description": "URL to capture (for web screenshots)"
-                },
-                "file": {
-                    "type": "string", 
-                    "description": "File path for describe/verify actions"
-                },
-                "output": {
-                    "type": "string",
-                    "description": "Output filename"
-                },
-                "quality": {
-                    "type": "integer",
-                    "minimum": 30,
-                    "maximum": 90,
-                    "default": 70,
-                    "description": "JPEG quality"
-                },
-                "prompt": {
-                    "type": "string",
-                    "description": "Custom prompt for description/verification"
-                },
-                "selector": {
-                    "type": "string",
-                    "description": "CSS selector for click/fill actions"
-                },
-                "value": {
-                    "type": "string",
-                    "description": "Value to fill in form fields"
-                },
-                "wait": {
-                    "type": "integer",
-                    "default": 3,
-                    "description": "Wait time in seconds for dynamic content"
-                }
-            },
-            output_schema={
-                "success": {"type": "boolean"},
-                "result": {"type": "object"},
-                "error": {"type": "string"}
-            },
             registry=registry
         )
         
+    def get_input_schema(self) -> Dict[str, Any]:
+        """Return the input schema for this module."""
+        return self.input_schema
+    
+    def get_output_schema(self) -> Dict[str, Any]:
+        """Return the output schema for this module."""
+        return self.output_schema
+    
     async def process(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Process screenshot and browser automation requests."""
         action = data.get("action", "capture")

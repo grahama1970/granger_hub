@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines a flexible, extensible test framework for integration scenarios in the Claude Module Communicator ecosystem. The framework enables testing of complex multi-module interactions while maintaining simplicity for adding new scenarios.
+This document outlines a flexible, extensible test framework for integration scenarios in the Granger Hub ecosystem. The framework enables testing of complex multi-module interactions while maintaining simplicity for adding new scenarios.
 
 ## Architecture Overview
 

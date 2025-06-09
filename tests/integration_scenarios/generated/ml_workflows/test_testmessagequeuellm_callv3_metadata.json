@@ -36,6 +36,6 @@
     "Architecture: microservice-pat",
     "Architecture: event-driven-arc"
   ],
-  "generated_at": "2025-06-01T12:04:30.669980",
+  "generated_at": "2025-06-04T17:36:31.913202",
   "file_path": "tests/integration_scenarios/generated/ml_workflows/test_testmessagequeuellm_callv3.py"
 }

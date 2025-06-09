@@ -1,5 +1,7 @@
 """
 Hub decision-making using RL Commons for intelligent routing.
+Module: hub_decisions.py
+Description: Functions for hub decisions operations
 
 This module integrates rl_commons to provide intelligent decision-making
 for the ModuleCommunicator hub. It uses real RL algorithms, not mocks.
@@ -478,7 +480,7 @@ if __name__ == "__main__":
     }
     
     selected = select_module_with_rl(test_task, test_modules)
-    print(f"✅ Selected module: {selected}")
+    print(f" Selected module: {selected}")
     
     # Test pipeline optimization
     test_pipeline = ["marker", "arangodb"]
@@ -486,7 +488,7 @@ if __name__ == "__main__":
         test_pipeline,
         {"max_latency": 500, "reliability": 0.95}
     )
-    print(f"✅ Optimized pipeline: {optimized}")
+    print(f" Optimized pipeline: {optimized}")
     
     # Test resource allocation
     resources = allocate_resources_with_rl(
@@ -494,11 +496,11 @@ if __name__ == "__main__":
         test_task,
         {"cpu": 0.5, "memory": 0.5}
     )
-    print(f"✅ Resource allocation: {resources}")
+    print(f" Resource allocation: {resources}")
     
     # Test error handling
     test_error = ValueError("Processing failed")
     action = handle_error_with_rl(test_error, "marker", test_task, 1)
-    print(f"✅ Error handling action: {action}")
+    print(f" Error handling action: {action}")
     
-    print("\n✅ Hub decisions module validated successfully!")
+    print("\n Hub decisions module validated successfully!")

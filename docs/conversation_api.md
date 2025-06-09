@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Claude Module Communicator now supports multi-turn conversations between modules, enabling complex workflows, iterative processing, and context-aware communication. This document describes the conversation API and its usage.
+The Granger Hub now supports multi-turn conversations between modules, enabling complex workflows, iterative processing, and context-aware communication. This document describes the conversation API and its usage.
 
 ## Core Components
 

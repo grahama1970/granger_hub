@@ -1,5 +1,7 @@
 """
 State extraction functions for RL decision making.
+Module: state_extraction.py
+Description: Functions for state extraction operations
 
 Converts Hub contexts (tasks, pipelines, errors) into numerical state vectors
 that RL agents can use for decision making.
@@ -368,4 +370,4 @@ if __name__ == "__main__":
     logger.info(f"Timeout state shape: {timeout_state.shape}")
     assert timeout_state.shape == (15,), f"Expected shape (15,), got {timeout_state.shape}"
     
-    logger.success("✅ All state extraction tests passed!")
+    logger.success(" All state extraction tests passed!")

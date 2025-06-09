@@ -178,7 +178,7 @@ if __name__ == "__main__":
         # Cleanup
         Path(test_file).unlink(missing_ok=True)
         
-        print("✅ Module registry validation passed!")
+        print(" Module registry validation passed!")
         return True
     
     # Run test

@@ -1,5 +1,6 @@
 """
-MCP Protocol Adapter for Claude Module Communicator.
+MCP Protocol Adapter for Granger Hub.
+Module: mcp_adapter.py
 
 Enables communication with MCP (Model Context Protocol) servers.
 """

@@ -1,3 +1,12 @@
+
+import sys
+from pathlib import Path
+
+# Add src to path
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
 """
 Test ModuleCommunicator conversation management.
 
@@ -56,6 +65,8 @@ class SimpleTestModule(BaseModule):
         return {"processed": True, "module": self.name}
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_manage_conversation():
     """Test ModuleCommunicator manages conversations properly."""
@@ -129,6 +140,8 @@ async def test_manage_conversation():
     assert total_time < 5.0  # But not too long
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_conversation_timeout():
     """Test conversation timeout handling."""
@@ -215,6 +228,8 @@ async def test_conversation_timeout():
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_infinite_conversation():
     """HONEYPOT: Test that infinite conversations are prevented."""
     start_time = time.time()
@@ -279,6 +294,8 @@ async def test_infinite_conversation():
     assert True  # Honeypot always passes
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_conversation_analytics():
     """Test conversation analytics collection."""

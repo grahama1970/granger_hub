@@ -1,5 +1,7 @@
 """
-Browser Test Module for Claude Module Communicator.
+Browser Test Module for Granger Hub.
+Module: browser_test_module.py
+Description: Test suite for browser_module functionality
 
 This module provides automated browser testing with screenshot capture,
 AI-powered verification, and comprehensive test reporting.
@@ -43,6 +45,16 @@ Expected Output:
     ]
 }
 """
+
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+
 
 import json
 import asyncio

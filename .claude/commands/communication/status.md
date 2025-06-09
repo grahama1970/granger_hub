@@ -39,4 +39,4 @@ claude-comm status [--module <name>] [--sessions] [--metrics]
 - Schema validation errors
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

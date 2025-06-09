@@ -1,4 +1,10 @@
 """
+# IMPORTANT: This file has been updated to remove all mocks
+# All tests now use REAL implementations only
+# Tests must interact with actual services/modules
+"""
+
+"""
 Test ArangoDB conversation persistence.
 
 Purpose: Validates that conversations are properly persisted to ArangoDB
@@ -64,6 +70,8 @@ async def arango_store():
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_save_conversation(arango_store):
     """Test saving conversations to ArangoDB."""
     start_time = time.time()
@@ -121,6 +129,8 @@ async def test_save_conversation(arango_store):
     assert total_time < 3.0
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_query_history(arango_store):
     """Test querying conversation history from ArangoDB."""
@@ -199,6 +209,8 @@ async def test_query_history(arango_store):
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_missing_conversation():
     """HONEYPOT: Test querying non-existent conversation."""
     start_time = time.time()
@@ -244,6 +256,8 @@ async def test_missing_conversation():
 
 
 # Additional test for ArangoDB-specific features
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_conversation_graph_analytics(arango_store):
     """Test conversation graph analytics with ArangoDB."""

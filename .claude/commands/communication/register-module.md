@@ -1,6 +1,6 @@
 # Register Module
 
-Register a new module with the Module Communicator.
+Register a new module with the Granger Hub.
 
 ## Usage
 
@@ -44,4 +44,4 @@ claude-comm register <module_name> <capabilities_json> [--schema <schema_file>]
 ```
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

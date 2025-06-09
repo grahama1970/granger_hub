@@ -1,5 +1,6 @@
 """
 Patch transformation for time series data.
+Module: patches.py
 
 Implements PatchTST-style patching where time series are divided into
 smaller subsequences (patches) for better pattern recognition.

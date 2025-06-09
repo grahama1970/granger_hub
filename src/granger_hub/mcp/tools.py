@@ -1,5 +1,6 @@
 """
 MCP Tool Registry for Claude Desktop integration.
+Module: tools.py
 
 This module manages tools that can be exposed through the MCP protocol
 to Claude Desktop, enabling Claude to use various tools for module communication.

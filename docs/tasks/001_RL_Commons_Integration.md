@@ -1,4 +1,4 @@
-# Master Task List - Claude Module Communicator RL Integration
+# Master Task List - Granger Hub RL Integration
 
 **Total Tasks**: 5  
 **Completed**: 0/5  

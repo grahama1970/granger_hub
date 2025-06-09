@@ -139,7 +139,7 @@ The Dynamic Interaction Discovery System (DIDS) is an autonomous research and te
 ```python
 1. Select high-potential patterns
 
-2. Map to Claude Module Communicator ecosystem:
+2. Map to Granger Hub ecosystem:
    - Match pattern requirements to available modules
    - Adapt workflows to our architecture
    - Ensure feasibility

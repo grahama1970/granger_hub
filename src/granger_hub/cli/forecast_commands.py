@@ -1,5 +1,7 @@
 """
 CLI commands for time series forecasting functionality.
+Module: forecast_commands.py
+Description: Functions for forecast commands operations
 
 Provides --forecast flag for CLI and /forecast slash command support.
 Automatically selects best model based on data characteristics.

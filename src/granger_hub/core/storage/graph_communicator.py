@@ -26,8 +26,8 @@ import json
 import networkx as nx
 
 from .graph_backend import ArangoGraphBackend, CommunicationEdge
-from .base_module import BaseModule
-from .module_registry import ModuleRegistry
+from ..modules.base_module import BaseModule
+from ..modules.module_registry import ModuleRegistry
 
 logger = logging.getLogger(__name__)
 

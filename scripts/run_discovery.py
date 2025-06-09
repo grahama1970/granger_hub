@@ -25,7 +25,7 @@ async def run_discovery(
     max_scenarios: int = 5
 ):
     """Run a discovery cycle"""
-    logger.info("🚀 Starting Dynamic Interaction Discovery System")
+    logger.info(" Starting Dynamic Interaction Discovery System")
     
     # Create orchestrator
     orchestrator = DiscoveryOrchestrator()
@@ -35,7 +35,7 @@ async def run_discovery(
         orchestrator.config["max_scenarios_per_run"] = max_scenarios
     
     # Run discovery cycle
-    logger.info("🔍 Beginning discovery cycle...")
+    logger.info(" Beginning discovery cycle...")
     run = await orchestrator.run_discovery_cycle(
         categories=categories,
         force_refresh=force_refresh
@@ -43,11 +43,11 @@ async def run_discovery(
     
     # Print results
     print("\n" + "="*60)
-    print("🎯 Discovery Results")
+    print(" Discovery Results")
     print("="*60)
     print(f"Run ID: {run.run_id}")
     print(f"Duration: {(run.end_time - run.start_time).total_seconds():.1f}s")
-    print(f"\n📊 Findings:")
+    print(f"\n Findings:")
     print(f"  - Research items found: {run.findings_count}")
     print(f"  - Patterns discovered: {run.patterns_discovered}")
     print(f"  - Scenarios generated: {run.scenarios_generated}")
@@ -58,7 +58,7 @@ async def run_discovery(
         for error in run.errors[:3]:
             print(f"  - {error}")
     
-    print(f"\n📈 Metrics:")
+    print(f"\n Metrics:")
     for key, value in run.metrics.items():
         if isinstance(value, float):
             print(f"  - {key}: {value:.2f}")
@@ -67,43 +67,43 @@ async def run_discovery(
     
     # Show saved scenarios
     if run.scenarios_saved:
-        print(f"\n💾 Generated Scenarios:")
+        print(f"\n Generated Scenarios:")
         for path in run.scenarios_saved[:5]:
             print(f"  - {Path(path).name}")
     
     # Get learning insights
-    print(f"\n🧠 Learning Insights:")
+    print(f"\n Learning Insights:")
     stats = orchestrator.get_statistics()
     print(f"  - Total runs: {stats['total_runs']}")
     print(f"  - Success rate: {stats['success_rate']:.1%}")
     print(f"  - Total scenarios generated: {stats['total_scenarios_generated']}")
     
-    print("\n✅ Discovery cycle complete!")
+    print("\n Discovery cycle complete!")
     
     return run
 
 
 async def test_components():
     """Test individual components"""
-    print("🧪 Testing Discovery System Components\n")
+    print(" Testing Discovery System Components\n")
     
     # Test Research Agent
     print("1️⃣ Testing Research Agent...")
     from granger_hub.discovery.research import ResearchAgent
     agent = ResearchAgent()
     findings = await agent.conduct_research(categories=["optimization"], force_refresh=False)
-    print(f"   ✓ Found {len(findings)} research items")
+    print(f"    Found {len(findings)} research items")
     if findings:
-        print(f"   ✓ Top finding: {findings[0].title[:50]}...")
+        print(f"    Top finding: {findings[0].title[:50]}...")
     
     # Test Pattern Recognizer
     print("\n2️⃣ Testing Pattern Recognizer...")
     from granger_hub.discovery.analysis import PatternRecognizer
     recognizer = PatternRecognizer()
     patterns = await recognizer.recognize_patterns(findings[:3])
-    print(f"   ✓ Recognized {len(patterns)} patterns")
+    print(f"    Recognized {len(patterns)} patterns")
     if patterns:
-        print(f"   ✓ First pattern: {patterns[0].name}")
+        print(f"    First pattern: {patterns[0].name}")
     
     # Test Optimization Analyzer
     print("\n3️⃣ Testing Optimization Analyzer...")
@@ -111,27 +111,27 @@ async def test_components():
     analyzer = OptimizationAnalyzer()
     if patterns:
         score = await analyzer.analyze_pattern(patterns[0])
-        print(f"   ✓ Optimization score: {score.overall_score:.2f}")
-        print(f"   ✓ Bottlenecks: {len(score.bottlenecks)}")
+        print(f"    Optimization score: {score.overall_score:.2f}")
+        print(f"    Bottlenecks: {len(score.bottlenecks)}")
     
     # Test Scenario Generator
     print("\n4️⃣ Testing Scenario Generator...")
     from granger_hub.discovery.generation import ScenarioGenerator
     generator = ScenarioGenerator()
     scenarios = await generator.generate_from_research(findings[:3], max_scenarios=1)
-    print(f"   ✓ Generated {len(scenarios)} scenarios")
+    print(f"    Generated {len(scenarios)} scenarios")
     if scenarios:
-        print(f"   ✓ First scenario: {scenarios[0].name}")
+        print(f"    First scenario: {scenarios[0].name}")
     
     # Test Evolution Engine
     print("\n5️⃣ Testing Evolution Engine...")
     from granger_hub.discovery.learning import EvolutionEngine
     evolution = EvolutionEngine()
     insights = evolution.get_learning_insights()
-    print(f"   ✓ Scenarios analyzed: {insights['total_scenarios_analyzed']}")
-    print(f"   ✓ Learning progress: {insights['learning_progress']:.2f}")
+    print(f"    Scenarios analyzed: {insights['total_scenarios_analyzed']}")
+    print(f"    Learning progress: {insights['learning_progress']:.2f}")
     
-    print("\n✅ All components tested successfully!")
+    print("\n All components tested successfully!")
 
 
 def main():
@@ -180,13 +180,13 @@ def main():
     if args.mode == "test":
         asyncio.run(test_components())
     elif args.mode == "schedule":
-        print("🕐 Starting scheduled discovery...")
+        print(" Starting scheduled discovery...")
         orchestrator = DiscoveryOrchestrator()
         orchestrator.schedule_discovery()
         try:
             orchestrator.run_scheduler()
         except KeyboardInterrupt:
-            print("\n👋 Scheduler stopped")
+            print("\n Scheduler stopped")
     else:
         # Run discovery
         asyncio.run(run_discovery(

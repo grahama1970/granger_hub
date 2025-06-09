@@ -26,6 +26,8 @@ from module_registry import ModuleRegistry, ModuleInfo
 
 
 @pytest.fixture
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_registry():
     """Create a test module registry."""
     registry = ModuleRegistry("test_manager_registry.json")
@@ -76,6 +78,8 @@ async def conversation_manager(test_registry):
     db_path.unlink(missing_ok=True)
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_create_conversation(conversation_manager):
     """Test that manager creates and tracks conversations."""
@@ -141,6 +145,8 @@ async def test_create_conversation(conversation_manager):
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_message_routing(conversation_manager):
     """Test that manager routes messages correctly."""
@@ -222,6 +228,8 @@ async def test_message_routing(conversation_manager):
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_state_persistence(conversation_manager):
     """Test that manager persists conversation state to SQLite."""
@@ -316,6 +324,8 @@ async def test_state_persistence(conversation_manager):
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_impossible_routing():
     """HONEYPOT: Test that should fail - routing cannot be instant."""

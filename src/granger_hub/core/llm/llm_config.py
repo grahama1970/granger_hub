@@ -1,5 +1,5 @@
 """
-LLM Configuration and Setup for Claude Module Communicator.
+LLM Configuration and Setup for Granger Hub.
 
 Purpose: Provides easy configuration and setup for LLM integration
 across all modules in the system.

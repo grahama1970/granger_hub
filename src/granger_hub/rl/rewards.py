@@ -1,3 +1,20 @@
+"""
+Module: rewards.py
+
+External Dependencies:
+- dataclasses: [Documentation URL]
+- numpy: https://numpy.org/doc/
+
+Sample Input:
+>>> # Add specific examples based on module functionality
+
+Expected Output:
+>>> # Add expected output examples
+
+Example Usage:
+>>> # Add usage examples
+"""
+
 # granger_hub/rl/rewards.py
 from dataclasses import dataclass
 from typing import Dict, List, Any

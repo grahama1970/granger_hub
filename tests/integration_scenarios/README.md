@@ -2,7 +2,7 @@
 
 ## Overview
 
-This framework provides a flexible, extensible system for testing complex multi-module integration scenarios in the Claude Module Communicator ecosystem. It enables testing of real-world workflows where multiple modules interact to accomplish complex tasks.
+This framework provides a flexible, extensible system for testing complex multi-module integration scenarios in the Granger Hub ecosystem. It enables testing of real-world workflows where multiple modules interact to accomplish complex tasks.
 
 ## Quick Start
 

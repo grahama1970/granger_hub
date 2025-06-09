@@ -1,8 +1,8 @@
-# Quick Start Guide: RL for Claude Module Communicator
+# Quick Start Guide: RL for Granger Hub
 
 ## What We've Built
 
-We've successfully integrated DeepRetrieval-style reinforcement learning into the Claude Module Communicator, creating a self-improving communication system that leverages your existing ArangoDB graph infrastructure.
+We've successfully integrated DeepRetrieval-style reinforcement learning into the Granger Hub, creating a self-improving communication system that leverages your existing ArangoDB graph infrastructure.
 
 ### Files Created
 

@@ -1,8 +1,8 @@
-# Self-Improvement System for Claude Module Communicator
+# Self-Improvement System for Granger Hub
 
 ## Overview
 
-The Self-Improvement System enables Claude Module Communicator (the hub) and all its spoke projects to continuously improve through automated analysis, discovery, and proposal generation. The system generates numbered improvement task files (e.g., `IMPROVE_001_add_marker_arangodb_integration.md`) for human review and implementation.
+The Self-Improvement System enables Granger Hub (the hub) and all its spoke projects to continuously improve through automated analysis, discovery, and proposal generation. The system generates numbered improvement task files (e.g., `IMPROVE_001_add_marker_arangodb_integration.md`) for human review and implementation.
 
 ## How It Works
 
@@ -244,4 +244,4 @@ Add to `self.projects` in `SelfImprovementEngine`:
 
 ## Conclusion
 
-The Self-Improvement System transforms Claude Module Communicator into a living, evolving ecosystem that continuously identifies and proposes optimizations. By combining automated analysis with human review, it ensures systematic improvement while maintaining quality and control.
+The Self-Improvement System transforms Granger Hub into a living, evolving ecosystem that continuously identifies and proposes optimizations. By combining automated analysis with human review, it ensures systematic improvement while maintaining quality and control.

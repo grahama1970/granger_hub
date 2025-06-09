@@ -1,5 +1,5 @@
 """
-Pytest configuration for Claude Module Communicator tests.
+Pytest configuration for Granger Hub tests.
 
 This file configures pytest settings and fixtures for the entire test suite.
 """

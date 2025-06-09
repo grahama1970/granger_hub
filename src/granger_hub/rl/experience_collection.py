@@ -1,5 +1,7 @@
 """
 Experience collection and offline training for RL agents.
+Module: experience_collection.py
+Description: Functions for experience collection operations
 
 This module handles the collection, storage, and replay of experiences
 for training RL agents in the ModuleCommunicator system.
@@ -287,7 +289,7 @@ def train_agents_offline(
             elif hasattr(agent, 'update_policy'):
                 # PPO agents use update_policy
                 agent.update_policy()
-                agent_metrics['losses'] = [0]  # PPO doesn't return loss easily
+                agent_metrics['losses'] = [0]  # PPO doesn't return loss easily'
             
             agent_metrics['final_loss'] = agent_metrics['losses'][-1] if agent_metrics['losses'] else 0
             metrics[agent_name] = agent_metrics
@@ -430,7 +432,7 @@ def _get_decision_type_for_agent(agent_name: str) -> str:
 if __name__ == "__main__":
     # Initialize database
     initialize_experience_db()
-    print("✅ Experience database initialized")
+    print(" Experience database initialized")
     
     # Test logging experience
     test_state = np.array([0.5, 0.3, 0.8, 0.2, 0.6, 0.4, 0.7, 0.1, 0.9, 0.5])
@@ -450,14 +452,14 @@ if __name__ == "__main__":
             "outcome": {"success": True, "latency": 120}
         }
     )
-    print(f"✅ Logged experience with ID: {exp_id}")
+    print(f" Logged experience with ID: {exp_id}")
     
     # Test loading experiences
     experiences = load_experiences(limit=5)
-    print(f"✅ Loaded {len(experiences)} experiences")
+    print(f" Loaded {len(experiences)} experiences")
     
     # Test statistics
     stats = get_experience_statistics()
-    print(f"✅ Experience statistics: {json.dumps(stats, indent=2)}")
+    print(f" Experience statistics: {json.dumps(stats, indent=2)}")
     
-    print("\n✅ Experience collection module validated successfully!")
+    print("\n Experience collection module validated successfully!")

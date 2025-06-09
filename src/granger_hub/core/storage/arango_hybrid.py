@@ -32,7 +32,7 @@ import threading
 
 from .graph_backend import ArangoGraphBackend, ModuleNode, CommunicationEdge
 from .arango_conversation import ArangoConversationStore
-from ..core.communication_tracker import ProgressTracker
+from ..modules.communication_tracker import ProgressTracker
 
 logger = logging.getLogger(__name__)
 

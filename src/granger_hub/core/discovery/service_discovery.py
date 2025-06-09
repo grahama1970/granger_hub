@@ -1,5 +1,5 @@
 """
-Service Discovery and Health Monitoring for Claude Module Communicator.
+Service Discovery and Health Monitoring for Granger Hub.
 
 Purpose: Provides automatic service discovery via mDNS/DNS-SD,
 health checking, failover, and load balancing capabilities.

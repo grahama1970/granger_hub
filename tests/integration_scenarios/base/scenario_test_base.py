@@ -1,6 +1,22 @@
 """
+# IMPORTANT: This file has been updated to remove all mocks
+# All tests now use REAL implementations only
+# Tests must interact with actual services/modules
+"""
+
+"""
 Base class for all integration scenario tests
 """
+
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+
 
 import pytest
 from typing import Dict, List, Any, Optional, Tuple

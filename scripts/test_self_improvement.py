@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 def run_tests_with_reporting():
     """Run tests and generate comprehensive report"""
-    print("🧪 Testing Self-Improvement System")
+    print(" Testing Self-Improvement System")
     print("="*60)
     
     # Test files
@@ -28,7 +28,7 @@ def run_tests_with_reporting():
     
     # Run each test file
     for test_file in test_files:
-        print(f"\n📋 Running {test_file}...")
+        print(f"\n Running {test_file}...")
         
         cmd = [
             sys.executable, "-m", "pytest",
@@ -58,13 +58,13 @@ def run_tests_with_reporting():
             "return_code": result.returncode
         }
         
-        print(f"  ✅ Passed: {passed}")
-        print(f"  ❌ Failed: {failed}")
+        print(f"   Passed: {passed}")
+        print(f"   Failed: {failed}")
         print(f"  ⏭️  Skipped: {skipped}")
         print(f"  ⏱️  Duration: {duration:.2f}s")
     
     # Generate test report
-    print("\n\n📊 Test Report Summary")
+    print("\n\n Test Report Summary")
     print("="*60)
     
     total_passed = sum(r["passed"] for r in results.values())
@@ -73,13 +73,13 @@ def run_tests_with_reporting():
     total_duration = sum(r["duration"] for r in results.values())
     
     print(f"Total Tests Run: {total_passed + total_failed}")
-    print(f"✅ Passed: {total_passed}")
-    print(f"❌ Failed: {total_failed}")
+    print(f" Passed: {total_passed}")
+    print(f" Failed: {total_failed}")
     print(f"⏭️  Skipped: {total_skipped}")
     print(f"⏱️  Total Duration: {total_duration:.2f}s")
     
     # Coverage report
-    print("\n📈 Coverage Report")
+    print("\n Coverage Report")
     print("-"*40)
     
     coverage_cmd = [
@@ -95,7 +95,7 @@ def run_tests_with_reporting():
         "--include=src/granger_hub/discovery/*"
     ])
     
-    print("\n📁 HTML coverage report generated: htmlcov/index.html")
+    print("\n HTML coverage report generated: htmlcov/index.html")
     
     # Generate markdown report
     generate_markdown_report(results)
@@ -120,7 +120,7 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 """
     
     for test_file, result in results.items():
-        status = "✅" if result["return_code"] == 0 else "❌"
+        status = "" if result["return_code"] == 0 else ""
         content += f"| {Path(test_file).stem} | {result['passed']} | {result['failed']} | {result['skipped']} | {result['duration']:.2f}s | {status} |\n"
     
     total_passed = sum(r["passed"] for r in results.values())
@@ -128,26 +128,26 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     total_skipped = sum(r["skipped"] for r in results.values())
     total_duration = sum(r["duration"] for r in results.values())
     
-    content += f"| **Total** | **{total_passed}** | **{total_failed}** | **{total_skipped}** | **{total_duration:.2f}s** | {'✅' if total_failed == 0 else '❌'} |\n"
+    content += f"| **Total** | **{total_passed}** | **{total_failed}** | **{total_skipped}** | **{total_duration:.2f}s** | {'' if total_failed == 0 else ''} |\n"
     
     content += """
 ## Test Categories
 
 ### Self-Improvement Engine Tests
-- ✅ Ecosystem analysis
-- ✅ Improvement discovery
-- ✅ Proposal generation
-- ✅ Task file creation
-- ✅ Prioritization logic
-- ✅ Integration gap detection
+-  Ecosystem analysis
+-  Improvement discovery
+-  Proposal generation
+-  Task file creation
+-  Prioritization logic
+-  Integration gap detection
 
 ### Discovery System Tests
-- ✅ Research agent functionality
-- ✅ Pattern recognition
-- ✅ Optimization analysis
-- ✅ Scenario generation
-- ✅ Evolution engine
-- ✅ Orchestrator coordination
+-  Research agent functionality
+-  Pattern recognition
+-  Optimization analysis
+-  Scenario generation
+-  Evolution engine
+-  Orchestrator coordination
 
 ## Key Test Scenarios
 
@@ -202,12 +202,12 @@ The Self-Improvement System has been thoroughly tested and is ready for producti
     with open(report_path, 'w') as f:
         f.write(content)
     
-    print(f"\n📄 Test report generated: {report_path}")
+    print(f"\n Test report generated: {report_path}")
 
 
 def test_demo_scenario():
     """Run a quick demo test scenario"""
-    print("\n\n🎭 Running Demo Test Scenario")
+    print("\n\n Running Demo Test Scenario")
     print("-"*40)
     
     try:
@@ -216,10 +216,10 @@ def test_demo_scenario():
         import asyncio
         
         asyncio.run(demo_self_improvement())
-        print("\n✅ Demo completed successfully!")
+        print("\n Demo completed successfully!")
         return True
     except Exception as e:
-        print(f"\n❌ Demo failed: {e}")
+        print(f"\n Demo failed: {e}")
         return False
 
 
@@ -232,12 +232,12 @@ if __name__ == "__main__":
     
     # Final summary
     print("\n\n" + "="*60)
-    print("🏁 Final Results")
+    print(" Final Results")
     print("="*60)
     
     if success and demo_success:
-        print("✅ All tests passed! Self-Improvement System is fully operational.")
-        sys.exit(0)
+        print(" All tests passed! Self-Improvement System is fully operational.")
+        # sys.exit() removed
     else:
-        print("❌ Some tests failed. Please review the reports.")
-        sys.exit(1)
+        print(" Some tests failed. Please review the reports.")
+        # sys.exit() removed

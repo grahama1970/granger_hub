@@ -1,5 +1,7 @@
 """
 Conversation core functionality.
+Module: __init__.py
+Description: Package initialization and exports
 
 This module provides the core components for multi-turn conversations between modules.
 """

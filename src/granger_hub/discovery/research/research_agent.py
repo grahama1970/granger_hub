@@ -1,5 +1,7 @@
 """
 Research Agent for discovering new interaction patterns
+Module: research_agent.py
+Description: Implementation of research agent functionality
 
 Uses ArXiv, YouTube, Perplexity, and screenshots to find optimization patterns.
 """

@@ -1,6 +1,6 @@
-# LLM Integration Guide for Claude Module Communicator
+# LLM Integration Guide for Granger Hub
 
-This guide explains how to integrate claude_max_proxy and LLM capabilities into your Claude Module Communicator modules.
+This guide explains how to integrate claude_max_proxy and LLM capabilities into your Granger Hub modules.
 
 ## Overview
 
@@ -15,7 +15,7 @@ The LLM integration provides:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   Claude Module Communicator                 │
+│                   Granger Hub                 │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │

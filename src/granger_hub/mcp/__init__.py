@@ -1,5 +1,7 @@
 """
 MCP (Model Context Protocol) Integration with Enhanced Prompt Support.
+Module: __init__.py
+Description: Package initialization and exports
 
 This module provides MCP integration through multiple approaches:
 1. CLI slash commands via granger_slash_mcp_mixin (primary)

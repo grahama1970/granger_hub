@@ -1,5 +1,6 @@
 """
-REST Protocol Adapter for Claude Module Communicator.
+REST Protocol Adapter for Granger Hub.
+Module: rest_adapter.py
 
 Enables communication with REST APIs using standard HTTP methods.
 """

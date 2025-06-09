@@ -303,24 +303,24 @@ if __name__ == "__main__":
         assert "cli" in protocols
         assert "rest" in protocols
         assert "mcp" in protocols
-        print(f"✅ Registered protocols: {protocols}")
+        print(f" Registered protocols: {protocols}")
         
         # Test CLI adapter creation
         config = AdapterConfig(name="test_cli", protocol="cli")
         cli_adapter = registry.create("cli", config, command="echo test")
         assert isinstance(cli_adapter, CLIAdapter)
-        print("✅ Created CLI adapter")
+        print(" Created CLI adapter")
         
         # Test REST adapter creation
         config = AdapterConfig(name="test_rest", protocol="rest")
         rest_adapter = registry.create("rest", config, base_url="https://api.example.com")
         assert isinstance(rest_adapter, RESTAdapter)
-        print("✅ Created REST adapter")
+        print(" Created REST adapter")
         
         # Test factory URL parsing
         adapter = factory.create_from_url("https://api.example.com/v1")
         assert isinstance(adapter, RESTAdapter)
-        print("✅ Factory created REST adapter from URL")
+        print(" Factory created REST adapter from URL")
         
         # Test factory module detection
         module_info = {
@@ -330,7 +330,7 @@ if __name__ == "__main__":
         }
         adapter = factory.create_for_module(module_info)
         assert isinstance(adapter, CLIAdapter)
-        print("✅ Factory detected CLI protocol from module info")
+        print(" Factory detected CLI protocol from module info")
         
         # Test missing required params
         try:
@@ -338,11 +338,11 @@ if __name__ == "__main__":
             assert False, "Should have raised ValueError"
         except ValueError as e:
             assert "Missing required parameters" in str(e)
-            print("✅ Correctly validated required parameters")
+            print(" Correctly validated required parameters")
             
         return True
         
     # Run test
     result = asyncio.run(test_registry())
     assert result == True
-    print("\n✅ Adapter registry validation passed!")
+    print("\n Adapter registry validation passed!")

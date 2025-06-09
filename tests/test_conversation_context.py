@@ -23,6 +23,8 @@ from base_module import BaseModule, DataProcessorModule
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_conversation_history():
     """Test that module maintains conversation history across multiple turns."""
     # Create module
@@ -103,6 +105,8 @@ async def test_conversation_history():
     assert conversation_id not in module.conversation_history
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_context_awareness():
     """Test that context influences module responses across turns."""
@@ -205,6 +209,8 @@ async def test_context_awareness():
 
 
 @pytest.mark.asyncio
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_impossible_instant_context():
     """HONEYPOT: Test that should fail - context retrieval cannot be instant."""
     # This test intentionally has unrealistic instant responses
@@ -246,6 +252,8 @@ async def test_impossible_instant_context():
     assert average_time < 0.05  # Honeypot expects unrealistic speed
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_conversation_cleanup():
     """Test inactive conversation cleanup."""

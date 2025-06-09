@@ -6,7 +6,7 @@ analysis, natural language query processing, and advanced pattern recognition.
 
 Dependencies:
 - python-arango: For ArangoDB operations
-- claude_max_proxy: For LLM capabilities
+- llm_call: For LLM capabilities
 - Original expert module: For base functionality
 """
 
@@ -17,8 +17,8 @@ from datetime import datetime
 import logging
 
 from .arango_expert import ArangoExpertModule
-from .llm_integration import LLMCapableMixin, LLMConfig, LLMModel, LLMRequest
-from .module_registry import ModuleRegistry
+from ..llm.llm_integration import LLMCapableMixin, LLMConfig, LLMModel, LLMRequest
+from ..modules.module_registry import ModuleRegistry
 
 logger = logging.getLogger(__name__)
 

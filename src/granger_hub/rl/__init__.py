@@ -1,5 +1,7 @@
 """
-RL Integration for Claude Module Communicator
+RL Integration for Granger Hub
+Module: __init__.py
+Description: Package initialization and exports
 
 Provides functions for intelligent Hub routing using RL Commons.
 No mocks, no classes unless needed for state, functional approach.

@@ -1,5 +1,6 @@
 """
 RL Metrics Collector
+Module: collector.py
 
 This module provides the main interface for collecting RL metrics
 from the hub decision-making process and storing them in ArangoDB.
@@ -275,7 +276,7 @@ if __name__ == "__main__":
         try:
             # Initialize
             await collector.initialize()
-            print("✓ Collector initialized")
+            print(" Collector initialized")
             
             # Test module selection
             decision_id = await collector.record_module_selection(
@@ -289,7 +290,7 @@ if __name__ == "__main__":
                 },
                 exploration_rate=0.1
             )
-            print(f"✓ Recorded decision: {decision_id}")
+            print(f" Recorded decision: {decision_id}")
             
             # Simulate execution
             await asyncio.sleep(0.1)
@@ -301,7 +302,7 @@ if __name__ == "__main__":
                 execution_time_ms=250.5,
                 reward=0.85
             )
-            print("✓ Updated decision outcome")
+            print(" Updated decision outcome")
             
             # Test pipeline tracking
             async with collector.track_pipeline(
@@ -319,7 +320,7 @@ if __name__ == "__main__":
                     pipeline.pipeline_id, "storage", 50.0, True, 1.0
                 )
             
-            print("✓ Pipeline tracking completed")
+            print(" Pipeline tracking completed")
             
             # Test progress recording
             await collector.record_learning_progress(
@@ -334,17 +335,17 @@ if __name__ == "__main__":
                     "window_success_rate": 0.9
                 }
             )
-            print("✓ Recorded learning progress")
+            print(" Recorded learning progress")
             
             # Get stats
             stats = await collector.get_module_stats("marker")
-            print(f"✓ Module stats: {stats}")
+            print(f" Module stats: {stats}")
             
             await collector.close()
-            print("✓ Collector closed")
+            print(" Collector closed")
             
         except Exception as e:
-            print(f"✗ Error: {e}")
+            print(f" Error: {e}")
             raise
     
     asyncio.run(test_collector())

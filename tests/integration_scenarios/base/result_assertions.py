@@ -2,6 +2,16 @@
 Common assertions for scenario testing
 """
 
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+
+
 from typing import List, Dict, Any, Optional, Union, Callable
 import pytest
 
@@ -135,7 +145,7 @@ class ScenarioAssertions:
         in_result: bool = True
     ) -> None:
         """
-        Assert that a step's result contains expected data
+        Assert that a step's result contains expected data'
         
         Args:
             results: Workflow execution results

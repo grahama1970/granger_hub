@@ -90,7 +90,7 @@ class DataProducerModule(BaseModule):
         # Find processors and send data
         processors = await self.discover_modules("data_processing")
         if processors:
-            print(f"📤 Sending batch {batch_id} to {len(processors)} processors")
+            print(f" Sending batch {batch_id} to {len(processors)} processors")
             for processor in processors:
                 await self.send_to(
                     processor,
@@ -191,7 +191,7 @@ class DataProcessorModule(BaseModule):
         # Find analyzers and send results
         analyzers = await self.discover_modules("data_analysis")
         if analyzers:
-            print(f"📤 Sending processed batch {batch_id} to analyzers")
+            print(f" Sending processed batch {batch_id} to analyzers")
             for analyzer in analyzers:
                 await self.send_to(
                     analyzer,
@@ -313,7 +313,7 @@ class DataAnalyzerModule(BaseModule):
             "batch_id": batch_id
         }
         
-        print(f"📊 Analysis complete for batch {batch_id}")
+        print(f" Analysis complete for batch {batch_id}")
         return result
 
 
@@ -366,7 +366,7 @@ class OrchestratorModule(BaseModule):
         
         if workflow == "simple_pipeline":
             # Producer -> Processor -> Analyzer pipeline
-            print(f"🎯 Starting simple pipeline workflow")
+            print(f" Starting simple pipeline workflow")
             
             # Check if modules exist
             producer = await self.discover_modules("data_generation")
@@ -398,7 +398,7 @@ class OrchestratorModule(BaseModule):
 # Demo script
 async def demo_dynamic_communication():
     """Demonstrate dynamic module communication."""
-    print("🚀 Starting Dynamic Module Communication Demo\n")
+    print(" Starting Dynamic Module Communication Demo\n")
     
     # Create shared registry
     registry = ModuleRegistry("demo_registry.json")
@@ -415,17 +415,17 @@ async def demo_dynamic_communication():
     await analyzer.start()
     await orchestrator.start()
     
-    print("\n📋 Registered Modules:")
+    print("\n Registered Modules:")
     for module in registry.list_modules():
         print(f"  - {module.name}: {', '.join(module.capabilities)}")
     
-    print("\n🔗 Module Compatibility Graph:")
+    print("\n Module Compatibility Graph:")
     graph = registry.get_module_graph()
     for source, targets in graph.items():
         if targets:
             print(f"  {source} → {', '.join(targets)}")
     
-    print("\n🎬 Starting workflow...\n")
+    print("\n Starting workflow...\n")
     
     # Execute a workflow through orchestrator
     result = await orchestrator.send_to(
@@ -441,7 +441,7 @@ async def demo_dynamic_communication():
     )
     
     if result:
-        print(f"\n✅ Workflow completed!")
+        print(f"\n Workflow completed!")
         print(f"Status: {result.status}")
     
     # Stop all modules

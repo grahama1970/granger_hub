@@ -72,6 +72,6 @@
     "cache",
     "parallel"
   ],
-  "generated_at": "2025-06-01T12:04:30.670292",
+  "generated_at": "2025-06-04T17:36:31.913416",
   "file_path": "tests/integration_scenarios/generated/integration/test_testhybridcacheparallel.py"
 }

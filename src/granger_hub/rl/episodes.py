@@ -1,3 +1,19 @@
+"""
+Module: episodes.py
+
+External Dependencies:
+- : [Documentation URL]
+
+Sample Input:
+>>> # Add specific examples based on module functionality
+
+Expected Output:
+>>> # Add expected output examples
+
+Example Usage:
+>>> # Add usage examples
+"""
+
 # granger_hub/rl/episodes.py
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
@@ -26,7 +42,7 @@ class CommunicationEpisode:
     def collect_routing_episode(self, task: Dict) -> Dict:
         """
         Collect one episode of route optimization.
-        Similar to DeepRetrieval's query optimization.
+        Similar to DeepRetrieval's query optimization.'
         
         Args:
             task: Dict containing:

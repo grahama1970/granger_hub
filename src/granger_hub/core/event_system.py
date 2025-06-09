@@ -1,5 +1,5 @@
 """
-Event System for Claude Module Communicator.
+Event System for Granger Hub.
 
 Purpose: Provides a pub/sub event system for decoupled module communication,
 enabling modules to react to system-wide events without direct dependencies.
@@ -509,7 +509,7 @@ if __name__ == "__main__":
         assert stats["total_events"] == 4
         assert "test.event" in [e[0] for e in stats["most_common_events"]]
         
-        print("✅ Event system validation passed!")
+        print(" Event system validation passed!")
         return True
     
     # Run test

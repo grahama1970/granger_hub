@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide provides a roadmap for implementing the 100 space cybersecurity scenarios using the Claude Module Communicator framework.
+This guide provides a roadmap for implementing the 100 space cybersecurity scenarios using the Granger Hub framework.
 
 ## Module Integration Matrix
 

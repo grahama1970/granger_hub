@@ -53,4 +53,4 @@ claude-comm pipeline <config_file> [--validate-only] [--async]
 ```
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

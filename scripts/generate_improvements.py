@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate improvement proposals for the Claude Module Communicator ecosystem
+Generate improvement proposals for the Granger Hub ecosystem
 
 This script analyzes the hub and spoke projects to propose improvements.
 """
@@ -20,7 +20,7 @@ from loguru import logger
 
 async def continuous_improvement_loop(interval_hours: int = 24):
     """Run continuous improvement analysis"""
-    logger.info(f"🔄 Starting continuous improvement loop (every {interval_hours} hours)")
+    logger.info(f" Starting continuous improvement loop (every {interval_hours} hours)")
     
     while True:
         try:
@@ -28,21 +28,21 @@ async def continuous_improvement_loop(interval_hours: int = 24):
             await run_self_improvement()
             
             # Wait for next cycle
-            logger.info(f"💤 Waiting {interval_hours} hours until next analysis...")
+            logger.info(f" Waiting {interval_hours} hours until next analysis...")
             await asyncio.sleep(interval_hours * 3600)
             
         except KeyboardInterrupt:
-            logger.info("🛑 Stopping continuous improvement loop")
+            logger.info(" Stopping continuous improvement loop")
             break
         except Exception as e:
-            logger.error(f"❌ Error in improvement loop: {e}")
+            logger.error(f" Error in improvement loop: {e}")
             # Wait a bit before retrying
             await asyncio.sleep(300)  # 5 minutes
 
 
 async def analyze_specific_integration(project1: str, project2: str):
     """Analyze specific integration between two projects"""
-    logger.info(f"🔍 Analyzing integration: {project1} ↔ {project2}")
+    logger.info(f" Analyzing integration: {project1} ↔ {project2}")
     
     engine = SelfImprovementEngine()
     
@@ -60,7 +60,7 @@ async def analyze_specific_integration(project1: str, project2: str):
     with open(filepath, 'w') as f:
         f.write(content)
     
-    logger.info(f"✅ Generated integration proposal: {filepath}")
+    logger.info(f" Generated integration proposal: {filepath}")
     
     return proposal
 
@@ -86,9 +86,9 @@ async def generate_performance_improvements():
     if proposals:
         engine.proposals = proposals
         task_files = await engine.generate_improvement_tasks()
-        logger.info(f"✅ Generated {len(task_files)} performance improvement tasks")
+        logger.info(f" Generated {len(task_files)} performance improvement tasks")
     else:
-        logger.info("✨ No performance issues found!")
+        logger.info(" No performance issues found!")
     
     return proposals
 
@@ -113,7 +113,7 @@ async def check_improvement_status():
             if "**Status**: Completed" in content:
                 completed_tasks += 1
     
-    print(f"\n📊 Improvement Status:")
+    print(f"\n Improvement Status:")
     print(f"Total Tasks: {total_tasks}")
     print(f"Completed: {completed_tasks}")
     print(f"Pending: {total_tasks - completed_tasks}")

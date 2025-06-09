@@ -1,0 +1,52 @@
+{
+  "MarkerModule": {
+    "name": "MarkerModule",
+    "system_prompt": "Extract threat intelligence from PDF documents",
+    "capabilities": [
+      "pdf_extraction",
+      "threat_detection",
+      "schema_proposal"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "pdf_path": {
+          "type": "string"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "threats": {
+          "type": "array"
+        }
+      }
+    }
+  },
+  "ArangoModule": {
+    "name": "ArangoModule",
+    "system_prompt": "Validate and optimize schemas for ArangoDB graph storage",
+    "capabilities": [
+      "schema_validation",
+      "graph_optimization",
+      "index_suggestion"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "validation": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

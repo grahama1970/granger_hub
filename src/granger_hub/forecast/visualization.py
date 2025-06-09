@@ -1,5 +1,6 @@
 """
 Time Series Forecast Visualization using D3.js.
+Module: visualization.py
 
 Integrates with the arangodb D3 visualization engine to create interactive
 time series forecast visualizations with confidence intervals.
@@ -29,6 +30,12 @@ try:
 except ImportError:
     D3_AVAILABLE = False
     logging.warning("D3 visualization engine not available. Install arangodb package.")
+    
+    # Define a simple VisualizationConfig if D3 engine is not available
+    class VisualizationConfig:
+        def __init__(self, width: int = 800, height: int = 600):
+            self.width = width
+            self.height = height
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +90,7 @@ class ForecastVisualizer:
             config = VisualizationConfig(
                 width=width,
                 height=height,
-                layout="custom",  # We'll use custom D3 code
+                layout="custom",  # We'll use custom D3 code'
                 title=title,
                 custom_settings={
                     "chart_type": "time_series",

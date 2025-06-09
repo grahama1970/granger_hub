@@ -1,5 +1,5 @@
 """
-CLI Conversation Commands for Claude Module Communicator
+CLI Conversation Commands for Granger Hub
 
 Purpose: Provides Typer-based CLI commands for managing multi-turn conversations
 between modules with support for MCP generation via slash_mcp_mixin.

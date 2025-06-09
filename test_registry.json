@@ -1,10 +1,10 @@
 {
   "Module1": {
     "name": "Module1",
-    "system_prompt": "Test module 1 for concurrent conversations",
+    "system_prompt": "Test module Module1",
     "capabilities": [
-      "conversation",
-      "test"
+      "test",
+      "conversation"
     ],
     "input_schema": {
       "type": "object"
@@ -15,10 +15,10 @@
   },
   "Module2": {
     "name": "Module2",
-    "system_prompt": "Test module 2 for concurrent conversations",
+    "system_prompt": "Test module Module2",
     "capabilities": [
-      "conversation",
-      "test"
+      "test",
+      "conversation"
     ],
     "input_schema": {
       "type": "object"
@@ -125,6 +125,48 @@
       "type": "object"
     }
   },
+  "WorkflowModule1": {
+    "name": "WorkflowModule1",
+    "system_prompt": "Simple test module WorkflowModule1",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "WorkflowModule2": {
+    "name": "WorkflowModule2",
+    "system_prompt": "Simple test module WorkflowModule2",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
+  "WorkflowModule3": {
+    "name": "WorkflowModule3",
+    "system_prompt": "Simple test module WorkflowModule3",
+    "capabilities": [
+      "conversation",
+      "test"
+    ],
+    "input_schema": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "object"
+    }
+  },
   "DataProcessor": {
     "name": "DataProcessor",
     "system_prompt": "Process data and maintain conversation context",
@@ -178,132 +220,6 @@
       "report_generation",
       "summarization",
       "conversation"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "Module3": {
-    "name": "Module3",
-    "system_prompt": "Test module 3 for concurrent conversations",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "Module4": {
-    "name": "Module4",
-    "system_prompt": "Test module 4 for concurrent conversations",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "WorkflowModule1": {
-    "name": "WorkflowModule1",
-    "system_prompt": "Simple test module WorkflowModule1",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "WorkflowModule2": {
-    "name": "WorkflowModule2",
-    "system_prompt": "Simple test module WorkflowModule2",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "WorkflowModule3": {
-    "name": "WorkflowModule3",
-    "system_prompt": "Simple test module WorkflowModule3",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "ConcurrentModule1": {
-    "name": "ConcurrentModule1",
-    "system_prompt": "Simple test module ConcurrentModule1",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "ConcurrentModule2": {
-    "name": "ConcurrentModule2",
-    "system_prompt": "Simple test module ConcurrentModule2",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "ConcurrentModule3": {
-    "name": "ConcurrentModule3",
-    "system_prompt": "Simple test module ConcurrentModule3",
-    "capabilities": [
-      "conversation",
-      "test"
-    ],
-    "input_schema": {
-      "type": "object"
-    },
-    "output_schema": {
-      "type": "object"
-    }
-  },
-  "ConcurrentModule4": {
-    "name": "ConcurrentModule4",
-    "system_prompt": "Simple test module ConcurrentModule4",
-    "capabilities": [
-      "conversation",
-      "test"
     ],
     "input_schema": {
       "type": "object"

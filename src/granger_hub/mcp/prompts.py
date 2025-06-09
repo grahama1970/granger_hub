@@ -1,5 +1,6 @@
 """
-Prompt infrastructure for Claude Module Communicator.
+Prompt infrastructure for Granger Hub.
+Module: prompts.py
 
 This module provides a flexible prompt management system that allows
 for dynamic prompt registration, categorization, and rendering.
@@ -281,7 +282,7 @@ class PromptRegistry:
         self.register(prompt)
     
     def create_prompt_from_function(self, func, category: Optional[str] = None) -> Prompt:
-        """Create a prompt from a function's docstring and signature.
+        """Create a prompt from a function's docstring and signature.'
         
         Args:
             func: The function to create a prompt from
@@ -409,4 +410,4 @@ if __name__ == "__main__":
     by_tags = registry.list_prompts(tags=["test"])
     assert len(by_tags) == 1, "Tag filtering failed"
     
-    print("✅ Validation passed")
+    print(" Validation passed")

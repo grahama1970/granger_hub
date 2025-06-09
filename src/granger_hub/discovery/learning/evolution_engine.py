@@ -1,5 +1,6 @@
 """
 Evolution Engine - Learns and improves from discovery results
+Module: evolution_engine.py
 
 Implements continuous learning to improve pattern recognition and scenario generation.
 """

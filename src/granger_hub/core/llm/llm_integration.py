@@ -1,5 +1,5 @@
 """
-LLM Integration for Claude Module Communicator.
+LLM Integration for Granger Hub.
 
 Purpose: Provides integration with claude_max_proxy to enable modules to make
 LLM calls to various providers including Gemini, Claude, GPT, etc.
@@ -23,6 +23,7 @@ from typing import Dict, Any, Optional, List, Union
 from dataclasses import dataclass
 import json
 from datetime import datetime
+from enum import Enum
 
 try:
     from llm_call import ask, chat, call
@@ -33,6 +34,37 @@ except ImportError:
     logging.warning("claude_max_proxy not available. LLM features disabled.")
 
 logger = logging.getLogger(__name__)
+
+
+class LLMModel(Enum):
+    """Available LLM models."""
+    # Claude models
+    CLAUDE_3_OPUS = "claude-3-opus-20240229"
+    CLAUDE_3_SONNET = "claude-3-sonnet-20240229"
+    CLAUDE_3_HAIKU = "claude-3-haiku-20240307"
+    
+    # Gemini models
+    GEMINI_PRO = "gemini/gemini-pro"
+    GEMINI_FLASH = "gemini/gemini-2.0-flash-exp"
+    
+    # GPT models
+    GPT_4 = "gpt-4"
+    GPT_4_TURBO = "gpt-4-turbo"
+    GPT_35_TURBO = "gpt-3.5-turbo"
+
+
+@dataclass
+class LLMRequest:
+    """Request structure for LLM calls."""
+    prompt: str
+    model: Union[str, LLMModel]
+    context: Optional[Dict[str, Any]] = None
+    temperature: float = 0.7
+    max_tokens: Optional[int] = None
+    
+    def model_string(self) -> str:
+        """Get model as string."""
+        return self.model.value if isinstance(self.model, LLMModel) else self.model
 
 
 @dataclass

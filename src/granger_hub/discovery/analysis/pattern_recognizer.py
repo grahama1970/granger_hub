@@ -1,5 +1,7 @@
 """
 Pattern Recognizer - Extracts interaction patterns from research
+Module: pattern_recognizer.py
+Description: Implementation of pattern recognizer functionality
 
 Identifies common patterns and architectures from research findings.
 """

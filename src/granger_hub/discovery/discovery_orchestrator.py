@@ -1,5 +1,6 @@
 """
 Discovery Orchestrator - Coordinates the entire discovery process
+Module: discovery_orchestrator.py
 
 Manages research, analysis, generation, and learning cycles.
 """

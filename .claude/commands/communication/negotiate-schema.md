@@ -33,4 +33,4 @@ claude-comm negotiate-schema <source> <target> [--sample-data <file>]
 5. Return negotiated schema
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

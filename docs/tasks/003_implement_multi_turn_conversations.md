@@ -1,4 +1,4 @@
-# Master Task List - Multi-Turn Conversation Support for Claude Module Communicator
+# Master Task List - Multi-Turn Conversation Support for Granger Hub
 
 **Total Tasks**: 8  
 **Completed**: 0/8  

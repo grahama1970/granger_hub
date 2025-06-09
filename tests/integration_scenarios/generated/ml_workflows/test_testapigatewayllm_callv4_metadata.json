@@ -36,6 +36,6 @@
     "Architecture: microservice-pat",
     "Architecture: event-driven-arc"
   ],
-  "generated_at": "2025-06-01T12:04:30.670096",
+  "generated_at": "2025-06-04T17:36:31.913258",
   "file_path": "tests/integration_scenarios/generated/ml_workflows/test_testapigatewayllm_callv4.py"
 }

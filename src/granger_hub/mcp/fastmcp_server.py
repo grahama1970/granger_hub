@@ -1,5 +1,7 @@
 """
-Enhanced MCP server using FastMCP for Claude Module Communicator.
+Enhanced MCP server using FastMCP for Granger Hub.
+Module: fastmcp_server.py
+Description: Functions for fastmcp server operations
 
 This server provides a FastMCP-based implementation with:
 - Full prompt support
@@ -56,9 +58,9 @@ def create_hub_mcp_server(
     # Add metadata
     mcp.meta.update({
         "version": "2.0.0",
-        "description": "Enhanced MCP server for Claude Module Communicator",
+        "description": "Enhanced MCP server for Granger Hub",
         "features": ["prompts", "tools", "analytics", "orchestration"],
-        "author": "Claude Module Communicator Team"
+        "author": "Granger Hub Team"
     })
     
     # ===== Module Communication Tools =====
@@ -525,13 +527,13 @@ def run_hub_mcp_server(
     # Create server
     mcp = create_hub_mcp_server()
     
-    print(f"🚀 Starting Claude Module Communicator MCP Server")
-    print(f"📡 Endpoint: http://{host}:{port}")
-    print(f"🔧 Tools: {len(mcp._tools)}")
-    print(f"💬 Prompts: {len(mcp._prompts)}")
+    print(f" Starting Granger Hub MCP Server")
+    print(f" Endpoint: http://{host}:{port}")
+    print(f" Tools: {len(mcp._tools)}")
+    print(f" Prompts: {len(mcp._prompts)}")
     
     if reload:
-        print("🔄 Auto-reload enabled")
+        print(" Auto-reload enabled")
     
     print("\nPress Ctrl+C to stop")
     
@@ -541,7 +543,7 @@ def run_hub_mcp_server(
             transport="stdio"  # Use stdio for Claude Desktop
         )
     except KeyboardInterrupt:
-        print("\n\n🛑 Server stopped")
+        print("\n\n Server stopped")
 
 
 if __name__ == "__main__":

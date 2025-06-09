@@ -1,5 +1,7 @@
 """
 Universal Slash Command and MCP Generation for Typer CLIs (Granger Edition)
+Module: granger_slash_mcp_mixin.py
+Description: Functions for granger slash mcp mixin operations
 
 This module provides enhanced slash command and MCP server generation for Typer CLIs,
 with support for prompt infrastructure, tool bundling, and intelligent registration.
@@ -16,7 +18,7 @@ Usage:
     from granger_hub.cli.granger_slash_mcp_mixin import add_slash_mcp_commands
     
     app = typer.Typer()
-    add_slash_mcp_commands(app)  # That's it!
+    add_slash_mcp_commands(app)  # That's it!'
 """
 
 import typer
@@ -158,22 +160,22 @@ def add_slash_mcp_commands(
             cmd_file.write_text(content)
             
             if verbose:
-                typer.echo(f"✅ Created: {cmd_file}")
+                typer.echo(f" Created: {cmd_file}")
             else:
-                typer.echo(f"✅ /project:{slash_name}")
+                typer.echo(f" /project:{slash_name}")
                 
             generated += 1
         
         # Generate bundle files if enabled
         if bundles:
-            typer.echo(f"\n📦 Generating command bundles...")
+            typer.echo(f"\n Generating command bundles...")
             for bundle_name, commands in bundles.items():
                 bundle_file = out_dir / f"{bundle_name}-bundle.md"
                 bundle_content = _generate_bundle_content(bundle_name, commands)
                 bundle_file.write_text(bundle_content)
-                typer.echo(f"📦 Created bundle: {bundle_name}")
+                typer.echo(f" Created bundle: {bundle_name}")
         
-        typer.echo(f"\n📁 Generated {generated} commands in {out_dir}/")
+        typer.echo(f"\n Generated {generated} commands in {out_dir}/")
         
         if enable_analytics:
             _track_generation_event("slash_commands", generated)
@@ -237,7 +239,7 @@ def add_slash_mcp_commands(
             "version": "2.0.0",
             "description": f"Enhanced MCP server for {server_name}",
             "metadata": {
-                "author": "Claude Module Communicator",
+                "author": "Granger Hub",
                 "generation_time": datetime.utcnow().isoformat(),
                 "enhanced_features": ["prompts", "tool_groups", "analytics"]
             },
@@ -264,12 +266,12 @@ def add_slash_mcp_commands(
         
         # Write config with pretty formatting
         output.write_text(json.dumps(config, indent=2, sort_keys=False))
-        typer.echo(f"✅ Generated enhanced MCP config: {output}")
-        typer.echo(f"📋 Includes {len(tools)} tools in {len(tool_groups)} groups")
+        typer.echo(f" Generated enhanced MCP config: {output}")
+        typer.echo(f" Includes {len(tools)} tools in {len(tool_groups)} groups")
         if prompts:
-            typer.echo(f"💬 Includes {len(prompts)} prompts")
+            typer.echo(f" Includes {len(prompts)} prompts")
         if resources:
-            typer.echo(f"📚 Includes {len(resources)} resources")
+            typer.echo(f" Includes {len(resources)} resources")
     
     @app.command(name="serve-mcp-fastmcp")
     def serve_mcp_fastmcp_command(
@@ -282,7 +284,7 @@ def add_slash_mcp_commands(
         """Serve this CLI as an MCP server using FastMCP with enhanced features."""
         
         if not FASTMCP_AVAILABLE:
-            typer.echo("❌ FastMCP not installed!")
+            typer.echo(" FastMCP not installed!")
             typer.echo("\nInstall with: uv add fastmcp")
             raise typer.Exit(1)
         
@@ -312,14 +314,14 @@ def add_slash_mcp_commands(
         if enable_analytics:
             _setup_mcp_analytics(mcp)
         
-        typer.echo(f"🔧 Registered {registered_tools} tools")
+        typer.echo(f" Registered {registered_tools} tools")
         if registered_prompts:
-            typer.echo(f"💬 Registered {registered_prompts} prompts")
+            typer.echo(f" Registered {registered_prompts} prompts")
         
-        typer.echo(f"🚀 Starting enhanced MCP server on {host}:{port}")
-        typer.echo(f"\n📡 Server endpoint: http://{host}:{port}")
+        typer.echo(f" Starting enhanced MCP server on {host}:{port}")
+        typer.echo(f"\n Server endpoint: http://{host}:{port}")
         if reload:
-            typer.echo("🔄 Auto-reload enabled")
+            typer.echo(" Auto-reload enabled")
         typer.echo("\nPress Ctrl+C to stop")
         
         try:
@@ -338,7 +340,7 @@ def add_slash_mcp_commands(
                     transport="stdio"
                 )
         except KeyboardInterrupt:
-            typer.echo("\n\n🛑 Server stopped gracefully")
+            typer.echo("\n\n Server stopped gracefully")
     
     # Add prompt management commands if available
     if PROMPTS_AVAILABLE and registry:
@@ -364,7 +366,7 @@ def add_slash_mcp_commands(
             
             # Display prompts
             for cat, cat_prompts in sorted(by_category.items()):
-                typer.echo(f"\n📁 {cat.upper()}")
+                typer.echo(f"\n {cat.upper()}")
                 typer.echo("─" * 40)
                 for prompt in sorted(cat_prompts, key=lambda p: p.name):
                     typer.echo(f"  • {prompt.name}: {prompt.description}")
@@ -380,7 +382,7 @@ def add_slash_mcp_commands(
             """Show details of a specific prompt."""
             prompt = registry.get_prompt(name)
             if not prompt:
-                typer.echo(f"❌ Prompt not found: {name}")
+                typer.echo(f" Prompt not found: {name}")
                 raise typer.Exit(1)
             
             if format == "json":
@@ -396,7 +398,7 @@ def add_slash_mcp_commands(
                 }
                 typer.echo(json.dumps(output, indent=2))
             else:
-                typer.echo(f"📋 {prompt.name}")
+                typer.echo(f" {prompt.name}")
                 typer.echo(f"Description: {prompt.description}")
                 if prompt.category:
                     typer.echo(f"Category: {prompt.category}")
@@ -791,7 +793,7 @@ def _register_tools_with_fastmcp(
         registered += 1
         
         if debug:
-            typer.echo(f"  ✅ Registered: {cmd_name}")
+            typer.echo(f"   Registered: {cmd_name}")
     
     return registered
 
@@ -884,4 +886,4 @@ if __name__ == "__main__":
     for cmd in expected:
         assert cmd in added_commands, f"Expected command {cmd} not found"
     
-    print("✅ Validation passed")
+    print(" Validation passed")

@@ -52,5 +52,109 @@
         }
       }
     }
+  },
+  "HistoryTest": {
+    "name": "HistoryTest",
+    "system_prompt": "Test conversation module HistoryTest",
+    "capabilities": [
+      "test",
+      "conversation",
+      "context_aware"
+    ],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "BrowserAutomationModule": {
+    "name": "BrowserAutomationModule",
+    "system_prompt": "I am a browser automation module that can navigate websites, click elements, fill forms, take screenshots, and execute JavaScript.",
+    "capabilities": [
+      "browser_navigation",
+      "element_click",
+      "form_fill",
+      "element_hover",
+      "screenshot_element",
+      "page_evaluate",
+      "wait_for_selector"
+    ],
+    "input_schema": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "navigate",
+          "click",
+          "fill",
+          "hover",
+          "screenshot",
+          "evaluate",
+          "wait"
+        ],
+        "description": "The browser action to perform"
+      },
+      "url": {
+        "type": "string",
+        "description": "URL to navigate to"
+      },
+      "selector": {
+        "type": "string",
+        "description": "CSS selector for the target element"
+      },
+      "value": {
+        "type": "string",
+        "description": "Value to fill in form fields"
+      },
+      "script": {
+        "type": "string",
+        "description": "JavaScript to evaluate in page context"
+      },
+      "wait_for": {
+        "type": "string",
+        "enum": [
+          "load",
+          "domcontentloaded",
+          "networkidle"
+        ],
+        "default": "load",
+        "description": "Wait condition for navigation"
+      },
+      "timeout": {
+        "type": "integer",
+        "default": 30000,
+        "description": "Timeout in milliseconds"
+      },
+      "output_path": {
+        "type": "string",
+        "description": "Path to save screenshot"
+      },
+      "headless": {
+        "type": "boolean",
+        "default": true,
+        "description": "Run browser in headless mode"
+      }
+    },
+    "output_schema": {
+      "success": {
+        "type": "boolean"
+      },
+      "result": {
+        "type": "object"
+      },
+      "error": {
+        "type": "string"
+      }
+    }
   }
 }

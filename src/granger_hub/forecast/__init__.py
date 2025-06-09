@@ -1,5 +1,7 @@
 """
-Time Series Forecasting Module for Claude Module Communicator.
+Time Series Forecasting Module for Granger Hub.
+Module: __init__.py
+Description: Package initialization and exports
 
 This module provides forecasting capabilities that can be invoked through:
 - CLI: claude-coms --forecast data.csv --graph

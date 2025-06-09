@@ -1,5 +1,7 @@
 """
-Claude Module Communicator Core.
+Granger Hub Core.
+Module: __init__.py
+Description: Package initialization and exports
 
 This package provides the core functionality for multi-module communication
 with conversation support, following the 3-layer architecture.

@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """Combine multiple pytest JSON reports into one."""
 
+import sys
+from pathlib import Path
+
+# Add src to path for imports
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+
+
 import json
 import sys
 from pathlib import Path

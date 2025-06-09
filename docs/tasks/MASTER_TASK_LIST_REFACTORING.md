@@ -1,4 +1,4 @@
-# Master Task List - Claude Module Communicator Refactoring
+# Master Task List - Granger Hub Refactoring
 
 **Total Tasks**: 3  
 **Completed**: 0/3  

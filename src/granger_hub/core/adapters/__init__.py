@@ -1,5 +1,7 @@
 """
-Protocol Adapters for Claude Module Communicator.
+Protocol Adapters for Granger Hub.
+Module: __init__.py
+Description: Package initialization and exports
 
 This module provides adapters for different communication protocols,
 enabling seamless integration with services using MCP, REST, CLI, etc.

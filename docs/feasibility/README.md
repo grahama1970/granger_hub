@@ -1,6 +1,6 @@
 # Aider Transition Feasibility Study Documentation
 
-This directory contains a comprehensive analysis of transitioning from Claude Code to Aider as the background AI instance for the Claude Module Communicator project.
+This directory contains a comprehensive analysis of transitioning from Claude Code to Aider as the background AI instance for the Granger Hub project.
 
 ## Documents Overview
 
@@ -61,4 +61,4 @@ Side-by-side comparison featuring:
 ---
 
 *Created: May 30, 2025*  
-*Project: Claude Module Communicator*
+*Project: Granger Hub*

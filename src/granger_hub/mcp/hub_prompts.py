@@ -1,5 +1,7 @@
 """
-Hub-specific prompts for Claude Module Communicator.
+Hub-specific prompts for Granger Hub.
+Module: hub_prompts.py
+Description: Functions for hub prompts operations
 
 This module contains prompts tailored for the module communication hub,
 including module orchestration, communication patterns, and integration tasks.
@@ -17,7 +19,7 @@ def register_hub_prompts():
     registry.register(Prompt(
         name="orchestrate_modules",
         description="Orchestrate communication between multiple modules",
-        template="""You are orchestrating communication between modules in the Claude Module Communicator system.
+        template="""You are orchestrating communication between modules in the Granger Hub system.
 
 Task: {{ task_description }}
 

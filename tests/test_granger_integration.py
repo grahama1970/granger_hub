@@ -1,5 +1,5 @@
 """
-Test the Granger slash MCP integration for Claude Module Communicator.
+Test the Granger slash MCP integration for Granger Hub.
 """
 
 import pytest
@@ -169,7 +169,7 @@ def test_mcp_config_includes_metadata():
         
         # Check metadata
         assert "metadata" in config
-        assert config["metadata"]["author"] == "Claude Module Communicator"
+        assert config["metadata"]["author"] == "Granger Hub"
         assert "enhanced_features" in config["metadata"]
         assert "prompts" in config["metadata"]["enhanced_features"]
         
@@ -224,16 +224,16 @@ if __name__ == "__main__":
     
     # Run basic tests without pytest
     test_prompt_registry_integration()
-    print("✓ Prompt registry integration")
+    print(" Prompt registry integration")
     
     test_hub_prompt_examples()
-    print("✓ Hub prompt examples")
+    print(" Hub prompt examples")
     
     # Test CLI commands exist
     from granger_hub.cli.claude_comm import app
     command_names = [cmd.name for cmd in app.registered_commands]
     assert "generate-claude" in command_names
     assert "list-prompts" in command_names
-    print("✓ CLI commands registered")
+    print(" CLI commands registered")
     
-    print("\n✅ Validation passed")
+    print("\n Validation passed")

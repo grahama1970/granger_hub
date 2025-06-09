@@ -1,5 +1,6 @@
 """
 Optimization Analyzer using RL Commons principles
+Module: optimization_analyzer.py
 
 Analyzes interaction patterns for optimization potential.
 """

@@ -1,5 +1,7 @@
 """
-CLI Module for Claude Module Communicator.
+CLI Module for Granger Hub.
+Module: __init__.py
+Description: Package initialization and exports
 
 This module provides the command-line interface using Typer
 with support for MCP generation via slash commands.

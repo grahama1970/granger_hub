@@ -522,6 +522,6 @@ if __name__ == "__main__":
         assert stats["files_processed"] == 10
         assert stats["errors_encountered"] == 1
         
-        print("✅ All utils tests passed!")
+        print(" All utils tests passed!")
 
     asyncio.run(test_utils())

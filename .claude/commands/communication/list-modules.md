@@ -1,6 +1,6 @@
 # List Registered Modules
 
-List all modules registered with the Module Communicator.
+List all modules registered with the Granger Hub.
 
 ## Usage
 
@@ -36,4 +36,4 @@ Shows registered modules with their:
 - Input/Output schemas
 
 ---
-*Claude Module Communicator*
+*Granger Hub*

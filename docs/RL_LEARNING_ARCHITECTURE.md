@@ -1,8 +1,8 @@
-# Reinforcement Learning Architecture for Claude Module Communicator
+# Reinforcement Learning Architecture for Granger Hub
 
 ## Overview
 
-This document describes the integration of DeepRetrieval-style reinforcement learning (RL) into the Claude Module Communicator system. The RL components leverage the existing ArangoDB graph infrastructure to learn optimal communication strategies between modules.
+This document describes the integration of DeepRetrieval-style reinforcement learning (RL) into the Granger Hub system. The RL components leverage the existing ArangoDB graph infrastructure to learn optimal communication strategies between modules.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ This document describes the integration of DeepRetrieval-style reinforcement lea
 
 ## Motivation
 
-The Claude Module Communicator manages complex inter-module communications with varying schemas, capabilities, and performance characteristics. While the rule-based approach works well, there are opportunities for optimization:
+The Granger Hub manages complex inter-module communications with varying schemas, capabilities, and performance characteristics. While the rule-based approach works well, there are opportunities for optimization:
 
 - **Dynamic Route Optimization**: Network conditions and module loads change over time
 - **Schema Adaptation**: Manual schema mappings don't capture all nuances
@@ -162,4 +162,4 @@ Based on DeepRetrieval results:
 
 ## Conclusion
 
-The RL integration transforms Claude Module Communicator into a self-improving system that learns from experience. By leveraging ArangoDB's graph capabilities, the system can track complex relationships, analyze patterns, and continuously optimize performance. This positions the framework as a cutting-edge solution for intelligent inter-module communication.
+The RL integration transforms Granger Hub into a self-improving system that learns from experience. By leveraging ArangoDB's graph capabilities, the system can track complex relationships, analyze patterns, and continuously optimize performance. This positions the framework as a cutting-edge solution for intelligent inter-module communication.

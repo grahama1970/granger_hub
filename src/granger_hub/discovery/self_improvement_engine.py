@@ -1,5 +1,6 @@
 """
-Self-Improvement Engine for Claude Module Communicator
+Self-Improvement Engine for Granger Hub
+Module: self_improvement_engine.py
 
 Analyzes the hub and spoke projects to generate improvement proposals.
 """
@@ -89,7 +90,7 @@ class SelfImprovementEngine:
     
     async def analyze_ecosystem(self) -> Dict[str, ProjectAnalysis]:
         """Analyze all projects in the ecosystem"""
-        logger.info("🔍 Analyzing ecosystem projects...")
+        logger.info(" Analyzing ecosystem projects...")
         
         # Analyze hub
         hub_analysis = await self._analyze_project(
@@ -113,7 +114,7 @@ class SelfImprovementEngine:
     
     async def discover_improvements(self) -> List[ImprovementProposal]:
         """Discover improvement opportunities using the discovery system"""
-        logger.info("🔬 Running discovery cycle for improvements...")
+        logger.info(" Running discovery cycle for improvements...")
         
         # Run focused discovery on integration patterns
         discovery_run = await self.discovery.run_discovery_cycle(
@@ -163,7 +164,7 @@ class SelfImprovementEngine:
                 f.write(content)
             
             generated_files.append(filepath)
-            logger.info(f"📝 Generated task: {filename}")
+            logger.info(f" Generated task: {filename}")
         
         # Generate summary file
         summary_file = output_dir / "IMPROVEMENT_PROPOSALS_SUMMARY.md"
@@ -797,38 +798,38 @@ Track these KPIs to measure improvement impact:
 
 async def run_self_improvement():
     """Run the self-improvement process"""
-    logger.info("🚀 Starting Self-Improvement Analysis")
+    logger.info(" Starting Self-Improvement Analysis")
     
     engine = SelfImprovementEngine()
     
     # Analyze ecosystem
-    logger.info("📊 Analyzing ecosystem projects...")
+    logger.info(" Analyzing ecosystem projects...")
     analyses = await engine.analyze_ecosystem()
-    logger.info(f"✅ Analyzed {len(analyses)} projects")
+    logger.info(f" Analyzed {len(analyses)} projects")
     
     # Discover improvements
-    logger.info("🔍 Discovering improvement opportunities...")
+    logger.info(" Discovering improvement opportunities...")
     proposals = await engine.discover_improvements()
-    logger.info(f"✅ Generated {len(proposals)} improvement proposals")
+    logger.info(f" Generated {len(proposals)} improvement proposals")
     
     # Generate task files
-    logger.info("📝 Generating improvement tasks...")
+    logger.info(" Generating improvement tasks...")
     task_files = await engine.generate_improvement_tasks()
-    logger.info(f"✅ Created {len(task_files)} task files")
+    logger.info(f" Created {len(task_files)} task files")
     
     # Print summary
     print("\n" + "="*60)
-    print("🎯 Self-Improvement Summary")
+    print(" Self-Improvement Summary")
     print("="*60)
     
     high_priority = [p for p in proposals if p.priority == "high"]
-    print(f"\n🔴 High Priority Improvements ({len(high_priority)}):")
+    print(f"\n High Priority Improvements ({len(high_priority)}):")
     for p in high_priority[:5]:
         print(f"  - {p.id}: {p.title}")
         print(f"    Affects: {', '.join(p.affected_projects[:3])}")
     
-    print(f"\n📁 Task files generated in: docs/tasks/")
-    print(f"📋 Review: docs/tasks/IMPROVEMENT_PROPOSALS_SUMMARY.md")
+    print(f"\n Task files generated in: docs/tasks/")
+    print(f" Review: docs/tasks/IMPROVEMENT_PROPOSALS_SUMMARY.md")
     
     return proposals
 

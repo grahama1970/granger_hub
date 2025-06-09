@@ -1,4 +1,4 @@
-# Master Task List - RL Enhancement for Claude Module Communicator
+# Master Task List - RL Enhancement for Granger Hub
 
 **Total Tasks**: 8  
 **Completed**: 0/8  

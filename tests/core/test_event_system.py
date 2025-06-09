@@ -1,4 +1,19 @@
 """
+# IMPORTANT: This file has been updated to remove all mocks
+# All tests now use REAL implementations only
+# Tests must interact with actual services/modules
+"""
+
+
+import sys
+from pathlib import Path
+
+# Add src to path
+src_path = Path(__file__).parent.parent / "src"
+if src_path.exists() and str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
+"""
 Test Event System Implementation.
 
 Purpose: Validates the pub/sub event system including event emission,
@@ -25,7 +40,9 @@ class TestEventBus:
     """Test core event bus functionality."""
     
     @pytest.mark.asyncio
-    async def test_basic_pub_sub(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_basic_pub_sub(self):
         """Test basic publish/subscribe functionality."""
         start_time = time.time()
         
@@ -73,7 +90,9 @@ class TestEventBus:
         print(f"\nTest Evidence: {evidence}")
     
     @pytest.mark.asyncio
-    async def test_pattern_subscriptions(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_pattern_subscriptions(self):
         """Test pattern-based subscriptions with wildcards."""
         start_time = time.time()
         
@@ -120,7 +139,9 @@ class TestEventBus:
         print(f"\nTest Evidence: {evidence}")
     
     @pytest.mark.asyncio
-    async def test_priority_handling(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_priority_handling(self):
         """Test event priority and handler ordering."""
         start_time = time.time()
         
@@ -177,7 +198,9 @@ class TestEventBus:
         print(f"\nTest Evidence: {evidence}")
     
     @pytest.mark.asyncio
-    async def test_event_history(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_event_history(self):
         """Test event history and replay functionality."""
         start_time = time.time()
         
@@ -230,7 +253,9 @@ class TestEventIntegration:
     """Test event system integration with modules."""
     
     @pytest.mark.asyncio
-    async def test_event_aware_module(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_event_aware_module(self):
         """Test module with event support."""
         start_time = time.time()
         
@@ -274,7 +299,9 @@ class TestEventIntegration:
         print(f"\nTest Evidence: {evidence}")
     
     @pytest.mark.asyncio
-    async def test_event_aware_communicator(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_event_aware_communicator(self):
         """Test communicator with event integration."""
         start_time = time.time()
         
@@ -345,7 +372,9 @@ class TestEventIntegration:
             await communicator.shutdown()
     
     @pytest.mark.asyncio
-    async def test_event_error_handling(self):
+    @pytest.mark.asyncio
+@pytest.mark.asyncio
+async def test_event_error_handling(self):
         """Test event system error handling."""
         start_time = time.time()
         
@@ -409,6 +438,8 @@ class TestEventIntegration:
         print(f"\nTest Evidence: {evidence}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_event_honeypot():
     """HONEYPOT: Test unrealistic instant event processing."""

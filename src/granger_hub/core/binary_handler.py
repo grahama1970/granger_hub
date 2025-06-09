@@ -1,5 +1,5 @@
 """
-Binary Data Handler for Claude Module Communicator.
+Binary Data Handler for Granger Hub.
 
 Purpose: Provides enhanced binary data handling with compression,
 chunking, and streaming support for large data transfers.
@@ -370,7 +370,7 @@ if __name__ == "__main__":
             
             assert decompressed == test_data
             print(f"  Decompression time: {decompress_time*1000:.2f}ms")
-            print(f"  ✅ Compression/decompression successful")
+            print(f"   Compression/decompression successful")
         
         # Test streaming
         print("\nTesting streaming:")
@@ -385,11 +385,11 @@ if __name__ == "__main__":
         # Reassemble
         reassembled = await handler.reassemble_chunks(chunks)
         assert reassembled == test_data
-        print(f"  ✅ Streaming successful, reassembled {len(reassembled)} bytes")
+        print(f"   Streaming successful, reassembled {len(reassembled)} bytes")
         
         return True
     
     # Run test
     result = asyncio.run(test_binary_handler())
     assert result == True
-    print("\n✅ Binary handler validation passed!")
+    print("\n Binary handler validation passed!")

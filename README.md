@@ -1,10 +1,10 @@
-# Claude Module Communicator
+# Granger Hub
 
 A powerful Python framework for enabling communication between independent modules with schema negotiation, compatibility verification, progress tracking, graph database integration, and seamless access to external LLMs including Claude, Gemini, and GPT models.
 
 ## 🚀 Overview
 
-Claude Module Communicator provides a robust infrastructure for modules to communicate with each other through:
+Granger Hub provides a robust infrastructure for modules to communicate with each other through:
 - **Schema Negotiation** - Modules can negotiate data schemas to ensure compatibility
 - **Pipeline Validation** - Verify that modules in a pipeline can communicate properly
 - **Progress Tracking** - Real-time monitoring of module communication sessions
@@ -114,7 +114,7 @@ ollama pull phi3:mini             # Efficient fallback
 ### Quick Start with ModuleCommunicator
 
 ```python
-from claude_module_communicator import ModuleCommunicator
+from granger_hub.core.module_communicator import ModuleCommunicator
 from claude_coms.example_modules import DataProducerModule, DataProcessorModule
 
 # Initialize communicator
@@ -264,7 +264,7 @@ await browser_module.stop()
 
 ### PDF Processing via Marker Integration
 
-Claude Module Communicator integrates with [Marker](https://github.com/VikParuchuri/marker) for advanced PDF processing, leveraging Marker's sophisticated table extraction and AI-powered content analysis.
+Granger Hub integrates with [Marker](https://github.com/VikParuchuri/marker) for advanced PDF processing, leveraging Marker's sophisticated table extraction and AI-powered content analysis.
 
 ```python
 from claude_coms.core.adapters import MarkerAdapter, AdapterConfig
@@ -325,7 +325,7 @@ cmc-cli pdf document.pdf --page 42 --output ./analysis/ --format markdown
 ### Graph Database Queries
 
 ```python
-from claude_module_communicator import ArangoHybrid
+from granger_hub.core.storage.arango_hybrid import ArangoHybrid
 
 # Initialize hybrid interface
 arango = ArangoHybrid()
@@ -385,7 +385,7 @@ reward = reward_fn.compute_route_reward({
    - `external_llm_module.py` - External LLM integration
    - `rl/` - Reinforcement learning optimization
 
-2. **Graph Components** (`src/claude_module_communicator/`)
+2. **Graph Components** (`src/granger_hub/core/storage/`)
    - `graph_backend.py` - ArangoDB integration
    - `arango_expert.py` - Graph algorithms and patterns
    - `arango_hybrid.py` - Hybrid query interface
@@ -455,7 +455,7 @@ python claude_external_models_demo.py
 Enable modules to have context-aware conversations:
 
 ```python
-from claude_module_communicator import ModuleCommunicator
+from granger_hub.core.module_communicator import ModuleCommunicator
 from claude_coms.core.conversation import ConversationModule
 
 # Define conversation-aware modules

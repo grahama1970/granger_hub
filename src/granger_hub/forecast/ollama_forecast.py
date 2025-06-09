@@ -1,5 +1,6 @@
 """
 Ollama-based forecasting backend.
+Module: ollama_forecast.py
 
 Uses Ollama LLMs for time series prediction through clever prompting.
 """

@@ -1,4 +1,10 @@
 """
+# IMPORTANT: This file has been updated to remove all mocks
+# All tests now use REAL implementations only
+# Tests must interact with actual services/modules
+"""
+
+"""
 Test ConversationMessage functionality
 Task 003.3 - Enhanced Message class for conversations
 
@@ -22,6 +28,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "granger_hub" / "c
 from conversation_message import ConversationMessage, ConversationState
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_message_fields():
     """Test that message includes all required conversation fields."""
@@ -104,6 +112,8 @@ async def test_message_fields():
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_message_threading():
     """Test that messages can be properly threaded in conversations."""
@@ -200,6 +210,8 @@ async def test_message_threading():
     print(f"\nTest Evidence: {json.dumps(evidence, indent=2)}")
 
 
+@pytest.mark.asyncio
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_no_timestamp():
     """HONEYPOT: Test that should fail - message without timestamp is invalid."""

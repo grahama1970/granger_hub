@@ -17,7 +17,7 @@ from loguru import logger
 
 async def demo_self_improvement():
     """Demonstrate the self-improvement system"""
-    print("🎯 Claude Module Communicator Self-Improvement Demo")
+    print(" Granger Hub Self-Improvement Demo")
     print("="*60)
     
     # Initialize engine
@@ -29,12 +29,12 @@ async def demo_self_improvement():
     
     analyses = await engine.analyze_ecosystem()
     
-    print(f"✅ Analyzed {len(analyses)} projects\n")
+    print(f" Analyzed {len(analyses)} projects\n")
     
     # Show analysis for hub
     if "hub" in analyses:
         hub = analyses["hub"]
-        print(f"📦 Hub: {hub.project_name}")
+        print(f" Hub: {hub.project_name}")
         print(f"   Test Coverage: {hub.test_coverage:.1%}")
         print(f"   Integration Points: {len(hub.integration_points)}")
         print(f"   Last Updated: {hub.last_commit.strftime('%Y-%m-%d')}")
@@ -43,7 +43,7 @@ async def demo_self_improvement():
     spoke_count = 0
     for name, analysis in analyses.items():
         if name != "hub" and spoke_count < 3:
-            print(f"\n📦 Spoke: {analysis.project_name}")
+            print(f"\n Spoke: {analysis.project_name}")
             print(f"   Role: {analysis.role}")
             print(f"   Modules: {', '.join(analysis.modules_provided)}")
             spoke_count += 1
@@ -83,11 +83,11 @@ async def demo_self_improvement():
     
     engine.proposals = improvements
     
-    print(f"✅ Generated {len(improvements)} improvement proposals\n")
+    print(f" Generated {len(improvements)} improvement proposals\n")
     
     # Show proposals
     for proposal in improvements:
-        print(f"📋 {proposal.id}: {proposal.title}")
+        print(f" {proposal.id}: {proposal.title}")
         print(f"   Priority: {proposal.priority}")
         print(f"   Category: {proposal.category}")
         print(f"   Effort: {proposal.estimated_effort}")
@@ -110,10 +110,10 @@ async def demo_self_improvement():
         with open(filepath, 'w') as f:
             f.write(content)
         
-        print(f"✅ Created: {filename}")
+        print(f" Created: {filename}")
     
     # Show sample content
-    print("\n📄 Sample Task File Content:")
+    print("\n Sample Task File Content:")
     print("-"*40)
     
     sample_file = demo_dir / f"{improvements[0].id}_{improvements[0].title.replace(' ', '_').lower()}.md"
@@ -129,11 +129,11 @@ async def demo_self_improvement():
     # Summary
     print("\n\n4️⃣ Summary")
     print("-"*40)
-    print(f"✅ System analyzed {len(analyses)} projects")
-    print(f"✅ Generated {len(improvements)} improvement proposals")
-    print(f"✅ Created task files in: docs/tasks/demo/")
-    print(f"\n🎉 Self-improvement system is ready for continuous operation!")
-    print(f"\n💡 Next steps:")
+    print(f" System analyzed {len(analyses)} projects")
+    print(f" Generated {len(improvements)} improvement proposals")
+    print(f" Created task files in: docs/tasks/demo/")
+    print(f"\n Self-improvement system is ready for continuous operation!")
+    print(f"\n Next steps:")
     print(f"   1. Review generated proposals")
     print(f"   2. Prioritize and assign tasks")
     print(f"   3. Set up cron for automation: ./scripts/setup_self_improvement_cron.sh")

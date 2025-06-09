@@ -1,5 +1,6 @@
 """
-Base Protocol Adapter for Claude Module Communicator.
+Base Protocol Adapter for Granger Hub.
+Module: base_adapter.py
 
 Provides the foundation for implementing protocol-specific adapters.
 """

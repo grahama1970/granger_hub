@@ -1,5 +1,6 @@
 """
-Browser Automation Module for Claude Module Communicator.
+Browser Automation Module for Granger Hub.
+Module: browser_automation_module.py
 
 This module provides Playwright-based browser automation capabilities
 including clicking elements, filling forms, and navigating web pages.
@@ -52,8 +53,60 @@ class BrowserAutomationModule(BaseModule):
     
     def __init__(self, registry=None):
         """Initialize the BrowserAutomationModule."""
+        # Store schemas as instance attributes BEFORE calling super().__init__
+        self.input_schema = {
+            "action": {
+                "type": "string",
+                "enum": ["navigate", "click", "fill", "hover", "screenshot", "evaluate", "wait"],
+                "description": "The browser action to perform"
+            },
+            "url": {
+                "type": "string",
+                "description": "URL to navigate to"
+            },
+            "selector": {
+                "type": "string",
+                "description": "CSS selector for the target element"
+            },
+            "value": {
+                "type": "string",
+                "description": "Value to fill in form fields"
+            },
+            "script": {
+                "type": "string",
+                "description": "JavaScript to evaluate in page context"
+            },
+            "wait_for": {
+                "type": "string",
+                "enum": ["load", "domcontentloaded", "networkidle"],
+                "default": "load",
+                "description": "Wait condition for navigation"
+            },
+            "timeout": {
+                "type": "integer",
+                "default": 30000,
+                "description": "Timeout in milliseconds"
+            },
+            "output_path": {
+                "type": "string",
+                "description": "Path to save screenshot"
+            },
+            "headless": {
+                "type": "boolean",
+                "default": True,
+                "description": "Run browser in headless mode"
+            }
+        }
+        self.output_schema = {
+            "success": {"type": "boolean"},
+            "result": {"type": "object"},
+            "error": {"type": "string"}
+        }
+        
+        # Now call super().__init__ after schemas are set
         super().__init__(
             name="BrowserAutomationModule",
+            system_prompt="I am a browser automation module that can navigate websites, click elements, fill forms, take screenshots, and execute JavaScript.",
             capabilities=[
                 "browser_navigation",
                 "element_click",
@@ -63,56 +116,9 @@ class BrowserAutomationModule(BaseModule):
                 "page_evaluate",
                 "wait_for_selector"
             ],
-            input_schema={
-                "action": {
-                    "type": "string",
-                    "enum": ["navigate", "click", "fill", "hover", "screenshot", "evaluate", "wait"],
-                    "description": "The browser action to perform"
-                },
-                "url": {
-                    "type": "string",
-                    "description": "URL to navigate to"
-                },
-                "selector": {
-                    "type": "string",
-                    "description": "CSS selector for the target element"
-                },
-                "value": {
-                    "type": "string",
-                    "description": "Value to fill in form fields"
-                },
-                "script": {
-                    "type": "string",
-                    "description": "JavaScript to evaluate in page context"
-                },
-                "wait_for": {
-                    "type": "string",
-                    "enum": ["load", "domcontentloaded", "networkidle"],
-                    "default": "load",
-                    "description": "Wait condition for navigation"
-                },
-                "timeout": {
-                    "type": "integer",
-                    "default": 30000,
-                    "description": "Timeout in milliseconds"
-                },
-                "output_path": {
-                    "type": "string",
-                    "description": "Path to save screenshot"
-                },
-                "headless": {
-                    "type": "boolean",
-                    "default": True,
-                    "description": "Run browser in headless mode"
-                }
-            },
-            output_schema={
-                "success": {"type": "boolean"},
-                "result": {"type": "object"},
-                "error": {"type": "string"}
-            },
             registry=registry
         )
+        
         self._browser = None
         self._context = None
         self._page = None
@@ -120,13 +126,11 @@ class BrowserAutomationModule(BaseModule):
     
     async def start(self):
         """Start the browser automation module."""
-        await super().start()
         _ensure_playwright()
     
     async def stop(self):
         """Stop the browser automation module and cleanup."""
         await self._cleanup_browser()
-        await super().stop()
     
     async def _cleanup_browser(self):
         """Clean up browser resources."""
@@ -142,6 +146,14 @@ class BrowserAutomationModule(BaseModule):
         if self._playwright:
             await self._playwright.stop()
             self._playwright = None
+    
+    def get_input_schema(self) -> Dict[str, Any]:
+        """Return the input schema for this module."""
+        return self.input_schema
+    
+    def get_output_schema(self) -> Dict[str, Any]:
+        """Return the output schema for this module."""
+        return self.output_schema
     
     async def _ensure_browser(self, headless: bool = True):
         """Ensure browser is initialized."""

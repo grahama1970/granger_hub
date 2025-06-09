@@ -1,10 +1,10 @@
-# Granger MCP Integration for Claude Module Communicator
+# Granger MCP Integration for Granger Hub
 
-This document describes the enhanced MCP (Model Context Protocol) integration for Claude Module Communicator, featuring the Granger edition improvements.
+This document describes the enhanced MCP (Model Context Protocol) integration for Granger Hub, featuring the Granger edition improvements.
 
 ## Overview
 
-The Granger integration brings advanced features to the Claude Module Communicator:
+The Granger integration brings advanced features to the Granger Hub:
 
 - **Dynamic Prompt Infrastructure**: Flexible prompt management system
 - **Hub-Specific Prompts**: Tailored prompts for module orchestration

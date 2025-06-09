@@ -1,5 +1,6 @@
 """
 Main Time Series Forecaster class that orchestrates the forecasting process.
+Module: forecaster.py
 
 This module provides the high-level interface for forecasting that can be called
 from CLI, slash commands, or MCP.

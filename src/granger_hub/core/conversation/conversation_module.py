@@ -30,7 +30,7 @@ class ConversationModule(BaseModule):
         
         Args:
             name: Unique module name
-            system_prompt: System prompt describing module's purpose
+            system_prompt: System prompt describing module's purpose'
             capabilities: List of module capabilities
             registry: Optional module registry for dynamic discovery
             auto_register: Whether to auto-register with the registry
