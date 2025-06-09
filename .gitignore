@@ -44,6 +44,30 @@ logs/
 
 # Local development settings
 .env
+.env.*
+.env.backup
+*.env
+
+# Secrets and credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*_key.json
+*_credentials.json
+*_service_account.json
+secrets/
+credentials/
+private/
+
+# API Keys and tokens
+api_key*
+api_secret*
+access_token*
+refresh_token*
+auth_token*
 
 # Archive directory
 archive/
